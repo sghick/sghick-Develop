@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F8389225-8F00-46F1-B23F-B8A9D59467C7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Demo-MarkView</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EAFE91F78751F773752163E8B103B7F3B3209C7C</key>
+		<string>github.com:sghick/Demo-MarkView.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Demo-MarkView.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EAFE91F78751F773752163E8B103B7F3B3209C7C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:sghick/Demo-MarkView.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EAFE91F78751F773752163E8B103B7F3B3209C7C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EAFE91F78751F773752163E8B103B7F3B3209C7C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Demo-MarkView</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FECBEECD1B34F7FA003A9534 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FECBEECC1B34F7FA003A9534 /* main.m */; };
+		FECBEED01B34F7FA003A9534 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FECBEECF1B34F7FA003A9534 /* AppDelegate.m */; };
+		FECBEED31B34F7FA003A9534 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FECBEED21B34F7FA003A9534 /* ViewController.m */; };
+		FECBEED61B34F7FA003A9534 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FECBEED41B34F7FA003A9534 /* Main.storyboard */; };
+		FECBEED81B34F7FA003A9534 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FECBEED71B34F7FA003A9534 /* Images.xcassets */; };
+		FECBEEDB1B34F7FA003A9534 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FECBEED91B34F7FA003A9534 /* LaunchScreen.xib */; };
+		FECBEEE71B34F7FA003A9534 /* Demo_WPCircleProgressViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FECBEEE61B34F7FA003A9534 /* Demo_WPCircleProgressViewTests.m */; };
+		FECBEEF31B34F815003A9534 /* WPCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FECBEEF21B34F815003A9534 /* WPCircleProgressView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FECBEEE11B34F7FA003A9534 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FECBEEBF1B34F7FA003A9534 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FECBEEC61B34F7FA003A9534;
+			remoteInfo = "Demo-WPCircleProgressView";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FECBEEC71B34F7FA003A9534 /* Demo-WPCircleProgressView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-WPCircleProgressView.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FECBEECB1B34F7FA003A9534 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FECBEECC1B34F7FA003A9534 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FECBEECE1B34F7FA003A9534 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FECBEECF1B34F7FA003A9534 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FECBEED11B34F7FA003A9534 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FECBEED21B34F7FA003A9534 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FECBEED51B34F7FA003A9534 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FECBEED71B34F7FA003A9534 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FECBEEDA1B34F7FA003A9534 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		FECBEEE01B34F7FA003A9534 /* Demo-WPCircleProgressViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Demo-WPCircleProgressViewTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FECBEEE51B34F7FA003A9534 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FECBEEE61B34F7FA003A9534 /* Demo_WPCircleProgressViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo_WPCircleProgressViewTests.m; sourceTree = "<group>"; };
+		FECBEEF11B34F815003A9534 /* WPCircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPCircleProgressView.h; sourceTree = "<group>"; };
+		FECBEEF21B34F815003A9534 /* WPCircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPCircleProgressView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FECBEEC41B34F7FA003A9534 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FECBEEDD1B34F7FA003A9534 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FECBEEBE1B34F7FA003A9534 = {
+			isa = PBXGroup;
+			children = (
+				FECBEEF01B34F815003A9534 /* WPCircleProgressView */,
+				FECBEEC91B34F7FA003A9534 /* Demo-WPCircleProgressView */,
+				FECBEEE31B34F7FA003A9534 /* Demo-WPCircleProgressViewTests */,
+				FECBEEC81B34F7FA003A9534 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FECBEEC81B34F7FA003A9534 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FECBEEC71B34F7FA003A9534 /* Demo-WPCircleProgressView.app */,
+				FECBEEE01B34F7FA003A9534 /* Demo-WPCircleProgressViewTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FECBEEC91B34F7FA003A9534 /* Demo-WPCircleProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				FECBEECE1B34F7FA003A9534 /* AppDelegate.h */,
+				FECBEECF1B34F7FA003A9534 /* AppDelegate.m */,
+				FECBEED11B34F7FA003A9534 /* ViewController.h */,
+				FECBEED21B34F7FA003A9534 /* ViewController.m */,
+				FECBEED41B34F7FA003A9534 /* Main.storyboard */,
+				FECBEED71B34F7FA003A9534 /* Images.xcassets */,
+				FECBEED91B34F7FA003A9534 /* LaunchScreen.xib */,
+				FECBEECA1B34F7FA003A9534 /* Supporting Files */,
+			);
+			path = "Demo-WPCircleProgressView";
+			sourceTree = "<group>";
+		};
+		FECBEECA1B34F7FA003A9534 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FECBEECB1B34F7FA003A9534 /* Info.plist */,
+				FECBEECC1B34F7FA003A9534 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FECBEEE31B34F7FA003A9534 /* Demo-WPCircleProgressViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				FECBEEE61B34F7FA003A9534 /* Demo_WPCircleProgressViewTests.m */,
+				FECBEEE41B34F7FA003A9534 /* Supporting Files */,
+			);
+			path = "Demo-WPCircleProgressViewTests";
+			sourceTree = "<group>";
+		};
+		FECBEEE41B34F7FA003A9534 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FECBEEE51B34F7FA003A9534 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FECBEEF01B34F815003A9534 /* WPCircleProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				FECBEEF11B34F815003A9534 /* WPCircleProgressView.h */,
+				FECBEEF21B34F815003A9534 /* WPCircleProgressView.m */,
+			);
+			path = WPCircleProgressView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FECBEEC61B34F7FA003A9534 /* Demo-WPCircleProgressView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FECBEEEA1B34F7FA003A9534 /* Build configuration list for PBXNativeTarget "Demo-WPCircleProgressView" */;
+			buildPhases = (
+				FECBEEC31B34F7FA003A9534 /* Sources */,
+				FECBEEC41B34F7FA003A9534 /* Frameworks */,
+				FECBEEC51B34F7FA003A9534 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Demo-WPCircleProgressView";
+			productName = "Demo-WPCircleProgressView";
+			productReference = FECBEEC71B34F7FA003A9534 /* Demo-WPCircleProgressView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FECBEEDF1B34F7FA003A9534 /* Demo-WPCircleProgressViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FECBEEED1B34F7FA003A9534 /* Build configuration list for PBXNativeTarget "Demo-WPCircleProgressViewTests" */;
+			buildPhases = (
+				FECBEEDC1B34F7FA003A9534 /* Sources */,
+				FECBEEDD1B34F7FA003A9534 /* Frameworks */,
+				FECBEEDE1B34F7FA003A9534 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FECBEEE21B34F7FA003A9534 /* PBXTargetDependency */,
+			);
+			name = "Demo-WPCircleProgressViewTests";
+			productName = "Demo-WPCircleProgressViewTests";
+			productReference = FECBEEE01B34F7FA003A9534 /* Demo-WPCircleProgressViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FECBEEBF1B34F7FA003A9534 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = com.wp;
+				TargetAttributes = {
+					FECBEEC61B34F7FA003A9534 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					FECBEEDF1B34F7FA003A9534 = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = FECBEEC61B34F7FA003A9534;
+					};
+				};
+			};
+			buildConfigurationList = FECBEEC21B34F7FA003A9534 /* Build configuration list for PBXProject "Demo-WPCircleProgressView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FECBEEBE1B34F7FA003A9534;
+			productRefGroup = FECBEEC81B34F7FA003A9534 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FECBEEC61B34F7FA003A9534 /* Demo-WPCircleProgressView */,
+				FECBEEDF1B34F7FA003A9534 /* Demo-WPCircleProgressViewTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FECBEEC51B34F7FA003A9534 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FECBEED61B34F7FA003A9534 /* Main.storyboard in Resources */,
+				FECBEEDB1B34F7FA003A9534 /* LaunchScreen.xib in Resources */,
+				FECBEED81B34F7FA003A9534 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FECBEEDE1B34F7FA003A9534 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FECBEEC31B34F7FA003A9534 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FECBEED31B34F7FA003A9534 /* ViewController.m in Sources */,
+				FECBEED01B34F7FA003A9534 /* AppDelegate.m in Sources */,
+				FECBEEF31B34F815003A9534 /* WPCircleProgressView.m in Sources */,
+				FECBEECD1B34F7FA003A9534 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FECBEEDC1B34F7FA003A9534 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FECBEEE71B34F7FA003A9534 /* Demo_WPCircleProgressViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FECBEEE21B34F7FA003A9534 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FECBEEC61B34F7FA003A9534 /* Demo-WPCircleProgressView */;
+			targetProxy = FECBEEE11B34F7FA003A9534 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FECBEED41B34F7FA003A9534 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FECBEED51B34F7FA003A9534 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FECBEED91B34F7FA003A9534 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FECBEEDA1B34F7FA003A9534 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FECBEEE81B34F7FA003A9534 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FECBEEE91B34F7FA003A9534 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FECBEEEB1B34F7FA003A9534 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Demo-WPCircleProgressView/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FECBEEEC1B34F7FA003A9534 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Demo-WPCircleProgressView/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		FECBEEEE1B34F7FA003A9534 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Demo-WPCircleProgressViewTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo-WPCircleProgressView.app/Demo-WPCircleProgressView";
+			};
+			name = Debug;
+		};
+		FECBEEEF1B34F7FA003A9534 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Demo-WPCircleProgressViewTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo-WPCircleProgressView.app/Demo-WPCircleProgressView";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FECBEEC21B34F7FA003A9534 /* Build configuration list for PBXProject "Demo-WPCircleProgressView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FECBEEE81B34F7FA003A9534 /* Debug */,
+				FECBEEE91B34F7FA003A9534 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FECBEEEA1B34F7FA003A9534 /* Build configuration list for PBXNativeTarget "Demo-WPCircleProgressView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FECBEEEB1B34F7FA003A9534 /* Debug */,
+				FECBEEEC1B34F7FA003A9534 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FECBEEED1B34F7FA003A9534 /* Build configuration list for PBXNativeTarget "Demo-WPCircleProgressViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FECBEEEE1B34F7FA003A9534 /* Debug */,
+				FECBEEEF1B34F7FA003A9534 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FECBEEBF1B34F7FA003A9534 /* Project object */;
+}
