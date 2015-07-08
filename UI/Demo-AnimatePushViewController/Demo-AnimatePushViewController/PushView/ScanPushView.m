@@ -50,7 +50,7 @@
 
 #pragma mark - action
 - (void)videoButtonTouched:(UIButton *)sender {
-    [self presentingViewControllerAnimatedFromView:self.videoButton completion:^(BOOL finished) {
+    [self presentingViewControllerAnimatedFromView:self.videoButton color:nil completion:^(BOOL finished) {
         if ([self.scanPushViewDelegate respondsToSelector:@selector(scanPushView:videoButtonTouched:)]) {
             [self.scanPushViewDelegate scanPushView:self videoButtonTouched:self.videoButton];
         }
@@ -58,7 +58,7 @@
 }
 
 - (void)helpButtonTouched:(UIButton *)sender {
-    [self presentingViewControllerAnimatedFromView:self.helpButton completion:^(BOOL finished) {
+    [self presentingViewControllerAnimatedFromView:self.helpButton color:nil completion:^(BOOL finished) {
         if ([self.scanPushViewDelegate respondsToSelector:@selector(scanPushView:helpButtonTouched:)]) {
             [self.scanPushViewDelegate scanPushView:self helpButtonTouched:self.helpButton];
         }
@@ -69,11 +69,11 @@
 - (void)backToPresentingViewControllerWithTag:(int)tag {
     switch (tag) {
         case TAG_VIDEO:
-            [self backToPresentingViewControllerAtView:self.videoButton];
+            [self backToPresentingViewControllerAtView:self.videoButton color:nil];
             break;
             
         case TAG_HELP:
-            [self backToPresentingViewControllerAtView:self.helpButton];
+            [self backToPresentingViewControllerAtView:self.helpButton color:nil];
             break;
             
         default:

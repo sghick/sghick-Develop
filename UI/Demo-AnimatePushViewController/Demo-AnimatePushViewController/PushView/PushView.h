@@ -2,7 +2,7 @@
 //  PushView.h
 //  Demo-AnimatePushViewController
 //
-//  Created by buding on 15/7/8.
+//  Created by dingzhiwen on 15/7/8.
 //  Copyright (c) 2015年 sumrise.com. All rights reserved.
 //
 
@@ -18,8 +18,11 @@
 
 @interface PushView : UIView
 
+// 动画时间，默认0.3f
+@property (assign, nonatomic) NSTimeInterval animationDuration;
+
 // use for sub class
-- (void)presentingViewControllerAnimatedFromView:(UIView *)fromView completion:(void (^)(BOOL finished))completion;
-- (void)backToPresentingViewControllerAtView:(UIView *)atView ;
+- (void)presentingViewControllerAnimatedFromView:(UIView *)fromView color:(UIColor *)color completion:(void (^)(BOOL finished))completion;
+- (void)backToPresentingViewControllerAtView:(UIView *)atView color:(UIColor *)color;
 
 @end
