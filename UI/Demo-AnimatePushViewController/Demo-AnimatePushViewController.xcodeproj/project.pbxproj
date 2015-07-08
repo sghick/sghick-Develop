@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57A499141B4CE83100FEE845 /* PushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A499131B4CE83100FEE845 /* PushView.m */; };
+		57A499191B4CF13D00FEE845 /* ScanPushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A499181B4CF13D00FEE845 /* ScanPushView.m */; };
 		FE04ACF71B4C26B20032DBF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE04ACF61B4C26B20032DBF5 /* main.m */; };
 		FE04ACFA1B4C26B20032DBF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE04ACF91B4C26B20032DBF5 /* AppDelegate.m */; };
 		FE04ACFD1B4C26B20032DBF5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE04ACFC1B4C26B20032DBF5 /* ViewController.m */; };
@@ -16,7 +18,6 @@
 		FE04AD111B4C26B20032DBF5 /* Demo_AnimatePushViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE04AD101B4C26B20032DBF5 /* Demo_AnimatePushViewControllerTests.m */; };
 		FE04AD1C1B4C27670032DBF5 /* SMViewControllerA.m in Sources */ = {isa = PBXBuildFile; fileRef = FE04AD1B1B4C27670032DBF5 /* SMViewControllerA.m */; };
 		FE04AD1F1B4C27700032DBF5 /* SMViewControllerB.m in Sources */ = {isa = PBXBuildFile; fileRef = FE04AD1E1B4C27700032DBF5 /* SMViewControllerB.m */; };
-		FE04AD221B4C3E930032DBF5 /* PushButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FE04AD211B4C3E930032DBF5 /* PushButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		57A499121B4CE83100FEE845 /* PushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushView.h; sourceTree = "<group>"; };
+		57A499131B4CE83100FEE845 /* PushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushView.m; sourceTree = "<group>"; };
+		57A499171B4CF13D00FEE845 /* ScanPushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanPushView.h; sourceTree = "<group>"; };
+		57A499181B4CF13D00FEE845 /* ScanPushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanPushView.m; sourceTree = "<group>"; };
 		FE04ACF11B4C26B20032DBF5 /* Demo-AnimatePushViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-AnimatePushViewController.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE04ACF51B4C26B20032DBF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE04ACF61B4C26B20032DBF5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,8 +52,6 @@
 		FE04AD1B1B4C27670032DBF5 /* SMViewControllerA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMViewControllerA.m; sourceTree = "<group>"; };
 		FE04AD1D1B4C27700032DBF5 /* SMViewControllerB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMViewControllerB.h; sourceTree = "<group>"; };
 		FE04AD1E1B4C27700032DBF5 /* SMViewControllerB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMViewControllerB.m; sourceTree = "<group>"; };
-		FE04AD201B4C3E930032DBF5 /* PushButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushButton.h; sourceTree = "<group>"; };
-		FE04AD211B4C3E930032DBF5 /* PushButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +105,10 @@
 				FE04AD011B4C26B20032DBF5 /* Images.xcassets */,
 				FE04AD031B4C26B20032DBF5 /* LaunchScreen.xib */,
 				FE04ACF41B4C26B20032DBF5 /* Supporting Files */,
-				FE04AD201B4C3E930032DBF5 /* PushButton.h */,
-				FE04AD211B4C3E930032DBF5 /* PushButton.m */,
+				57A499171B4CF13D00FEE845 /* ScanPushView.h */,
+				57A499181B4CF13D00FEE845 /* ScanPushView.m */,
+				57A499121B4CE83100FEE845 /* PushView.h */,
+				57A499131B4CE83100FEE845 /* PushView.m */,
 			);
 			path = "Demo-AnimatePushViewController";
 			sourceTree = "<group>";
@@ -235,9 +240,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE04AD1F1B4C27700032DBF5 /* SMViewControllerB.m in Sources */,
+				57A499141B4CE83100FEE845 /* PushView.m in Sources */,
 				FE04ACFD1B4C26B20032DBF5 /* ViewController.m in Sources */,
+				57A499191B4CF13D00FEE845 /* ScanPushView.m in Sources */,
 				FE04ACFA1B4C26B20032DBF5 /* AppDelegate.m in Sources */,
-				FE04AD221B4C3E930032DBF5 /* PushButton.m in Sources */,
 				FE04AD1C1B4C27670032DBF5 /* SMViewControllerA.m in Sources */,
 				FE04ACF71B4C26B20032DBF5 /* main.m in Sources */,
 			);

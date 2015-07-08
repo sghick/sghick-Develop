@@ -7,6 +7,7 @@
 //
 
 #import "SMViewControllerB.h"
+#import "ScanPushView.h"
 
 @interface SMViewControllerB ()
 
@@ -20,5 +21,11 @@
     self.title = @"我是B";
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self dismissViewControllerAnimated:NO completion:nil];
+    if ([self.pushViewProxy respondsToSelector:@selector(backToPresentingViewControllerWithTag:)]) {
+        [self.pushViewProxy backToPresentingViewControllerWithTag:TAG_HELP];
+    }
+}
 
 @end

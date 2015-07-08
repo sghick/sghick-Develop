@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PushView.h"
 
 @interface SMViewControllerA : UIViewController
+
+@property (assign, nonatomic) id<PushView> pushViewProxy;
 
 @end

@@ -7,13 +7,15 @@
 //
 
 #import "ViewController.h"
-#import "PushButton.h"
+#import "ScanPushView.h"
 #import "SMViewControllerA.h"
+#import "SMViewControllerB.h"
 
+#define BackToMainPage_NotiFication @"BackToMainPage_NotiFication"
 
-@interface ViewController ()
+@interface ViewController ()<ScanPushViewDelegate>
 
-@property (strong, nonatomic) UIButton *pushButton;
+@property (strong, nonatomic) ScanPushView *scanPushView;
 
 @end
 
@@ -23,26 +25,29 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor brownColor];
     
-    UIButton *pushButton = [[UIButton alloc] initWithFrame:CGRectMake(260, 20, 40, 40)];
-    pushButton.backgroundColor = [UIColor redColor];
-    [pushButton addTarget:self action:@selector(pushButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pushButton];
-    self.pushButton = pushButton;
+    ScanPushView *scanPushView = [[ScanPushView alloc] initWithFrame:self.view.bounds];
+    scanPushView.scanPushViewDelegate = self;
+    [self.view addSubview:scanPushView];
+    self.scanPushView = scanPushView;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backToMainViewNotification:) name:BackToMainPage_NotiFication object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    UIViewController *vcA = self.presentedViewController;
-    [UIView animateWithDuration:1.0f animations:^{
-        vcA.view.frame = self.pushButton.frame;
-    }];
-}
-
-- (void)pushButtonAction:(PushButton *)sender {
+#pragma mark - PushViewDelegate
+- (void)scanPushView:(ScanPushView *)scanPushView videoButtonTouched:(UIButton *)videoButton {
     SMViewControllerA *vcA = [[SMViewControllerA alloc] init];
-    [self presentViewController:vcA animated:YES completion:^{
-        vcA.view.frame = self.view.bounds;
-    }];
+    vcA.pushViewProxy = self.scanPushView;
+    [self presentViewController:vcA animated:NO completion:nil];
 }
 
+- (void)scanPushView:(ScanPushView *)scanPushView helpButtonTouched:(UIButton *)helpButton {
+    SMViewControllerB *vcB = [[SMViewControllerB alloc] init];
+    vcB.pushViewProxy = self.scanPushView;
+    [self presentViewController:vcB animated:NO completion:nil];
+}
+
+- (void)backToMainViewNotification:(NSNotification *)notice {
+    [self.scanPushView backToPresentingViewControllerWithTag:TAG_HELP];
+}
 
 @end
