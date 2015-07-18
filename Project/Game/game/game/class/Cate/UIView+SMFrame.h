@@ -19,9 +19,9 @@
  *
  *  @return 新的frame
  */
-#define framePercentage(perH, perV, vbw, vbh, fd, ov) [SMPercentageViewFrame frameWithPercentageH:perH percentageV:perV viewBounds:CGRectMake(0, 0, vbw, vbh) frameDirectory:fd otherValue:ov]
+#define framePercentage(perH, perV, vbw, vbh, fd, ov) [UIView frameWithPercentageH:perH percentageV:perV viewBounds:CGRectMake(0, 0, vbw, vbh) frameDirectory:fd otherValue:ov]
 
-#define framePercentage2(perH, perV, vt, vf, fd, ov) [SMPercentageViewFrame frameWithPercentageH:perH percentageV:perV viewText:vt viewFontSize:vf frameDirectory:fd otherValue:ov]
+#define framePercentage2(perH, perV, vt, vf, fd, ov) [UIView frameWithPercentageH:perH percentageV:perV viewText:vt viewFontSize:vf frameDirectory:fd otherValue:ov]
 
 /**
  *  取得view在屏幕中的居中的位置(view的大小固定可以使用)
