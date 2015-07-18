@@ -10,11 +10,11 @@
 #define game_UIHeader_h
 
 // 屏幕
-#define SMScreen [UIScreen mainScreen]
-#define SMScreenBounds [SMScreen bounds]
-#define SMScreenSize [SMScreenBounds size]
-#define SMScreenWidth [SMScreenSize width]
-#define SMScreenHeight [SMScreenSize height]
+#define SMScreen        [UIScreen mainScreen]
+#define SMScreenBounds  SMScreen.bounds
+#define SMScreenSize    SMScreenBounds.size
+#define SMScreenWidth   SMScreenSize.width
+#define SMScreenHeight  SMScreenSize.height
 
 // 系统版本
 #define SMSystemVersion ([[[UIDevice currentDevice] systemVersion] floatValue])

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SMRootViewController.h"
+#import "SMNavigationViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +23,8 @@
     
     // 主界面
     SMRootViewController * rootVC = [[SMRootViewController alloc] init];
-    self.window.rootViewController = rootVC;
+    SMNavigationViewController *nav = [[SMNavigationViewController alloc] initWithRootViewController:rootVC];
+    self.window.rootViewController = nav;
     
     [self.window makeKeyAndVisible];
     return YES;

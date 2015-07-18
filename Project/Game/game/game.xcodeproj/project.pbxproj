@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE6B0C281B5A1E4E005C235B /* SMRunScene001.m in Sources */ = {isa = PBXBuildFile; fileRef = FE6B0C261B5A1E4E005C235B /* SMRunScene001.m */; };
 		FE7C2C2C1B517FC3002BFAEA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE7C2C2B1B517FC3002BFAEA /* Images.xcassets */; };
 		FE7C2C3B1B517FC3002BFAEA /* gameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7C2C3A1B517FC3002BFAEA /* gameTests.m */; };
 		FE7C2C5C1B5183D6002BFAEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7C2C4E1B5183D6002BFAEA /* AppDelegate.m */; };
@@ -17,6 +18,16 @@
 		FEA8EA0E1B5192D2004618CD /* NSString+SM.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA8EA0D1B5192D2004618CD /* NSString+SM.m */; };
 		FEA8EA111B5194ED004618CD /* UIDevice+SM.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA8EA101B5194ED004618CD /* UIDevice+SM.m */; };
 		FEA8EA141B5197C7004618CD /* UIView+SM.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA8EA131B5197C7004618CD /* UIView+SM.m */; };
+		FECFF2071B5218B100CEF2B0 /* SMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF2061B5218B100CEF2B0 /* SMMainViewController.m */; };
+		FECFF20A1B5218CC00CEF2B0 /* SMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF2091B5218CC00CEF2B0 /* SMBaseViewController.m */; };
+		FECFF20D1B5284A300CEF2B0 /* SMRunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF20C1B5284A300CEF2B0 /* SMRunViewController.m */; };
+		FECFF2101B52859400CEF2B0 /* SMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF20F1B52859400CEF2B0 /* SMNavigationViewController.m */; };
+		FECFF21C1B528FAF00CEF2B0 /* SMBaseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF21B1B528FAF00CEF2B0 /* SMBaseScene.m */; };
+		FECFF21F1B528FCB00CEF2B0 /* SMBaseConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF21E1B528FCB00CEF2B0 /* SMBaseConstruct.m */; };
+		FECFF2251B52900100CEF2B0 /* SMBaseMonster.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF2241B52900100CEF2B0 /* SMBaseMonster.m */; };
+		FECFF2281B52904400CEF2B0 /* SMBaseRole.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF2271B52904400CEF2B0 /* SMBaseRole.m */; };
+		FECFF22B1B5292AE00CEF2B0 /* SMBaseSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF22A1B5292AD00CEF2B0 /* SMBaseSetting.m */; };
+		FECFF22E1B52930C00CEF2B0 /* SMBaseMap.m in Sources */ = {isa = PBXBuildFile; fileRef = FECFF22D1B52930C00CEF2B0 /* SMBaseMap.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE6B0C251B5A1E4E005C235B /* SMRunScene001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRunScene001.h; sourceTree = "<group>"; };
+		FE6B0C261B5A1E4E005C235B /* SMRunScene001.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRunScene001.m; sourceTree = "<group>"; };
 		FE7C2C1B1B517FC3002BFAEA /* game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE7C2C1F1B517FC3002BFAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE7C2C2B1B517FC3002BFAEA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -59,6 +72,26 @@
 		FEA8EA101B5194ED004618CD /* UIDevice+SM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+SM.m"; sourceTree = "<group>"; };
 		FEA8EA121B5197C7004618CD /* UIView+SM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SM.h"; sourceTree = "<group>"; };
 		FEA8EA131B5197C7004618CD /* UIView+SM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SM.m"; sourceTree = "<group>"; };
+		FECFF2051B5218B100CEF2B0 /* SMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMainViewController.h; sourceTree = "<group>"; };
+		FECFF2061B5218B100CEF2B0 /* SMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMainViewController.m; sourceTree = "<group>"; };
+		FECFF2081B5218CC00CEF2B0 /* SMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseViewController.h; sourceTree = "<group>"; };
+		FECFF2091B5218CC00CEF2B0 /* SMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseViewController.m; sourceTree = "<group>"; };
+		FECFF20B1B5284A300CEF2B0 /* SMRunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRunViewController.h; sourceTree = "<group>"; };
+		FECFF20C1B5284A300CEF2B0 /* SMRunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRunViewController.m; sourceTree = "<group>"; };
+		FECFF20E1B52859400CEF2B0 /* SMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNavigationViewController.h; sourceTree = "<group>"; };
+		FECFF20F1B52859400CEF2B0 /* SMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNavigationViewController.m; sourceTree = "<group>"; };
+		FECFF21A1B528FAF00CEF2B0 /* SMBaseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseScene.h; sourceTree = "<group>"; };
+		FECFF21B1B528FAF00CEF2B0 /* SMBaseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseScene.m; sourceTree = "<group>"; };
+		FECFF21D1B528FCB00CEF2B0 /* SMBaseConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseConstruct.h; sourceTree = "<group>"; };
+		FECFF21E1B528FCB00CEF2B0 /* SMBaseConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseConstruct.m; sourceTree = "<group>"; };
+		FECFF2231B52900100CEF2B0 /* SMBaseMonster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseMonster.h; sourceTree = "<group>"; };
+		FECFF2241B52900100CEF2B0 /* SMBaseMonster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseMonster.m; sourceTree = "<group>"; };
+		FECFF2261B52904400CEF2B0 /* SMBaseRole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseRole.h; sourceTree = "<group>"; };
+		FECFF2271B52904400CEF2B0 /* SMBaseRole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseRole.m; sourceTree = "<group>"; };
+		FECFF2291B5292AD00CEF2B0 /* SMBaseSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseSetting.h; sourceTree = "<group>"; };
+		FECFF22A1B5292AD00CEF2B0 /* SMBaseSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseSetting.m; sourceTree = "<group>"; };
+		FECFF22C1B52930C00CEF2B0 /* SMBaseMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseMap.h; sourceTree = "<group>"; };
+		FECFF22D1B52930C00CEF2B0 /* SMBaseMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseMap.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +112,95 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE6B0C0F1B5A1E0E005C235B /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				FE6B0C1C1B5A1E38005C235B /* 小伙伴快跑 */,
+			);
+			path = GameScene;
+			sourceTree = "<group>";
+		};
+		FE6B0C1C1B5A1E38005C235B /* 小伙伴快跑 */ = {
+			isa = PBXGroup;
+			children = (
+				FE6B0C1D1B5A1E4E005C235B /* Construct */,
+				FE6B0C1E1B5A1E4E005C235B /* Map */,
+				FE6B0C1F1B5A1E4E005C235B /* Monster */,
+				FE6B0C201B5A1E4E005C235B /* Others */,
+				FE6B0C211B5A1E4E005C235B /* Role */,
+				FE6B0C221B5A1E4E005C235B /* Scene */,
+				FE6B0C271B5A1E4E005C235B /* Seting */,
+			);
+			path = "小伙伴快跑";
+			sourceTree = "<group>";
+		};
+		FE6B0C1D1B5A1E4E005C235B /* Construct */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Construct;
+			sourceTree = "<group>";
+		};
+		FE6B0C1E1B5A1E4E005C235B /* Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		FE6B0C1F1B5A1E4E005C235B /* Monster */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Monster;
+			sourceTree = "<group>";
+		};
+		FE6B0C201B5A1E4E005C235B /* Others */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		FE6B0C211B5A1E4E005C235B /* Role */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Role;
+			sourceTree = "<group>";
+		};
+		FE6B0C221B5A1E4E005C235B /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				FE6B0C231B5A1E4E005C235B /* 小伙伴快跑 */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		FE6B0C231B5A1E4E005C235B /* 小伙伴快跑 */ = {
+			isa = PBXGroup;
+			children = (
+				FE6B0C241B5A1E4E005C235B /* 第一关 */,
+			);
+			path = "小伙伴快跑";
+			sourceTree = "<group>";
+		};
+		FE6B0C241B5A1E4E005C235B /* 第一关 */ = {
+			isa = PBXGroup;
+			children = (
+				FE6B0C251B5A1E4E005C235B /* SMRunScene001.h */,
+				FE6B0C261B5A1E4E005C235B /* SMRunScene001.m */,
+			);
+			path = "第一关";
+			sourceTree = "<group>";
+		};
+		FE6B0C271B5A1E4E005C235B /* Seting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Seting;
+			sourceTree = "<group>";
+		};
 		FE7C2C121B517FC3002BFAEA = {
 			isa = PBXGroup;
 			children = (
@@ -233,64 +355,10 @@
 		FE7C2C531B5183D6002BFAEA /* UIHelper */ = {
 			isa = PBXGroup;
 			children = (
-				FE7C2C541B5183D6002BFAEA /* Construct */,
-				FE7C2C551B5183D6002BFAEA /* Map */,
-				FE7C2C561B5183D6002BFAEA /* Monster */,
-				FE7C2C571B5183D6002BFAEA /* Others */,
-				FE7C2C581B5183D6002BFAEA /* Role */,
-				FE7C2C591B5183D6002BFAEA /* Scene */,
-				FE7C2C5A1B5183D6002BFAEA /* Seting */,
+				FECFF2191B528F9B00CEF2B0 /* BaseClass */,
+				FE6B0C0F1B5A1E0E005C235B /* GameScene */,
 			);
 			path = UIHelper;
-			sourceTree = "<group>";
-		};
-		FE7C2C541B5183D6002BFAEA /* Construct */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Construct;
-			sourceTree = "<group>";
-		};
-		FE7C2C551B5183D6002BFAEA /* Map */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		FE7C2C561B5183D6002BFAEA /* Monster */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Monster;
-			sourceTree = "<group>";
-		};
-		FE7C2C571B5183D6002BFAEA /* Others */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Others;
-			sourceTree = "<group>";
-		};
-		FE7C2C581B5183D6002BFAEA /* Role */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Role;
-			sourceTree = "<group>";
-		};
-		FE7C2C591B5183D6002BFAEA /* Scene */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Scene;
-			sourceTree = "<group>";
-		};
-		FE7C2C5A1B5183D6002BFAEA /* Seting */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Seting;
 			sourceTree = "<group>";
 		};
 		FE7C2C5B1B5183D6002BFAEA /* Util */ = {
@@ -358,8 +426,35 @@
 		FE7C2C741B518747002BFAEA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				FECFF2081B5218CC00CEF2B0 /* SMBaseViewController.h */,
+				FECFF2091B5218CC00CEF2B0 /* SMBaseViewController.m */,
+				FECFF20E1B52859400CEF2B0 /* SMNavigationViewController.h */,
+				FECFF20F1B52859400CEF2B0 /* SMNavigationViewController.m */,
+				FECFF2051B5218B100CEF2B0 /* SMMainViewController.h */,
+				FECFF2061B5218B100CEF2B0 /* SMMainViewController.m */,
+				FECFF20B1B5284A300CEF2B0 /* SMRunViewController.h */,
+				FECFF20C1B5284A300CEF2B0 /* SMRunViewController.m */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FECFF2191B528F9B00CEF2B0 /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				FECFF21A1B528FAF00CEF2B0 /* SMBaseScene.h */,
+				FECFF21B1B528FAF00CEF2B0 /* SMBaseScene.m */,
+				FECFF2291B5292AD00CEF2B0 /* SMBaseSetting.h */,
+				FECFF22A1B5292AD00CEF2B0 /* SMBaseSetting.m */,
+				FECFF22C1B52930C00CEF2B0 /* SMBaseMap.h */,
+				FECFF22D1B52930C00CEF2B0 /* SMBaseMap.m */,
+				FECFF21D1B528FCB00CEF2B0 /* SMBaseConstruct.h */,
+				FECFF21E1B528FCB00CEF2B0 /* SMBaseConstruct.m */,
+				FECFF2231B52900100CEF2B0 /* SMBaseMonster.h */,
+				FECFF2241B52900100CEF2B0 /* SMBaseMonster.m */,
+				FECFF2261B52904400CEF2B0 /* SMBaseRole.h */,
+				FECFF2271B52904400CEF2B0 /* SMBaseRole.m */,
+			);
+			path = BaseClass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,13 +555,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FECFF22B1B5292AE00CEF2B0 /* SMBaseSetting.m in Sources */,
 				FEA8EA0B1B519292004618CD /* NSObject+SM.m in Sources */,
+				FECFF22E1B52930C00CEF2B0 /* SMBaseMap.m in Sources */,
 				FEA8EA0E1B5192D2004618CD /* NSString+SM.m in Sources */,
+				FE6B0C281B5A1E4E005C235B /* SMRunScene001.m in Sources */,
+				FECFF2281B52904400CEF2B0 /* SMBaseRole.m in Sources */,
+				FECFF20D1B5284A300CEF2B0 /* SMRunViewController.m in Sources */,
 				FEA8EA141B5197C7004618CD /* UIView+SM.m in Sources */,
+				FECFF21C1B528FAF00CEF2B0 /* SMBaseScene.m in Sources */,
+				FECFF20A1B5218CC00CEF2B0 /* SMBaseViewController.m in Sources */,
+				FECFF2251B52900100CEF2B0 /* SMBaseMonster.m in Sources */,
 				FE7C2C611B518477002BFAEA /* main.m in Sources */,
 				FE7C2C641B5184AC002BFAEA /* SMRootViewController.m in Sources */,
 				FE7C2C781B518CFB002BFAEA /* UIView+SMFrame.m in Sources */,
+				FECFF21F1B528FCB00CEF2B0 /* SMBaseConstruct.m in Sources */,
+				FECFF2071B5218B100CEF2B0 /* SMMainViewController.m in Sources */,
 				FE7C2C5C1B5183D6002BFAEA /* AppDelegate.m in Sources */,
+				FECFF2101B52859400CEF2B0 /* SMNavigationViewController.m in Sources */,
 				FEA8EA111B5194ED004618CD /* UIDevice+SM.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
