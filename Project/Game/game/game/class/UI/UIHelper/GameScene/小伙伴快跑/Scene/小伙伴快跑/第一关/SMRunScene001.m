@@ -7,12 +7,14 @@
 //
 
 #import "SMRunScene001.h"
+#import "SMRunMap001.h"
 
 @implementation SMRunScene001
 
 + (instancetype)scene {
-    SMRunScene001 *scene = [[self class] scene];
-    
+    SMRunScene001 *scene = [super scene];
+    SMRunMap001 *map001 = [SMRunMap001 map];
+    [scene addMap:map001];
     
     
     

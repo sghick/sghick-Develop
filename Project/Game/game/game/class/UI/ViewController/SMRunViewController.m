@@ -8,8 +8,9 @@
 
 #import "SMRunViewController.h"
 #import "SMRunScene001.h"
+#import "SMRunMap001.h"
 
-@interface SMRunViewController ()
+@interface SMRunViewController ()<UIScrollViewDelegate>
 
 @property (strong, nonatomic) SMBaseScene *scene;
 
@@ -41,5 +42,6 @@
 - (void)loadUIFrame {
     [super loadUIFrame];
 }
+
 
 @end

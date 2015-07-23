@@ -10,26 +10,22 @@
 	<string>game</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>9BA5EAB2E02BE487E4C5AC8874321428B6FCB0E5</key>
-		<string>github.com:sghick/game.git</string>
 		<key>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</key>
 		<string>github.com:sghick/sghick-Develop.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>game.xcodeproj</string>
+	<string>Project/Game/game/game.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>9BA5EAB2E02BE487E4C5AC8874321428B6FCB0E5</key>
-		<string>../..</string>
 		<key>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</key>
 		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:sghick/game.git</string>
+	<string>github.com:sghick/sghick-Develop.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>9BA5EAB2E02BE487E4C5AC8874321428B6FCB0E5</string>
+	<string>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -38,15 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</string>
 			<key>IDESourceControlWCCName</key>
-			<string>..</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>9BA5EAB2E02BE487E4C5AC8874321428B6FCB0E5</string>
-			<key>IDESourceControlWCCName</key>
-			<string>game</string>
+			<string>sghick-Develop</string>
 		</dict>
 	</array>
 </dict>
