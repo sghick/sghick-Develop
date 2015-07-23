@@ -8,6 +8,8 @@
 
 #import "AutoTableViewCell.h"
 
+
+
 @interface SelfDefineCell : AutoTableViewCell
 
 @property (strong, nonatomic) NSString *title;
