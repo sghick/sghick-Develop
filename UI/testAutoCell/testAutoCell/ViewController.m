@@ -28,7 +28,7 @@ static NSString *identifierb = @"identifierb";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 40) style:UITableViewStylePlain];
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
@@ -42,9 +42,9 @@ static NSString *identifierb = @"identifierb";
 - (NSArray *)dataSource1 {
     if (!_dataSource1) {
         _dataSource1 = @[
-                         @"AAAA",
-                         @"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-                         @"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+                         @"AAAAAAAAA",
+                         @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                         @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                          ];
     }
     return _dataSource1;
@@ -53,11 +53,28 @@ static NSString *identifierb = @"identifierb";
 - (NSArray *)dataSource2 {
     if (!_dataSource2) {
         _dataSource2 = [NSMutableArray arrayWithCapacity:0];
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             TbModel *model = [[TbModel alloc] init];
-            model.name = [NSString stringWithFormat:@"BBBBBBBBBBBBBBBBBBBBBBBBBBBBB==%zi==", i];
-            model.profile = [NSString stringWithFormat:@"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC==%zi==CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC", i];
-            model.imageUrl = [NSString stringWithFormat:@"%c", 97 + i];
+            NSString *name = @"B->name";
+            int countN = arc4random()%100;
+            for (int j = 0; j < countN; j++) {
+                name = [name stringByAppendingFormat:@"%zi ", j];
+            }
+            
+            NSString *profile = @"B->profile";
+            int countP = arc4random()%100 + 20;
+            for (int j = 0; j < countP; j++) {
+                if (j == 10) {
+                    profile = [profile stringByAppendingString:@"Mark"];
+                }
+                else {
+                    profile = [profile stringByAppendingFormat:@"%zi ", j];
+                }
+            }
+            
+            model.name = name;
+            model.profile = profile;
+            model.imageUrl = [NSString stringWithFormat:@"%c", 97 + i%26];
             [_dataSource2 addObject:model];
         }
     }

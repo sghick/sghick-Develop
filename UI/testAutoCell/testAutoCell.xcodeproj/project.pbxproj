@@ -15,9 +15,9 @@
 		5735930D1B5FAD55004D4089 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5735930B1B5FAD55004D4089 /* LaunchScreen.xib */; };
 		573593191B5FAD55004D4089 /* testAutoCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 573593181B5FAD55004D4089 /* testAutoCellTests.m */; };
 		577E5F251B61E360008DD9F0 /* TaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F241B61E360008DD9F0 /* TaTableViewCell.m */; };
-		577E5F281B61EB5C008DD9F0 /* AutoRectUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F271B61EB5C008DD9F0 /* AutoRectUtil.m */; };
-		577E5F2C1B61EEB7008DD9F0 /* UIView+AutoRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F2B1B61EEB7008DD9F0 /* UIView+AutoRect.m */; };
 		577E5F2F1B62059F008DD9F0 /* TbTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F2E1B62059F008DD9F0 /* TbTableViewCell.m */; };
+		577E5F361B6218CB008DD9F0 /* AutoRectUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F331B6218CB008DD9F0 /* AutoRectUtil.m */; };
+		577E5F371B6218CB008DD9F0 /* UIView+AutoRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F351B6218CB008DD9F0 /* UIView+AutoRect.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,13 +46,13 @@
 		573593181B5FAD55004D4089 /* testAutoCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testAutoCellTests.m; sourceTree = "<group>"; };
 		577E5F231B61E360008DD9F0 /* TaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaTableViewCell.h; sourceTree = "<group>"; };
 		577E5F241B61E360008DD9F0 /* TaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaTableViewCell.m; sourceTree = "<group>"; };
-		577E5F261B61EB5C008DD9F0 /* AutoRectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRectUtil.h; sourceTree = "<group>"; };
-		577E5F271B61EB5C008DD9F0 /* AutoRectUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoRectUtil.m; sourceTree = "<group>"; };
-		577E5F291B61EC21008DD9F0 /* AutoRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoRect.h; sourceTree = "<group>"; };
-		577E5F2A1B61EEB7008DD9F0 /* UIView+AutoRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoRect.h"; sourceTree = "<group>"; };
-		577E5F2B1B61EEB7008DD9F0 /* UIView+AutoRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoRect.m"; sourceTree = "<group>"; };
 		577E5F2D1B62059F008DD9F0 /* TbTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TbTableViewCell.h; sourceTree = "<group>"; };
 		577E5F2E1B62059F008DD9F0 /* TbTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TbTableViewCell.m; sourceTree = "<group>"; };
+		577E5F311B6218CB008DD9F0 /* AutoRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRect.h; sourceTree = "<group>"; };
+		577E5F321B6218CB008DD9F0 /* AutoRectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRectUtil.h; sourceTree = "<group>"; };
+		577E5F331B6218CB008DD9F0 /* AutoRectUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoRectUtil.m; sourceTree = "<group>"; };
+		577E5F341B6218CB008DD9F0 /* UIView+AutoRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoRect.h"; sourceTree = "<group>"; };
+		577E5F351B6218CB008DD9F0 /* UIView+AutoRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoRect.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +94,7 @@
 		573592FB1B5FAD54004D4089 /* testAutoCell */ = {
 			isa = PBXGroup;
 			children = (
+				577E5F301B6218CB008DD9F0 /* AutoRect */,
 				573593001B5FAD55004D4089 /* AppDelegate.h */,
 				573593011B5FAD55004D4089 /* AppDelegate.m */,
 				573593031B5FAD55004D4089 /* ViewController.h */,
@@ -102,11 +103,6 @@
 				577E5F241B61E360008DD9F0 /* TaTableViewCell.m */,
 				577E5F2D1B62059F008DD9F0 /* TbTableViewCell.h */,
 				577E5F2E1B62059F008DD9F0 /* TbTableViewCell.m */,
-				577E5F291B61EC21008DD9F0 /* AutoRect.h */,
-				577E5F2A1B61EEB7008DD9F0 /* UIView+AutoRect.h */,
-				577E5F2B1B61EEB7008DD9F0 /* UIView+AutoRect.m */,
-				577E5F261B61EB5C008DD9F0 /* AutoRectUtil.h */,
-				577E5F271B61EB5C008DD9F0 /* AutoRectUtil.m */,
 				573593061B5FAD55004D4089 /* Main.storyboard */,
 				573593091B5FAD55004D4089 /* Images.xcassets */,
 				5735930B1B5FAD55004D4089 /* LaunchScreen.xib */,
@@ -139,6 +135,18 @@
 				573593171B5FAD55004D4089 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		577E5F301B6218CB008DD9F0 /* AutoRect */ = {
+			isa = PBXGroup;
+			children = (
+				577E5F311B6218CB008DD9F0 /* AutoRect.h */,
+				577E5F321B6218CB008DD9F0 /* AutoRectUtil.h */,
+				577E5F331B6218CB008DD9F0 /* AutoRectUtil.m */,
+				577E5F341B6218CB008DD9F0 /* UIView+AutoRect.h */,
+				577E5F351B6218CB008DD9F0 /* UIView+AutoRect.m */,
+			);
+			path = AutoRect;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,8 +254,8 @@
 				573593021B5FAD55004D4089 /* AppDelegate.m in Sources */,
 				577E5F2F1B62059F008DD9F0 /* TbTableViewCell.m in Sources */,
 				573592FF1B5FAD55004D4089 /* main.m in Sources */,
-				577E5F2C1B61EEB7008DD9F0 /* UIView+AutoRect.m in Sources */,
-				577E5F281B61EB5C008DD9F0 /* AutoRectUtil.m in Sources */,
+				577E5F371B6218CB008DD9F0 /* UIView+AutoRect.m in Sources */,
+				577E5F361B6218CB008DD9F0 /* AutoRectUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,7 +31,7 @@
 - (UIImageView *)backImageView {
     if (!_backImageView) {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.backgroundColor = [UIColor yellowColor];
+        _backImageView.backgroundColor = [UIColor clearColor];
     }
     return _backImageView;
 }
@@ -41,7 +41,7 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.numberOfLines = 0;
         _titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        _titleLabel.backgroundColor = [UIColor cyanColor];
+        _titleLabel.backgroundColor = [UIColor clearColor];
     }
     return _titleLabel;
 }
