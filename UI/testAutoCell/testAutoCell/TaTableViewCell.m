@@ -1,21 +1,22 @@
 //
-//  SelfDefineCell.m
+//  TaTableViewCell.m
 //  testAutoCell
 //
-//  Created by buding on 15/7/22.
+//  Created by buding on 15/7/24.
 //  Copyright (c) 2015年 buding. All rights reserved.
 //
 
-#import "SelfDefineCell.h"
+#import "TaTableViewCell.h"
+#import "AutoRect.h"
 
-@interface SelfDefineCell ()<AutoTableViewCellProtocol>
+@interface TaTableViewCell ()
 
 @property (strong, nonatomic) UIImageView *backImageView;
 @property (strong, nonatomic) UILabel *titleLabel;
 
 @end
 
-@implementation SelfDefineCell
+@implementation TaTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -46,25 +47,27 @@
 }
 
 
-#pragma mark - ()
-- (void)setSubviewWithFrame:(CGRect)frame {
-    self.backImageView.frame = CGRectMake(10, 10, frame.size.width - 20, frame.size.height - 20);
-    self.titleLabel.frame = CGRectMake(10, 10, frame.size.width - 20, frame.size.height - 20);
+#pragma mark - UIViewAutoRectProtocol
+- (CGRect)ar_layoutSuperView {
+    CGRect rect = CGRectZero;
+    CGRect rect1 = [AutoRectUtil autoSizeWithLabel:self.titleLabel];
+    CGRect rect2 = [AutoRectUtil autoSizeWithImage:self.backImageView.image];
+    rect.size.width = [UIScreen mainScreen].bounds.size.width;
+    rect.size.height = rect1.size.height + rect2.size.height + 20;
+    return rect;
 }
 
+- (void)ar_drawRect:(CGRect)rect {
+    self.backImageView.frame = CGRectMake(10, 10, rect.size.width - 20, rect.size.height - 20);
+    self.titleLabel.frame = CGRectMake(10, 10, rect.size.width - 20, rect.size.height - 20);
+}
+
+#pragma mark - ()
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
-    [self setCell];
+    [self ar_setNeedsLayout];
 }
 
-#pragma mark - AutoTableViewCellProtocol
-+ (CGFloat)autoHeightWithCell:(AutoTableViewCell *)cell {
-    SelfDefineCell * pCell = (SelfDefineCell *)cell;
-    CGSize size1 = [super autoSizeWithLabel:pCell.titleLabel];
-    CGSize size2 = [super autoSizeWithImage:pCell.backImageView.image];
-    [pCell setSubviewWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, size1.height + 20)];
-    return size1.height + size2.height + 20;
-}
 
 @end
