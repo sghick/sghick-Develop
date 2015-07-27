@@ -7,7 +7,7 @@
 //
 
 #import "TaTableViewCell.h"
-#import "AutoRect.h"
+#import "UITableViewCell+AutoSize.h"
 
 @interface TaTableViewCell ()
 
@@ -40,9 +40,7 @@
 }
 
 
-#pragma mark - UIViewAutoRectProtocol
-
-
+#pragma mark - UITableViewCellAutoSizeProtocol
 // 也可以写在 updateConstraints 方法中，但是不要忘记加 “[super updateConstraints];" 哦
 - (void)ar_updateConstraints {
     // 自动布局
@@ -69,7 +67,6 @@
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
-    [self ar_setNeedsLayout];
 }
 
 

@@ -94,11 +94,13 @@ static NSString *identifierb = @"identifierb";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifiera];
     if (indexPath.row < self.dataSource1.count) {
         TaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifiera];
+        // 在这里要注册
         [TaTableViewCell ar_setNeedsLayoutCell:cell indexPath:indexPath];
         cell.title = self.dataSource1[indexPath.row];
         return cell;
     } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
         TbTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierb];
+        // 在这里要注册
         [TbTableViewCell ar_setNeedsLayoutCell:cell indexPath:indexPath];
         cell.model = self.dataSource2[indexPath.row - self.dataSource1.count];
         return cell;
@@ -108,8 +110,10 @@ static NSString *identifierb = @"identifierb";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < self.dataSource1.count) {
+        // 在这里取出
         return [TaTableViewCell ar_autoHeightForRowIndexPath:indexPath];
     } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
+        // 在这里取出
         return [TbTableViewCell ar_autoHeightForRowIndexPath:indexPath];
     }
     return 0;

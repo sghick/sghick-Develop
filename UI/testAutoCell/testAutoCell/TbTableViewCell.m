@@ -7,7 +7,7 @@
 //
 
 #import "TbTableViewCell.h"
-#import "AutoRect.h"
+#import "UITableViewCell+AutoSize.h"
 
 @implementation TbModel
 @end
@@ -76,12 +76,7 @@
 }
 
 
-#pragma mark - UIViewAutoRectProtocol
-- (CGRect)ar_layoutSuperView {
-    CGRect rect = [AutoRectUtil autoLayoutSizeWithTableViewCell:self];
-    return rect;
-}
-
+#pragma mark - UITableViewCellAutoSizeProtocol
 - (void)ar_updateConstraints {
     // 自动布局
     NSDictionary * views = NSDictionaryOfVariableBindings(_nameLabel, _profileLabel, _backImageView);
@@ -127,7 +122,6 @@
     self.nameLabel.text = model.name;
     self.profileLabel.attributedText = [self attributedStringWithExpString:model.profile markString:@"Mark"];
     self.backImageView.image = [UIImage imageNamed:model.imageUrl];
-    [self ar_setNeedsLayout];
 }
 
 @end
