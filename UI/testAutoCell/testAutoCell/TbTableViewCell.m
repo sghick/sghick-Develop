@@ -78,26 +78,43 @@
 
 #pragma mark - UIViewAutoRectProtocol
 - (CGRect)ar_layoutSuperView {
-    CGRect rect = CGRectZero;
-    CGRect rect1 = [AutoRectUtil autoSizeWithLabel:self.nameLabel];
-    CGRect rect2 = [AutoRectUtil autoSizeWithLabel:self.profileLabel];
-    rect.size.width = [UIScreen mainScreen].bounds.size.width;
-    rect.size.height = 40 + rect1.size.height + rect2.size.height;
+    CGRect rect = [AutoRectUtil autoLayoutSizeWithTableViewCell:self];
     return rect;
 }
 
-- (void)ar_drawRect:(CGRect)rect {
-    self.backImageView.frame = CGRectMake(10, 10, rect.size.width - 20, rect.size.height - 20);
+- (void)ar_updateConstraints {
+    // 自动布局
+    NSDictionary * views = NSDictionaryOfVariableBindings(_nameLabel, _profileLabel, _backImageView);
+    [self.nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.profileLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.backImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSDictionary * metrics = @{};
     
-    CGRect rect1 = [AutoRectUtil autoSizeWithLabel:self.nameLabel];
-    rect1.origin.x = self.backImageView.frame.origin.x;
-    rect1.origin.y = self.backImageView.frame.origin.y + 10;
-    self.nameLabel.frame = rect1;
-    
-    CGRect rect2 = [AutoRectUtil autoSizeWithLabel:self.profileLabel];
-    rect2.origin.x = rect1.origin.x;
-    rect2.origin.y = rect1.origin.y + rect1.size.height;
-    self.profileLabel.frame = rect2;
+    // 横向1
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_nameLabel]-10-|"
+                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                             metrics:metrics
+                                                                               views:views]];
+    // 横向2
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_profileLabel]-10-|"
+                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                             metrics:metrics
+                                                                               views:views]];
+    // 横向3
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_backImageView]-10-|"
+                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                             metrics:metrics
+                                                                               views:views]];
+    // 纵向1
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_nameLabel][_profileLabel]-10-|"
+                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                             metrics:metrics
+                                                                               views:views]];
+    // 纵向2
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_backImageView]-10-|"
+                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                             metrics:metrics
+                                                                               views:views]];
 }
 
 #pragma mark - ()

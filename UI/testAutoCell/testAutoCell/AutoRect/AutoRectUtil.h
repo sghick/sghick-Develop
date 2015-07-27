@@ -13,6 +13,8 @@
 + (CGRect)autoSizeWithLabel:(UILabel *)label;
 + (CGRect)autoSizeWithLabel:(UILabel *)label forBounds:(CGRect)bounds;
 + (CGRect)autoSizeWithImage:(UIImage *)image;
-+ (CGRect)autoSizeWithView:(UIView *)view;
++ (CGRect)autoSizeWithTextView:(UITextView *)textView;
++ (CGRect)autoLayoutSizeWithView:(UIView *)view;
++ (CGRect)autoLayoutSizeWithTableViewCell:(UITableViewCell *)cell;
 
 @end

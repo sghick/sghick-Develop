@@ -11,7 +11,7 @@
 @implementation AutoRectUtil
 
 + (CGRect)autoSizeWithLabel:(UILabel *)label {
-    CGRect bounds = [UIScreen mainScreen].bounds;
+    CGRect bounds = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, MAXFLOAT);
     return [self autoSizeWithLabel:label forBounds:bounds];
 }
 
@@ -27,9 +27,22 @@
     return rect;
 }
 
-+ (CGRect)autoSizeWithView:(UIView *)view {
++ (CGRect)autoSizeWithTextView:(UITextView *)textView {
     CGRect rect = CGRectZero;
-    rect = view.frame;
+    rect = textView.frame;
+    return rect;
+}
+
++ (CGRect)autoLayoutSizeWithView:(UIView *)view {
+    CGRect rect = CGRectZero;
+    rect.size = [view systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return rect;
+}
+
++ (CGRect)autoLayoutSizeWithTableViewCell:(UITableViewCell *)cell {
+    CGRect rect = CGRectZero;
+    rect.size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    rect.size.height += 1;
     return rect;
 }
 

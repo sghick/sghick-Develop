@@ -17,7 +17,7 @@ static NSString *identifierb = @"identifierb";
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *dataSource1;
+@property (strong, nonatomic) NSMutableArray *dataSource1;
 @property (strong, nonatomic) NSMutableArray *dataSource2;
 
 @end
@@ -41,11 +41,15 @@ static NSString *identifierb = @"identifierb";
 
 - (NSArray *)dataSource1 {
     if (!_dataSource1) {
-        _dataSource1 = @[
-                         @"AAAAAAAAA",
-                         @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                         @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                         ];
+        _dataSource1 = [NSMutableArray arrayWithCapacity:0];
+        for (int i = 0; i < 10; i++) {
+            NSString *name = @"A->name";
+            int countN = 14;//arc4random()%20 + 1;
+            for (int j = 0; j < countN; j++) {
+                name = [name stringByAppendingFormat:@"%zi ", j];
+            }
+            [_dataSource1 addObject:name];
+        }
     }
     return _dataSource1;
 }
@@ -56,7 +60,7 @@ static NSString *identifierb = @"identifierb";
         for (int i = 0; i < 10; i++) {
             TbModel *model = [[TbModel alloc] init];
             NSString *name = @"B->name";
-            int countN = arc4random()%100;
+            int countN = arc4random()%100 + 1;
             for (int j = 0; j < countN; j++) {
                 name = [name stringByAppendingFormat:@"%zi ", j];
             }
@@ -101,11 +105,15 @@ static NSString *identifierb = @"identifierb";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < self.dataSource1.count) {
-        return TaTableViewCell.ar_autoRect.size.height;
-    } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
-        return TbTableViewCell.ar_autoRect.size.height;
-    }
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    cell.textLabel.text = @"sd";
+    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1;
+//    if (indexPath.row < self.dataSource1.count) {
+//        return TaTableViewCell.ar_autoHeight;
+//    } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
+//        return TbTableViewCell.ar_autoHeight;
+//    }
     return 0;
 }
 
