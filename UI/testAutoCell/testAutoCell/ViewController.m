@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "AutoRect.h"
+#import "UITableViewCell+AutoSize.h"
 #import "TaTableViewCell.h"
 #import "TbTableViewCell.h"
 
@@ -94,10 +94,12 @@ static NSString *identifierb = @"identifierb";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifiera];
     if (indexPath.row < self.dataSource1.count) {
         TaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifiera];
+        [TaTableViewCell ar_setNeedsLayoutCell:cell indexPath:indexPath];
         cell.title = self.dataSource1[indexPath.row];
         return cell;
     } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
         TbTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifierb];
+        [TbTableViewCell ar_setNeedsLayoutCell:cell indexPath:indexPath];
         cell.model = self.dataSource2[indexPath.row - self.dataSource1.count];
         return cell;
     }
@@ -106,9 +108,9 @@ static NSString *identifierb = @"identifierb";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < self.dataSource1.count) {
-        return TaTableViewCell.ar_autoHeight;
+        return [TaTableViewCell ar_autoHeightForRowIndexPath:indexPath];
     } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
-        return TbTableViewCell.ar_autoHeight;
+        return [TbTableViewCell ar_autoHeightForRowIndexPath:indexPath];
     }
     return 0;
 }

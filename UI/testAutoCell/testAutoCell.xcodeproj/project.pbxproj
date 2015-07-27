@@ -18,6 +18,7 @@
 		577E5F2F1B62059F008DD9F0 /* TbTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F2E1B62059F008DD9F0 /* TbTableViewCell.m */; };
 		577E5F361B6218CB008DD9F0 /* AutoRectUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F331B6218CB008DD9F0 /* AutoRectUtil.m */; };
 		577E5F371B6218CB008DD9F0 /* UIView+AutoRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 577E5F351B6218CB008DD9F0 /* UIView+AutoRect.m */; };
+		578838641B662A9400AD40A2 /* UITableViewCell+AutoSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 578838631B662A9400AD40A2 /* UITableViewCell+AutoSize.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		577E5F331B6218CB008DD9F0 /* AutoRectUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoRectUtil.m; sourceTree = "<group>"; };
 		577E5F341B6218CB008DD9F0 /* UIView+AutoRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoRect.h"; sourceTree = "<group>"; };
 		577E5F351B6218CB008DD9F0 /* UIView+AutoRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoRect.m"; sourceTree = "<group>"; };
+		578838621B662A9400AD40A2 /* UITableViewCell+AutoSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+AutoSize.h"; sourceTree = "<group>"; };
+		578838631B662A9400AD40A2 /* UITableViewCell+AutoSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+AutoSize.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +148,8 @@
 				577E5F331B6218CB008DD9F0 /* AutoRectUtil.m */,
 				577E5F341B6218CB008DD9F0 /* UIView+AutoRect.h */,
 				577E5F351B6218CB008DD9F0 /* UIView+AutoRect.m */,
+				578838621B662A9400AD40A2 /* UITableViewCell+AutoSize.h */,
+				578838631B662A9400AD40A2 /* UITableViewCell+AutoSize.m */,
 			);
 			path = AutoRect;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 				573593021B5FAD55004D4089 /* AppDelegate.m in Sources */,
 				577E5F2F1B62059F008DD9F0 /* TbTableViewCell.m in Sources */,
 				573592FF1B5FAD55004D4089 /* main.m in Sources */,
+				578838641B662A9400AD40A2 /* UITableViewCell+AutoSize.m in Sources */,
 				577E5F371B6218CB008DD9F0 /* UIView+AutoRect.m in Sources */,
 				577E5F361B6218CB008DD9F0 /* AutoRectUtil.m in Sources */,
 			);
