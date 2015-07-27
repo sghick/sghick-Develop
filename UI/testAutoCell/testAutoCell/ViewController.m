@@ -44,7 +44,7 @@ static NSString *identifierb = @"identifierb";
         _dataSource1 = [NSMutableArray arrayWithCapacity:0];
         for (int i = 0; i < 10; i++) {
             NSString *name = @"A->name";
-            int countN = 14;//arc4random()%20 + 1;
+            int countN = arc4random()%20 + 1;
             for (int j = 0; j < countN; j++) {
                 name = [name stringByAppendingFormat:@"%zi ", j];
             }
@@ -105,15 +105,11 @@ static NSString *identifierb = @"identifierb";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    cell.textLabel.text = @"sd";
-    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height + 1;
-//    if (indexPath.row < self.dataSource1.count) {
-//        return TaTableViewCell.ar_autoHeight;
-//    } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
-//        return TbTableViewCell.ar_autoHeight;
-//    }
+    if (indexPath.row < self.dataSource1.count) {
+        return TaTableViewCell.ar_autoHeight;
+    } else if (indexPath.row < self.dataSource1.count + self.dataSource2.count) {
+        return TbTableViewCell.ar_autoHeight;
+    }
     return 0;
 }
 

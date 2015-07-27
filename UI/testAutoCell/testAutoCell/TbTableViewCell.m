@@ -115,6 +115,10 @@
                                                                              options:NSLayoutFormatDirectionLeadingToTrailing
                                                                              metrics:metrics
                                                                                views:views]];
+    
+    // 请务必要设置Label的最大宽值
+    [self.nameLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
+    [self.profileLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
 }
 
 #pragma mark - ()

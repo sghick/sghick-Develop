@@ -17,19 +17,27 @@ static UIView *_curView;
 + (CGRect)ar_autoRect {
     if (_curView && [_curView isKindOfClass:[self class]]) {
         CGRect rect = [_curView ar_layoutSuperView];
-        if (CGRectIsEmpty(rect)) {
-            if ([self isSubclassOfClass:[UITableViewCell class]]) {
-                rect.size = [((UITableViewCell *)_curView).contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-                rect.size.height += 1;
-            }
-            else {
-                rect.size = [_curView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            }
+        UIView *constraintsView = _curView;
+        // 默认为自动约束
+        if ([self isSubclassOfClass:[UITableViewCell class]]) {
+            UITableViewCell *cell = (UITableViewCell *)_curView;
+            constraintsView = cell.contentView;
+            
+            [cell ar_updateConstraints];
+            [cell setNeedsUpdateConstraints];
+            [cell updateConstraintsIfNeeded];
+            [cell setNeedsLayout];
+            [cell layoutIfNeeded];
+            
+            rect.size = [constraintsView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            rect.size.height += 1;
+        } else {
+            [constraintsView setNeedsUpdateConstraints];
+            [constraintsView updateConstraintsIfNeeded];
+            rect.size = [_curView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         }
-        [_curView updateConstraintsIfNeeded];
-        [_curView ar_updateConstraints];
-        [_curView ar_drawRect:_curView.frame];
-        return _curView.frame;
+        [_curView ar_drawRect:rect];
+        return rect;
     }
     if ([self isSubclassOfClass:[UITableViewCell class]]) {
         return defaultCellRect;
@@ -43,11 +51,6 @@ static UIView *_curView;
 
 - (void)ar_setNeedsLayout {
     _curView = self;
-}
-
-- (void)ar_setNeedsLayoutWithDrawRect:(CGRect)rect {
-    _curView = self;
-    [self ar_drawRect:rect];
 }
 
 #pragma mark - for sub class realize

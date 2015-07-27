@@ -20,7 +20,10 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.backgroundColor = [UIColor cyanColor];
         [self.contentView addSubview:self.titleLabel];
+        self.contentView.clipsToBounds = NO;
+        self.contentView.backgroundColor = [UIColor yellowColor];
     }
     return self;
 }
@@ -38,6 +41,8 @@
 
 
 #pragma mark - UIViewAutoRectProtocol
+
+
 // 也可以写在 updateConstraints 方法中，但是不要忘记加 “[super updateConstraints];" 哦
 - (void)ar_updateConstraints {
     // 自动布局
@@ -55,13 +60,16 @@
                                                                              options:NSLayoutFormatDirectionLeadingToTrailing
                                                                              metrics:metrics
                                                                                views:views]];
+    
+    // 请务必要设置Label的最大宽值
+    [self.titleLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
 }
 
 #pragma mark - ()
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
-    [self ar_setNeedsLayoutWithDrawRect:CGRectMake(0, 0, 10, 10)];
+    [self ar_setNeedsLayout];
 }
 
 
