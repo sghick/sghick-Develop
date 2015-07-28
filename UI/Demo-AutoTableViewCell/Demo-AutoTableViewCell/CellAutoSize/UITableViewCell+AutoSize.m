@@ -14,7 +14,7 @@ static NSDictionary *_cellDict = nil;
 
 + (CGRect)ar_autoRectForCell:(UITableViewCell *)cell {
     if (cell && [cell isKindOfClass:[self class]]) {
-        CGRect rect = [cell ar_layoutSuperView];
+        CGRect cellFrame = [cell ar_layoutSuperView];
         // 默认为自动约束
         [cell ar_updateConstraints];
         [cell setNeedsUpdateConstraints];
@@ -22,9 +22,14 @@ static NSDictionary *_cellDict = nil;
         [cell setNeedsLayout];
         [cell layoutIfNeeded];
         
-        rect.size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        rect.size.height += 1;
-        return rect;
+        CGSize contentSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        if (!CGSizeEqualToSize(contentSize, CGSizeZero)) {
+            cellFrame.size = contentSize;
+            cellFrame.size.height += 1;
+        } else {
+            [cell ar_drawRect:cellFrame];
+        }
+        return cellFrame;
     }
     if ([self isSubclassOfClass:[UITableViewCell class]]) {
         return defaultCellRect;

@@ -8,11 +8,12 @@
 
 #import "TbTableViewCell.h"
 #import "UITableViewCell+AutoSize.h"
+#import "AutoSizeUtil.h"
 
 @implementation TbModel
 @end
 
-@interface TbTableViewCell ()
+@interface TbTableViewCell ()<UITableViewCellAutoSizeProtocol>
 
 @property (strong, nonatomic) UIImageView *backImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
@@ -77,44 +78,124 @@
 
 
 #pragma mark - UITableViewCellAutoSizeProtocol
-- (void)ar_updateConstraints {
-    // 自动布局
-    NSDictionary * views = NSDictionaryOfVariableBindings(_nameLabel, _profileLabel, _backImageView);
-    [self.nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.profileLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.backImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    NSDictionary * metrics = @{};
-    
-    // 横向1
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_nameLabel]-10-|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:metrics
-                                                                               views:views]];
-    // 横向2
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_profileLabel]-10-|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:metrics
-                                                                               views:views]];
-    // 横向3
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_backImageView]-10-|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:metrics
-                                                                               views:views]];
-    // 纵向1
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_nameLabel][_profileLabel]-10-|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:metrics
-                                                                               views:views]];
-    // 纵向2
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_backImageView]-10-|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:metrics
-                                                                               views:views]];
-    
-    // 请务必要设置Label的最大宽值
-    [self.nameLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
-    [self.profileLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
+
+/**
+ *  ar_layoutSuperView 和 ar_drawRect:(CGRect)rect 是直接设置frame的方法（注意，自动约束会让此方法失效）
+ */
+- (CGRect)ar_layoutSuperView {
+    CGRect frame = CGRectZero;
+    CGRect nameLabelFrame = [AutoSizeUtil autoSizeWithLabel:self.nameLabel];
+    CGRect profileLabelFrame = [AutoSizeUtil autoSizeWithLabel:self.profileLabel];
+    frame.size.width = [UIScreen mainScreen].bounds.size.width;
+    frame.size.height = nameLabelFrame.size.height + profileLabelFrame.size.height + 20;
+    return frame;
 }
+
+- (void)ar_drawRect:(CGRect)rect {
+    CGRect nameLabelFrame = [AutoSizeUtil autoSizeWithLabel:self.nameLabel];
+    self.nameLabel.frame = CGRectMake(
+                                      10,
+                                      10,
+                                      nameLabelFrame.size.width,
+                                      nameLabelFrame.size.height
+                                      );
+    
+    CGRect profileLabelFrame = [AutoSizeUtil autoSizeWithLabel:self.profileLabel];
+    self.profileLabel.frame = CGRectMake(
+                                         10,
+                                         self.nameLabel.frame.origin.y + self.nameLabel.frame.size.height,
+                                         profileLabelFrame.size.width,
+                                         profileLabelFrame.size.height
+                                         );
+    
+    CGRect backImageViewFrame = CGRectMake(10, 10, rect.size.width - 20, rect.size.height - 20);
+    self.backImageView.frame = backImageViewFrame;
+}
+
+/**
+ *  第一种添加约束的方法
+ */
+//- (void)updateConstraints {
+//    [super updateConstraints];
+//    // 自动布局
+//    NSDictionary * views = NSDictionaryOfVariableBindings(_nameLabel, _profileLabel, _backImageView);
+//    [self.nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.profileLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.backImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    NSDictionary * metrics = @{};
+//    
+//    // 横向1
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_nameLabel]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 横向2
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_profileLabel]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 横向3
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_backImageView]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 纵向1
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_nameLabel][_profileLabel]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 纵向2
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_backImageView]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    
+//    // 请务必要设置Label的最大宽值
+//    [self.nameLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
+//    [self.profileLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
+//}
+
+/**
+ *  第二种添加约束的方法
+ */
+//- (void)ar_updateConstraints {
+//    // 自动布局
+//    NSDictionary * views = NSDictionaryOfVariableBindings(_nameLabel, _profileLabel, _backImageView);
+//    [self.nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.profileLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.backImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    NSDictionary * metrics = @{};
+//    
+//    // 横向1
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_nameLabel]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 横向2
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_profileLabel]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 横向3
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_backImageView]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 纵向1
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_nameLabel][_profileLabel]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    // 纵向2
+//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_backImageView]-10-|"
+//                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+//                                                                             metrics:metrics
+//                                                                               views:views]];
+//    
+//    // 请务必要设置Label的最大宽值
+//    [self.nameLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
+//    [self.profileLabel setPreferredMaxLayoutWidth:[UIScreen mainScreen].bounds.size.width - 20];
+//}
 
 #pragma mark - ()
 - (void)setModel:(TbModel *)model {

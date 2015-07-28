@@ -42,7 +42,7 @@ static NSString *identifierb = @"identifierb";
 - (NSArray *)dataSource1 {
     if (!_dataSource1) {
         _dataSource1 = [NSMutableArray arrayWithCapacity:0];
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             NSString *name = @"A->name";
             int countN = arc4random()%20 + 1;
             for (int j = 0; j < countN; j++) {
