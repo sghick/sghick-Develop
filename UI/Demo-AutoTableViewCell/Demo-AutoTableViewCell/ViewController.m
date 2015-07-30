@@ -37,6 +37,9 @@ static NSString *identifierb = @"identifierb";
     [tableView registerClass:[TaTableViewCell class] forCellReuseIdentifier:identifiera];
     [tableView registerClass:[TbTableViewCell class] forCellReuseIdentifier:identifierb];
     
+    NSArray *arr = @[@1,@2,@3,@4,@8,@4,@3];
+    NSArray *arr2 = [arr sortedArrayUsingSelector:@selector(compare:)];
+    
 }
 
 - (NSArray *)dataSource1 {
