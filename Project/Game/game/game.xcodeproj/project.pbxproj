@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FE6B0C281B5A1E4E005C235B /* SMRunScene001.m in Sources */ = {isa = PBXBuildFile; fileRef = FE6B0C261B5A1E4E005C235B /* SMRunScene001.m */; };
+		FE6B0C2B1B5A21EF005C235B /* SMRunMap001.m in Sources */ = {isa = PBXBuildFile; fileRef = FE6B0C2A1B5A21EF005C235B /* SMRunMap001.m */; };
 		FE7C2C2C1B517FC3002BFAEA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE7C2C2B1B517FC3002BFAEA /* Images.xcassets */; };
 		FE7C2C3B1B517FC3002BFAEA /* gameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7C2C3A1B517FC3002BFAEA /* gameTests.m */; };
 		FE7C2C5C1B5183D6002BFAEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7C2C4E1B5183D6002BFAEA /* AppDelegate.m */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		FE6B0C251B5A1E4E005C235B /* SMRunScene001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRunScene001.h; sourceTree = "<group>"; };
 		FE6B0C261B5A1E4E005C235B /* SMRunScene001.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRunScene001.m; sourceTree = "<group>"; };
+		FE6B0C291B5A21EF005C235B /* SMRunMap001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRunMap001.h; sourceTree = "<group>"; };
+		FE6B0C2A1B5A21EF005C235B /* SMRunMap001.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRunMap001.m; sourceTree = "<group>"; };
 		FE7C2C1B1B517FC3002BFAEA /* game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE7C2C1F1B517FC3002BFAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE7C2C2B1B517FC3002BFAEA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 		FE6B0C1E1B5A1E4E005C235B /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				FE6B0C291B5A21EF005C235B /* SMRunMap001.h */,
+				FE6B0C2A1B5A21EF005C235B /* SMRunMap001.m */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -559,6 +564,7 @@
 				FEA8EA0B1B519292004618CD /* NSObject+SM.m in Sources */,
 				FECFF22E1B52930C00CEF2B0 /* SMBaseMap.m in Sources */,
 				FEA8EA0E1B5192D2004618CD /* NSString+SM.m in Sources */,
+				FE6B0C2B1B5A21EF005C235B /* SMRunMap001.m in Sources */,
 				FE6B0C281B5A1E4E005C235B /* SMRunScene001.m in Sources */,
 				FECFF2281B52904400CEF2B0 /* SMBaseRole.m in Sources */,
 				FECFF20D1B5284A300CEF2B0 /* SMRunViewController.m in Sources */,
