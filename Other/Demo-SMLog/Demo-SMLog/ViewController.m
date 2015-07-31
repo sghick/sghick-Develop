@@ -17,8 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    SMLog(@"%@", kLogDebug);
+    
+    SMLog(kLogDebug);
 }
 
 - (void)didReceiveMemoryWarning {

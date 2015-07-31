@@ -10,31 +10,31 @@
 	<string>DevelopToolsForMac</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F0427CC8EE4A39F227F54B8AD8DBD6D8C54E2E11</key>
-		<string>github.com:sghick/DevelopToolsForMac.git</string>
+		<key>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</key>
+		<string>github.com:sghick/sghick-Develop.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>DevelopToolsForMac.xcodeproj</string>
+	<string>UI/DevelopToolsForMac-master/DevelopToolsForMac.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F0427CC8EE4A39F227F54B8AD8DBD6D8C54E2E11</key>
-		<string>../..</string>
+		<key>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</key>
+		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:sghick/DevelopToolsForMac.git</string>
+	<string>github.com:sghick/sghick-Develop.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F0427CC8EE4A39F227F54B8AD8DBD6D8C54E2E11</string>
+	<string>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F0427CC8EE4A39F227F54B8AD8DBD6D8C54E2E11</string>
+			<string>B28B386FD00DEB44F3BBCE2E28D45EADDC9BA0A4</string>
 			<key>IDESourceControlWCCName</key>
-			<string>DevelopToolsForMac</string>
+			<string>sghick-Develop</string>
 		</dict>
 	</array>
 </dict>

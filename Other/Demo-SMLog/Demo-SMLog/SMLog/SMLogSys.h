@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, SMLogType) {
+    SMLogTypeDefault        = 0xFFFFFF,
+    SMLogTypeCmd            = 1 << 1,
+    SMLogTypeFile           = 2 << 1,
+    SMLogTypeFilePath       = 3 << 1
+};
+
 @interface SMLogSys : NSObject
+
++ (void)log:(NSString *)log fcName:(NSString *)fcName;
++ (void)log:(NSString *)log fcName:(NSString *)fcName type:(SMLogType)type;
 
 @end
