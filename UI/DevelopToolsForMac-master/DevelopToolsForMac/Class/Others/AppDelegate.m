@@ -105,10 +105,7 @@
 }
 
 - (int)indexOfSearchText:(NSString *)searchText inArray:(NSArray *)array {
-    NSString * search1 = [[searchText stringInitial] stringTrimSpace];
-    NSString * search2 = [[searchText stringInitial] stringTrimSpace];
     for (NSString * item in array) {
-        NSString * searchList = [[item stringInitial] stringTrimSpace];
         // 智能匹配
         if ([item containsIntelligentString:searchText]) {
             return (int)[array indexOfObject:item];

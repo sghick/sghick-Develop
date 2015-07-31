@@ -27,7 +27,7 @@
     
 #if __OUT_FILE__
     if (type & SMLogTypeFile) {
-        NSString *fileDoc = ;
+        NSString *fileDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         [self outputFileLog:log fcName:(NSString *)fcName fileDoc:fileDoc];
     }
 #endif
@@ -51,12 +51,14 @@
     NSDate *date = [NSDate date];
     NSString *logDate = SMDateToString(date, @"yyyy-MM-dd hh:mm:ss.SSSS");
     NSString *content = SMToString(@"%@ %@%@:%@", logDate, SMLogHeader, fcName, log);
-    NSString *fileName = SMDateToString(date, @"yyyyMMdd");
+    NSString *fileName = [SMDateToString(date, @"yyyyMMdd") stringByAppendingPathExtension:@"log"];
     NSString *filePath = [fileDoc stringByAppendingPathComponent:fileName];
     NSString *oldLog = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    NSString *newLog = [oldLog stringByAppendingFormat:@"\n%@", content];
+    NSString *newLog = content;
+    if (oldLog) {
+        newLog = [oldLog stringByAppendingFormat:@"\n%@", content];
+    }
     [newLog writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
-
 
 @end
