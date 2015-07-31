@@ -1,0 +1,9 @@
+{
+	"gymActiveId": "健身活动ID",
+	"gymActiveName": "健身活动名称",
+	"detail": "详细介绍",
+	"activeIcon": "活动介绍图片",
+	"gymId": "健身场馆ID",
+	"ActiveStartTime": "活动开始时间",
+	"ActiveEndTime": "活动结束时间"
+}
