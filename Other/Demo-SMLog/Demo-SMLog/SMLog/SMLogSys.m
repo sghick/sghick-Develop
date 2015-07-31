@@ -54,9 +54,13 @@
     NSString *fileName = [SMDateToString(date, @"yyyyMMdd") stringByAppendingPathExtension:@"log"];
     NSString *filePath = [fileDoc stringByAppendingPathComponent:fileName];
     NSString *oldLog = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    NSString *newLog = content;
+    NSString *newLog = nil;
     if (oldLog) {
         newLog = [oldLog stringByAppendingFormat:@"\n%@", content];
+    } else {
+        newLog = content;
+        NSFileManager *manager = [[NSFileManager alloc] init];
+        [manager createDirectoryAtPath:fileDoc withIntermediateDirectories:YES attributes:nil error:nil];
     }
     [newLog writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }

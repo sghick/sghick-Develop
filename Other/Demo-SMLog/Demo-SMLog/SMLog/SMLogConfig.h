@@ -19,12 +19,12 @@
 
 // 输出到控制台
 #define __OUT_CMD__             (__ON__)
-// 输出到文件（在沙盒/Debug/SMLog/）
+// 输出到文件（在沙盒/Documents/SMLog/）
 #define __OUT_FILE__            (__ON__)
 // 输出到指定路径（真机调试下失效）
 #define __OUT_FILE_PATH__       (__ON__)
 // 输出路径
-#define __PATH_FOR_OUT_FILE__   @"~/SMLog/Demo-SMLog/"
+#define __PATH_FOR_OUT_FILE__   @"/Users/Shared/SMLog/"
 
 #define SMLogHeader             @""
 #define SMFunctionName          (SMToString(@"%s", __PRETTY_FUNCTION__))
