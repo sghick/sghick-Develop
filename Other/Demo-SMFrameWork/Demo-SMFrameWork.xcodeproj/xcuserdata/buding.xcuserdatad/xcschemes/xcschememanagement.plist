@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SMFrameWork.xcscheme</key>
+		<key>Demo-SMFrameWork.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>57EF9F921B6B1D9E009A4D50</key>
+		<key>57FCC6701B6F0AA90024FCA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>57EF9F9D1B6B1D9F009A4D50</key>
+		<key>57FCC6891B6F0AA90024FCA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "57EF9F921B6B1D9E009A4D50"
-               BuildableName = "libSMFrameWork.a"
-               BlueprintName = "SMFrameWork"
-               ReferencedContainer = "container:SMFrameWork.xcodeproj">
+               BlueprintIdentifier = "57FCC6701B6F0AA90024FCA2"
+               BuildableName = "Demo-SMFrameWork.app"
+               BlueprintName = "Demo-SMFrameWork"
+               ReferencedContainer = "container:Demo-SMFrameWork.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "57EF9F9D1B6B1D9F009A4D50"
-               BuildableName = "SMFrameWorkTests.xctest"
-               BlueprintName = "SMFrameWorkTests"
-               ReferencedContainer = "container:SMFrameWork.xcodeproj">
+               BlueprintIdentifier = "57FCC6891B6F0AA90024FCA2"
+               BuildableName = "Demo-SMFrameWorkTests.xctest"
+               BlueprintName = "Demo-SMFrameWorkTests"
+               ReferencedContainer = "container:Demo-SMFrameWork.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,20 +46,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "57EF9F9D1B6B1D9F009A4D50"
-               BuildableName = "SMFrameWorkTests.xctest"
-               BlueprintName = "SMFrameWorkTests"
-               ReferencedContainer = "container:SMFrameWork.xcodeproj">
+               BlueprintIdentifier = "57FCC6891B6F0AA90024FCA2"
+               BuildableName = "Demo-SMFrameWorkTests.xctest"
+               BlueprintName = "Demo-SMFrameWorkTests"
+               ReferencedContainer = "container:Demo-SMFrameWork.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "57EF9F921B6B1D9E009A4D50"
-            BuildableName = "libSMFrameWork.a"
-            BlueprintName = "SMFrameWork"
-            ReferencedContainer = "container:SMFrameWork.xcodeproj">
+            BlueprintIdentifier = "57FCC6701B6F0AA90024FCA2"
+            BuildableName = "Demo-SMFrameWork.app"
+            BlueprintName = "Demo-SMFrameWork"
+            ReferencedContainer = "container:Demo-SMFrameWork.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -72,15 +72,16 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "57EF9F921B6B1D9E009A4D50"
-            BuildableName = "libSMFrameWork.a"
-            BlueprintName = "SMFrameWork"
-            ReferencedContainer = "container:SMFrameWork.xcodeproj">
+            BlueprintIdentifier = "57FCC6701B6F0AA90024FCA2"
+            BuildableName = "Demo-SMFrameWork.app"
+            BlueprintName = "Demo-SMFrameWork"
+            ReferencedContainer = "container:Demo-SMFrameWork.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -90,15 +91,16 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "57EF9F921B6B1D9E009A4D50"
-            BuildableName = "libSMFrameWork.a"
-            BlueprintName = "SMFrameWork"
-            ReferencedContainer = "container:SMFrameWork.xcodeproj">
+            BlueprintIdentifier = "57FCC6701B6F0AA90024FCA2"
+            BuildableName = "Demo-SMFrameWork.app"
+            BlueprintName = "Demo-SMFrameWork"
+            ReferencedContainer = "container:Demo-SMFrameWork.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
