@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SGKMainTableViewController : UITableViewController
+@interface SGKMainTableViewController : UIViewController
 
 @end

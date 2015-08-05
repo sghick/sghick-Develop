@@ -13,64 +13,65 @@
 #import "SGKExampleModel.h"
 #import "SGKSectionStateModel.h"
 
-@interface SGKMainTableViewController ()
+static NSString *identifier = @"cell";
 
-@property (strong, nonatomic) NSArray * dataSource;
-@property (strong, nonatomic) NSMutableArray * sectionState;
+@interface SGKMainTableViewController () <
+UITableViewDataSource,
+UITableViewDelegate >
+
+@property (strong, nonatomic) UITableView *tableView;
+
+@property (strong, nonatomic) NSArray *dataSource;
+@property (strong, nonatomic) NSArray *sections;
 
 @end
 
 @implementation SGKMainTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        NSDictionary * jsonDict = [SGKJsonManager dictionaryWithFileName:@"example_categories"];
-        NSArray * arr = [SGKCategoryModel arrayWithDictionary:jsonDict classNamesMapper:@{@"SGKCategoryModel": @"categories", @"SGKExampleModel": @"examples"}];
-        _dataSource = arr;
-        
-        NSMutableArray * mSectionState = [[NSMutableArray alloc] initWithCapacity:0];
-        for (int i = 0; i < arr.count; i++) {
-            SGKSectionStateModel * sectionState = [[SGKSectionStateModel alloc] init];
-            [mSectionState addObject:sectionState];
-        }
-        _sectionState = mSectionState;
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Demo索引";
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:identifier];
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    
+    [self setExtraCellLineHidden];
+    
+    NSDictionary * jsonDict = [SGKJsonManager dictionaryWithFileName:@"example_categories"];
+    NSArray * arr = [SGKCategoryModel arrayWithDictionary:jsonDict classNamesMapper:@{@"SGKCategoryModel": @"categories", @"SGKExampleModel": @"examples"}];
+    self.dataSource = arr;
+    
+    NSMutableArray * sections = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < arr.count; i++) {
+        SGKSectionStateModel * sectionState = [[SGKSectionStateModel alloc] init];
+        [sections addObject:sectionState];
+    }
+    self.sections = sections;
+
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return _dataSource.count;
+#pragma mark - UITableViewDataSource, UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.dataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     SGKCategoryModel * cate = [_dataSource objectAtIndex:section];
-    SGKSectionStateModel * sectionState = [_sectionState objectAtIndex:section];
+    SGKSectionStateModel * sectionState = [self.sections objectAtIndex:section];
     if (!sectionState.isOpen) {
         return 0;
     }
     return cate.examples.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString * identifier = @"cell";
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-    }
     
-    SGKCategoryModel * cate = [_dataSource objectAtIndex:indexPath.section];
+    SGKCategoryModel * cate = [self.dataSource objectAtIndex:indexPath.section];
     SGKExampleModel * example = [[cate examples] objectAtIndex:indexPath.row];
     
     cell.textLabel.text = example.title;
@@ -79,8 +80,12 @@
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    SGKCategoryModel * cate = [_dataSource objectAtIndex:section];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    SGKCategoryModel * cate = [self.dataSource objectAtIndex:section];
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn setTag:section];
     [btn setBackgroundColor:[UIColor grayColor]];
@@ -90,9 +95,13 @@
     return btn;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 44.0f;
+}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SGKCategoryModel * cate = [_dataSource objectAtIndex:indexPath.section];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SGKCategoryModel * cate = [self.dataSource objectAtIndex:indexPath.section];
     SGKExampleModel * example = [[cate examples] objectAtIndex:indexPath.row];
     Class controllerClass = NSClassFromString(example.className);
     UIViewController * subVC = [[controllerClass alloc] init];
@@ -101,16 +110,36 @@
 }
 
 #pragma mark - action
-- (void)headerAction:(UIButton *)btn{
+- (void)headerAction:(UIButton *)btn {
     NSInteger section = btn.tag;
     [self showCellsForSction:section animations:YES];
-    [self.tableView reloadData];
 }
 
 #pragma mark - operation
-- (void)showCellsForSction:(NSInteger)section animations:(BOOL)animations{
-    SGKSectionStateModel * sectionState = [_sectionState objectAtIndex:section];
+- (void)showCellsForSction:(NSInteger)section animations:(BOOL)animations {
+    SGKSectionStateModel *sectionState = [self.sections objectAtIndex:section];
     sectionState.isOpen = !sectionState.isOpen;
+    
+    SGKCategoryModel * cate = [self.dataSource objectAtIndex:section];
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < cate.examples.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:section];
+        [indexPaths addObject:indexPath];
+    }
+    
+    [self.tableView beginUpdates];
+    if (sectionState.isOpen) {
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
+    [self.tableView endUpdates];
+}
+
+- (void)setExtraCellLineHidden{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor clearColor];
+    [self.tableView setTableFooterView:view];
 }
 
 @end
