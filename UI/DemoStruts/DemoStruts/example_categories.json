@@ -27,6 +27,10 @@
                              {
                              "title": "集合视图",
                              "className": "SGKCollectionViewController"
+                             },
+                             {
+                             "title": "动画",
+                             "className": "SGKAnimationViewController"
                              }
                              ]
                 },

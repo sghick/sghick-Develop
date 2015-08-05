@@ -103,6 +103,7 @@ UITableViewDelegate >
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SGKCategoryModel * cate = [self.dataSource objectAtIndex:indexPath.section];
     SGKExampleModel * example = [[cate examples] objectAtIndex:indexPath.row];
+    NSLog(@"%@ didSelected", example.className);
     Class controllerClass = NSClassFromString(example.className);
     UIViewController * subVC = [[controllerClass alloc] init];
     [subVC.navigationItem setTitle:example.title];
@@ -129,9 +130,9 @@ UITableViewDelegate >
     
     [self.tableView beginUpdates];
     if (sectionState.isOpen) {
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
     } else {
-        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
     }
     [self.tableView endUpdates];
 }

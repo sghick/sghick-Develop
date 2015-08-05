@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5769339E1B71D7C8005ADAFF /* SGKAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5769339D1B71D7C8005ADAFF /* SGKAnimationViewController.m */; };
 		FE4CE26A1A56536900497804 /* SGKBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4CE2691A56536900497804 /* SGKBaseModel.m */; };
 		FE4CE2711A56587D00497804 /* example_categories.json in Resources */ = {isa = PBXBuildFile; fileRef = FE4CE2701A56587D00497804 /* example_categories.json */; };
 		FE4CE2741A565A4D00497804 /* SGKJsonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4CE2731A565A4D00497804 /* SGKJsonManager.m */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5769339C1B71D7C8005ADAFF /* SGKAnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGKAnimationViewController.h; sourceTree = "<group>"; };
+		5769339D1B71D7C8005ADAFF /* SGKAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGKAnimationViewController.m; sourceTree = "<group>"; };
 		FE4CE2681A56536900497804 /* SGKBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGKBaseModel.h; sourceTree = "<group>"; };
 		FE4CE2691A56536900497804 /* SGKBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGKBaseModel.m; sourceTree = "<group>"; };
 		FE4CE26F1A56552600497804 /* SGKSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGKSettings.h; sourceTree = "<group>"; };
@@ -139,6 +142,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5769339B1B71D757005ADAFF /* 动画 */ = {
+			isa = PBXGroup;
+			children = (
+				5769339C1B71D7C8005ADAFF /* SGKAnimationViewController.h */,
+				5769339D1B71D7C8005ADAFF /* SGKAnimationViewController.m */,
+			);
+			path = "动画";
+			sourceTree = "<group>";
+		};
 		FE27695B1A7C76AD0096B128 /* 工具类 */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +289,7 @@
 		FEA0A4941A5D238600991D4A /* 画面类 */ = {
 			isa = PBXGroup;
 			children = (
+				5769339B1B71D757005ADAFF /* 动画 */,
 				FEBBA3841A6369C50002F1CB /* 集合视图 */,
 				FEBBA3611A6368CB0002F1CB /* 倒影 */,
 			);
@@ -550,6 +563,7 @@
 				FEBBA3641A6368CB0002F1CB /* SGKReflectionViewController.m in Sources */,
 				FE6894C31A551C86001B3EAD /* SGKMainTableViewController.m in Sources */,
 				FE6894BF1A551A0F001B3EAD /* SGKAppDelegate.m in Sources */,
+				5769339E1B71D7C8005ADAFF /* SGKAnimationViewController.m in Sources */,
 				FEA7DA101A6E026500FF9A7A /* NSString+MD5Addition.m in Sources */,
 				FEBBA3601A6368960002F1CB /* SGKSampleViewController.m in Sources */,
 				FEBBA37F1A63691D0002F1CB /* SGKLocalNotificationViewController.m in Sources */,
