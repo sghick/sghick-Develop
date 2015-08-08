@@ -38,8 +38,8 @@
 /**
  *  返回一个初始化之后的请求
  *
- *  @return 一个初始化之后的请求
+ *  @param url              可空
  */
-- (SMUrlRequest *)smUrlRequest;
+- (SMUrlRequest *)smUrlRequestWithUrl:(NSURL *)url ;
 
 @end

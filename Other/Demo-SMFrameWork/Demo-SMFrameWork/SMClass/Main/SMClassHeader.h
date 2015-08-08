@@ -10,8 +10,17 @@
 #define Demo_SMFrameWork_SMClassHeader_h
 
 #warning 所有的Class中的共通头文件，都应该定义在这里
+// BaseClass
+#import "SMBaseClassHeader.h"
+
 // Uitl
 #import "ConstHeader.h"
 #import "WordsHeader.h"
+
+// Cate
+// Bll
+// Dal
+// Model
+// Third
 
 #endif

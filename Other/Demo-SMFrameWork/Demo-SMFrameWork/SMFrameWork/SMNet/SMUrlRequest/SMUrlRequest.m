@@ -83,6 +83,16 @@
     }
 }
 
+- (void)clearResponse {
+    _responseData = nil;
+    _responseDictionary = nil;
+    _responseErrorCode = nil;
+    _responseErrorMsg = nil;
+    _responseObject = nil;
+    _responseString = nil;
+    _responseParserObject = nil;
+}
+
 /**
  *  调试方法
  */
@@ -90,6 +100,7 @@
     return [NSString stringWithFormat:@"key:%@ url:%@", self.key, self.urlString];
 }
 
+#pragma mark - getter/setter
 - (NSData *)responseData{
     if (_responseData) {
         // 什么也不做
@@ -148,16 +159,6 @@
         _responseParserObject = [SMModel arrayWithDictionary:self.responseDictionary classNamesMapper:self.parserMapper];
     }
     return _responseParserObject;
-}
-
-- (void)clearResponse {
-    _responseData = nil;
-    _responseDictionary = nil;
-    _responseErrorCode = nil;
-    _responseErrorMsg = nil;
-    _responseObject = nil;
-    _responseString = nil;
-    _responseParserObject = nil;
 }
 
 @end

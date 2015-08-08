@@ -27,8 +27,8 @@
     _faildSelector = faildSelector;
 }
 
-- (SMUrlRequest *)smUrlRequest {
-    SMUrlRequest * request = [[SMUrlRequest alloc] init];
+- (SMUrlRequest *)smUrlRequestWithUrl:(NSURL *)url {
+    SMUrlRequest * request = [[SMUrlRequest alloc] initWithURL:url];
     request.delegate = _delegate;
     request.finishedSelector = _finishedSelector;
     request.faildSelector = _faildSelector;

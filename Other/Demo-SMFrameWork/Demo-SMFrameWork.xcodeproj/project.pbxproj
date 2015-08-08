@@ -45,6 +45,17 @@
 		FEF4C3FD1B75B7A800B3CD9F /* SMNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C3FC1B75B7A800B3CD9F /* SMNetManager.m */; };
 		FEF4C4001B75BD8300B3CD9F /* SMUrlRequest+SM.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C3FF1B75BD8300B3CD9F /* SMUrlRequest+SM.m */; };
 		FEF4C4041B75C2BA00B3CD9F /* SMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C4031B75C2BA00B3CD9F /* SMAPI.m */; };
+		FEF4C40D1B75CC8D00B3CD9F /* SampleDal.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C40C1B75CC8D00B3CD9F /* SampleDal.m */; };
+		FEF4C4101B75CCB400B3CD9F /* SampleBll.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C40F1B75CCB400B3CD9F /* SampleBll.m */; };
+		FEF4C4131B75CD2B00B3CD9F /* SampleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C4121B75CD2B00B3CD9F /* SampleAPI.m */; };
+		FEF4C4341B75CE1800B3CD9F /* SMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C4291B75CE1800B3CD9F /* SMLabel.m */; };
+		FEF4C4351B75CE1800B3CD9F /* SMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C42B1B75CE1800B3CD9F /* SMNavigationController.m */; };
+		FEF4C4361B75CE1800B3CD9F /* SMTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C42D1B75CE1800B3CD9F /* SMTableView.m */; };
+		FEF4C4371B75CE1800B3CD9F /* SMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C42F1B75CE1800B3CD9F /* SMTextField.m */; };
+		FEF4C4391B75CE1800B3CD9F /* SMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C4331B75CE1800B3CD9F /* SMViewController.m */; };
+		FEF4C43E1B75D01C00B3CD9F /* SMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C43D1B75D01C00B3CD9F /* SMButton.m */; };
+		FEF4C4421B75D21800B3CD9F /* SMDal.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C4411B75D21800B3CD9F /* SMDal.m */; };
+		FEF4C4451B75D22500B3CD9F /* SMBll.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C4441B75D22500B3CD9F /* SMBll.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +158,30 @@
 		FEF4C3FF1B75BD8300B3CD9F /* SMUrlRequest+SM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMUrlRequest+SM.m"; sourceTree = "<group>"; };
 		FEF4C4021B75C2BA00B3CD9F /* SMAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAPI.h; sourceTree = "<group>"; };
 		FEF4C4031B75C2BA00B3CD9F /* SMAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAPI.m; sourceTree = "<group>"; };
+		FEF4C40A1B75C97F00B3CD9F /* APIHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIHeader.h; sourceTree = "<group>"; };
+		FEF4C40B1B75CC8D00B3CD9F /* SampleDal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleDal.h; sourceTree = "<group>"; };
+		FEF4C40C1B75CC8D00B3CD9F /* SampleDal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleDal.m; sourceTree = "<group>"; };
+		FEF4C40E1B75CCB400B3CD9F /* SampleBll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleBll.h; sourceTree = "<group>"; };
+		FEF4C40F1B75CCB400B3CD9F /* SampleBll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleBll.m; sourceTree = "<group>"; };
+		FEF4C4111B75CD2B00B3CD9F /* SampleAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAPI.h; sourceTree = "<group>"; };
+		FEF4C4121B75CD2B00B3CD9F /* SampleAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAPI.m; sourceTree = "<group>"; };
+		FEF4C4281B75CE1800B3CD9F /* SMLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLabel.h; sourceTree = "<group>"; };
+		FEF4C4291B75CE1800B3CD9F /* SMLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMLabel.m; sourceTree = "<group>"; };
+		FEF4C42A1B75CE1800B3CD9F /* SMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNavigationController.h; sourceTree = "<group>"; };
+		FEF4C42B1B75CE1800B3CD9F /* SMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNavigationController.m; sourceTree = "<group>"; };
+		FEF4C42C1B75CE1800B3CD9F /* SMTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTableView.h; sourceTree = "<group>"; };
+		FEF4C42D1B75CE1800B3CD9F /* SMTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTableView.m; sourceTree = "<group>"; };
+		FEF4C42E1B75CE1800B3CD9F /* SMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTextField.h; sourceTree = "<group>"; };
+		FEF4C42F1B75CE1800B3CD9F /* SMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTextField.m; sourceTree = "<group>"; };
+		FEF4C4321B75CE1800B3CD9F /* SMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMViewController.h; sourceTree = "<group>"; };
+		FEF4C4331B75CE1800B3CD9F /* SMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMViewController.m; sourceTree = "<group>"; };
+		FEF4C43B1B75CE5E00B3CD9F /* SMBaseClassHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMBaseClassHeader.h; sourceTree = "<group>"; };
+		FEF4C43C1B75D01C00B3CD9F /* SMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMButton.h; sourceTree = "<group>"; };
+		FEF4C43D1B75D01C00B3CD9F /* SMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMButton.m; sourceTree = "<group>"; };
+		FEF4C4401B75D21800B3CD9F /* SMDal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDal.h; sourceTree = "<group>"; };
+		FEF4C4411B75D21800B3CD9F /* SMDal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDal.m; sourceTree = "<group>"; };
+		FEF4C4431B75D22500B3CD9F /* SMBll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBll.h; sourceTree = "<group>"; };
+		FEF4C4441B75D22500B3CD9F /* SMBll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBll.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,8 +278,8 @@
 			isa = PBXGroup;
 			children = (
 				FEF4C4061B75C5D600B3CD9F /* BaseClass */,
-				FEF4C31F1B75A2F200B3CD9F /* Main */,
 				FEF4C3101B75A2CF00B3CD9F /* Cate */,
+				FEF4C31F1B75A2F200B3CD9F /* Main */,
 				FEF4C30F1B75A2CF00B3CD9F /* Bll */,
 				FEF4C3111B75A2CF00B3CD9F /* Dal */,
 				FEF4C3121B75A2CF00B3CD9F /* Data */,
@@ -259,6 +294,8 @@
 		FEF4C30F1B75A2CF00B3CD9F /* Bll */ = {
 			isa = PBXGroup;
 			children = (
+				FEF4C40E1B75CCB400B3CD9F /* SampleBll.h */,
+				FEF4C40F1B75CCB400B3CD9F /* SampleBll.m */,
 			);
 			path = Bll;
 			sourceTree = "<group>";
@@ -273,6 +310,10 @@
 		FEF4C3111B75A2CF00B3CD9F /* Dal */ = {
 			isa = PBXGroup;
 			children = (
+				FEF4C4111B75CD2B00B3CD9F /* SampleAPI.h */,
+				FEF4C4121B75CD2B00B3CD9F /* SampleAPI.m */,
+				FEF4C40B1B75CC8D00B3CD9F /* SampleDal.h */,
+				FEF4C40C1B75CC8D00B3CD9F /* SampleDal.m */,
 			);
 			path = Dal;
 			sourceTree = "<group>";
@@ -374,6 +415,7 @@
 			children = (
 				FEF4C35E1B75B10900B3CD9F /* ConstHeader.h */,
 				FEF4C35F1B75B10900B3CD9F /* WordsHeader.h */,
+				FEF4C40A1B75C97F00B3CD9F /* APIHeader.h */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -562,8 +604,49 @@
 		FEF4C4061B75C5D600B3CD9F /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
+				FEF4C43B1B75CE5E00B3CD9F /* SMBaseClassHeader.h */,
+				FEF4C43F1B75D1FD00B3CD9F /* fromFrameWork */,
+				FEF4C4261B75CE1800B3CD9F /* fromCustom */,
+				FEF4C4271B75CE1800B3CD9F /* fromSystem */,
 			);
 			path = BaseClass;
+			sourceTree = "<group>";
+		};
+		FEF4C4261B75CE1800B3CD9F /* fromCustom */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = fromCustom;
+			sourceTree = "<group>";
+		};
+		FEF4C4271B75CE1800B3CD9F /* fromSystem */ = {
+			isa = PBXGroup;
+			children = (
+				FEF4C4281B75CE1800B3CD9F /* SMLabel.h */,
+				FEF4C4291B75CE1800B3CD9F /* SMLabel.m */,
+				FEF4C42A1B75CE1800B3CD9F /* SMNavigationController.h */,
+				FEF4C42B1B75CE1800B3CD9F /* SMNavigationController.m */,
+				FEF4C42C1B75CE1800B3CD9F /* SMTableView.h */,
+				FEF4C42D1B75CE1800B3CD9F /* SMTableView.m */,
+				FEF4C42E1B75CE1800B3CD9F /* SMTextField.h */,
+				FEF4C42F1B75CE1800B3CD9F /* SMTextField.m */,
+				FEF4C4321B75CE1800B3CD9F /* SMViewController.h */,
+				FEF4C4331B75CE1800B3CD9F /* SMViewController.m */,
+				FEF4C43C1B75D01C00B3CD9F /* SMButton.h */,
+				FEF4C43D1B75D01C00B3CD9F /* SMButton.m */,
+			);
+			path = fromSystem;
+			sourceTree = "<group>";
+		};
+		FEF4C43F1B75D1FD00B3CD9F /* fromFrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				FEF4C4401B75D21800B3CD9F /* SMDal.h */,
+				FEF4C4411B75D21800B3CD9F /* SMDal.m */,
+				FEF4C4431B75D22500B3CD9F /* SMBll.h */,
+				FEF4C4441B75D22500B3CD9F /* SMBll.m */,
+			);
+			path = fromFrameWork;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -667,17 +750,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEF4C4421B75D21800B3CD9F /* SMDal.m in Sources */,
+				FEF4C40D1B75CC8D00B3CD9F /* SampleDal.m in Sources */,
+				FEF4C4361B75CE1800B3CD9F /* SMTableView.m in Sources */,
 				FEF4C3EC1B75B6AB00B3CD9F /* AFURLSessionManager.m in Sources */,
+				FEF4C4451B75D22500B3CD9F /* SMBll.m in Sources */,
+				FEF4C4101B75CCB400B3CD9F /* SampleBll.m in Sources */,
 				FEF4C3F31B75B6AB00B3CD9F /* UIImageView+AFNetworking.m in Sources */,
 				FEF4C3E81B75B6AB00B3CD9F /* AFSecurityPolicy.m in Sources */,
 				FEF4C3561B75A8A600B3CD9F /* NSObject+SM.m in Sources */,
 				FEF4C3571B75A8A600B3CD9F /* NSString+SM.m in Sources */,
 				FEF4C37A1B75B47A00B3CD9F /* SMUrlRequest.m in Sources */,
 				FEF4C3EE1B75B6AB00B3CD9F /* README.md in Sources */,
+				FEF4C4341B75CE1800B3CD9F /* SMLabel.m in Sources */,
 				FEF4C3F51B75B6AB00B3CD9F /* UIRefreshControl+AFNetworking.m in Sources */,
 				FEF4C3F41B75B6AB00B3CD9F /* UIProgressView+AFNetworking.m in Sources */,
 				FEF4C3E41B75B6AB00B3CD9F /* AFHTTPRequestOperation.m in Sources */,
 				FEF4C3591B75A8A600B3CD9F /* UIView+SM.m in Sources */,
+				FEF4C4351B75CE1800B3CD9F /* SMNavigationController.m in Sources */,
 				FEF4C3FD1B75B7A800B3CD9F /* SMNetManager.m in Sources */,
 				FEF4C35B1B75A8A600B3CD9F /* SMModel.m in Sources */,
 				FEF4C3E61B75B6AB00B3CD9F /* AFHTTPSessionManager.m in Sources */,
@@ -685,12 +775,16 @@
 				FEF4C33E1B75A84B00B3CD9F /* SMLogSys.m in Sources */,
 				FEF4C3F11B75B6AB00B3CD9F /* UIAlertView+AFNetworking.m in Sources */,
 				FEF4C3EF1B75B6AB00B3CD9F /* AFNetworkActivityIndicatorManager.m in Sources */,
+				FEF4C4391B75CE1800B3CD9F /* SMViewController.m in Sources */,
 				FEF4C4001B75BD8300B3CD9F /* SMUrlRequest+SM.m in Sources */,
 				FEF4C3F21B75B6AB00B3CD9F /* UIButton+AFNetworking.m in Sources */,
+				FEF4C4371B75CE1800B3CD9F /* SMTextField.m in Sources */,
 				FEF4C3E71B75B6AB00B3CD9F /* AFNetworkReachabilityManager.m in Sources */,
 				FEF4C3EA1B75B6AB00B3CD9F /* AFURLRequestSerialization.m in Sources */,
+				FEF4C43E1B75D01C00B3CD9F /* SMButton.m in Sources */,
 				FEF4C3EB1B75B6AB00B3CD9F /* AFURLResponseSerialization.m in Sources */,
 				FEF4C3F01B75B6AB00B3CD9F /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				FEF4C4131B75CD2B00B3CD9F /* SampleAPI.m in Sources */,
 				FEF4C3F91B75B71900B3CD9F /* SMAFNClient.m in Sources */,
 				FEF4C3261B75A32000B3CD9F /* main.m in Sources */,
 				FEF4C3F61B75B6AB00B3CD9F /* UIWebView+AFNetworking.m in Sources */,

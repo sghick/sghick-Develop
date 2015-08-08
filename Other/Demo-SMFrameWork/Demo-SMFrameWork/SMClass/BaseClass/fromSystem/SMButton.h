@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  SMButton.h
 //  Demo-SMFrameWork
 //
-//  Created by buding on 15/8/3.
+//  Created by 丁治文 on 15/8/8.
 //  Copyright (c) 2015年 buding. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : SMViewController
-
+@interface SMButton : UIButton
 
 @end
-
