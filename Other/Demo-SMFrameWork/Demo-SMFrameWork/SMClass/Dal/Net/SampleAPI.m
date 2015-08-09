@@ -23,8 +23,10 @@
 }
 
 - (SMUrlRequest *)requestPostTestWithParam:(SMModel *)param {
-    SMUrlRequest *request = [self smUrlRequestWithUrl:[NSURL URLWithString:URL_POST_TEST]];
+    SMUrlRequest *request = [self smUrlRequestWithUrl:[NSURL URLWithString:URL_GET_TEST]];
     request.requestMethod = requestMethodPost;
+    [request.parserMapper setObject:@"SMResult" forKey:parserReturnTypeMainModelOfKey];
+    [request.parserMapper setObject:@"SMJoke" forKey:@"detail"];
     [request.paramsDict setDictionary:param.dictionary];
     return request;
 }

@@ -7,7 +7,11 @@
 //
 
 #import "SMUrlRequest.h"
-#import "SMModel.h"
+#import "SMDBManager.h"
+
+@implementation SMCacheDB
+
+@end
 
 @implementation SMUrlRequestParamFile
 
@@ -24,6 +28,10 @@
 
 // 作为userInfo的key
 #define KEY_ASI_HTTP_REQUEST_KEY @"__KEY_ASI_HTTP_REQUEST_KEY__"
+
+@interface SMUrlRequest ()
+
+@end
 
 @implementation SMUrlRequest
 
@@ -91,6 +99,7 @@
     _responseObject = nil;
     _responseString = nil;
     _responseParserObject = nil;
+    _responseParserCacheObject = nil;
 }
 
 /**
@@ -101,6 +110,21 @@
 }
 
 #pragma mark - getter/setter
+- (void)setResponseObject:(id)responseObject {
+    _responseObject = responseObject;
+    if (self.userCache) {
+        SMDBManager *dbm = [[SMDBManager alloc] initWithDBName:@"cache.db"];
+        SMCacheDB *model = [[SMCacheDB alloc] init];
+        model.requestKey = self.key;
+        model.content = self.responseData;
+        model.timeOut = self.timeOut;
+        NSString *sql = @"DELETE tb_cache WHERE requestKey=:requestKey";
+        [dbm deleteTableWithSql:sql, self.key];
+        int count = [dbm insertTable:@"tb_cache" models:@[model]];
+        NSAssert1(count, @"%@ 加入缓存失败", [self class]);
+    }
+}
+
 - (NSData *)responseData{
     if (_responseData) {
         // 什么也不做
@@ -159,6 +183,20 @@
         _responseParserObject = [SMModel arrayWithDictionary:self.responseDictionary classNamesMapper:self.parserMapper];
     }
     return _responseParserObject;
+}
+
+- (id)responseParserCacheObject {
+    if (_responseParserCacheObject) {
+        return _responseParserCacheObject;
+    }
+    SMDBManager *dbm = [[SMDBManager alloc] initWithDBName:@"cache.db"];
+    NSString *sql = @"SELECT * FROM tb_cache WHERE requestKey=:requestKey";
+    NSArray *object = [dbm searchTableWithSqlFillModelClass:[SMCacheDB class] sql:sql, self.key];
+    _responseData = [object firstObject];
+    if (_responseData) {
+        return self.responseParserObject;
+    }
+    return nil;
 }
 
 @end

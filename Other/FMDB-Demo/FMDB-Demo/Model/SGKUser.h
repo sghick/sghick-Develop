@@ -11,8 +11,16 @@
 
 @interface SGKUser : SMModel
 
-@property (strong, nonatomic) NSString *uid;
+@property (assign, nonatomic) NSInteger uid;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *age;
+@property (assign, nonatomic) NSInteger age;
+@property (strong, nonatomic) NSMutableString *mstr;
+@property (strong, nonatomic) NSDictionary *dict;
+@property (strong, nonatomic) NSMutableDictionary *mdict;
+@property (strong, nonatomic) NSData *data;
+@property (strong, nonatomic) NSDate *date;
+@property (assign, nonatomic) BOOL BL;
+@property (assign, nonatomic) bool bbl;
+@property (assign, nonatomic) NSNumber *num;
 
 @end

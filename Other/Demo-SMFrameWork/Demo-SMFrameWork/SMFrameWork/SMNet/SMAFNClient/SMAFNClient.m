@@ -11,7 +11,7 @@
 @implementation SMAFNClient
 
 - (instancetype)init {
-    SMLog(@"%@:本类为单例类，请调用-[SMAFNClient sharedClient]", kLogError);
+    NSAssert2(YES, @"%@:本类为单例类，请调用-[%@ sharedClient]", kLogError, NSStringFromClass([self class]));
     return nil;
 }
 
@@ -19,6 +19,7 @@
     static dispatch_once_t onceToken;
     static SMAFNClient *sharedClient = nil;
     dispatch_once(&onceToken, ^{
+#warning 测试地址
         //测试地址
         NSString *baseApiURL = @"www.baidu.com";
         //初始化客户端
@@ -28,9 +29,9 @@
         //设置网络变化的监控
         [sharedClient.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             sharedClient.status = status;
+            NSString *name = @"未知网络";
             switch (status) {
                 case AFNetworkReachabilityStatusReachableViaWWAN:
-                    SMLog(@"3G网络已连接");
                     break;
                 case AFNetworkReachabilityStatusReachableViaWiFi:
                     SMLog(@"WiFi网络已连接");
@@ -42,12 +43,17 @@
                 default:
                     break;
             }
+            SMLog(@"%@", name);
+            NSDictionary *userInfo = @{
+                                       @"status":[NSNumber numberWithInteger:status],
+                                       @"name":name
+                                       };
+            [SMNotiCenter postNotificationName:SMAFNClientNetStateDidChangeNotification object:nil userInfo:userInfo];
         }];
         [sharedClient.reachabilityManager startMonitoring];
     });
     
-#warning:需要设置 很重要
-    //TODO:需要设置 很重要
+#warning:根据需要设置
     //工程中server.php 对应php版本的服务器端
     
     //    //发送json数据

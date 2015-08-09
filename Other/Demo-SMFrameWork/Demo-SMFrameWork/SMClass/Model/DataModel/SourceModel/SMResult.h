@@ -10,6 +10,7 @@
 
 @interface SMResult : SMModel
 
+@property (strong, nonatomic) NSString *status;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSArray *detail;  /*< SMJoke */
 

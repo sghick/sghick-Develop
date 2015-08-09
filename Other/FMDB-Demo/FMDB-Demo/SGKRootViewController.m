@@ -49,9 +49,9 @@
         return;
     }
     SGKUser *user = [[SGKUser alloc] init];
-    user.uid = uid;
+    user.uid = uid.integerValue;
     user.name = name;
-    user.age = age;
+    user.age = age.integerValue;
     BOOL isSuccess = [self.dao insertUsers:@[user]];
     if (!isSuccess) {
         NSLog(@"插入失败!");
@@ -90,9 +90,9 @@
         return;
     }
     SGKUser *user = [[SGKUser alloc] init];
-    user.uid = uid;
+    user.uid = uid.integerValue;
     user.name = name;
-    user.age = age;
+    user.age = age.integerValue;
     BOOL isSuccess = [self.dao updateUsers:@[user]];
     if (!isSuccess) {
         NSLog(@"更新失败!");
@@ -107,7 +107,7 @@
     NSString *uid = self.uidField.text;
     NSArray *array = nil;
     if (uid && uid.length) {
-        array = [self.dao searchUsersWithUserId:uid];
+        array = [self.dao searchUsersWithUserId:uid.integerValue];
     } else {
         array = [self.dao searchUsers];
     }
@@ -142,7 +142,7 @@
     if (self.dataSource.count > 0) {
         SGKUser * user = [self.dataSource objectAtIndex:indexPath.row];
         cell.textLabel.text = user.name;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@岁", user.age];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%zi岁", user.age];
     }
     
     return cell;
@@ -150,9 +150,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.curUser = [self.dataSource objectAtIndex:indexPath.row];
-    self.uidField.text = self.curUser.uid;
+    self.uidField.text = [NSString stringWithFormat:@"%zi", self.curUser.uid];
     self.nameField.text = self.curUser.name;
-    self.ageField.text = [NSString stringWithFormat:@"%@", self.curUser.age];
+    self.ageField.text = [NSString stringWithFormat:@"%zi", self.curUser.age];
 }
 
 @end

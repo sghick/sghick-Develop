@@ -1,37 +1,55 @@
 //
 //  SMDBManager.m
-//  FMDB-Demo
+//  Demo-SMFrameWork
 //
 //  Created by 丁治文 on 15/8/9.
-//  Copyright (c) 2015年 qianfeng. All rights reserved.
+//  Copyright (c) 2015年 buding. All rights reserved.
 //
 
 #import "SMDBManager.h"
-#import "FMDatabase.h"
+#import "FMDB.h"
 #import <objc/runtime.h>
 #import "SMModel.h"
 
-@interface SMDBManager ()
-
-@property (strong, nonatomic) FMDatabase *db;
-@property (strong, nonatomic) NSString *DBName;
-
-@end
+#define dbTypeMapper @{                 \
+@"T@\"NSString\"":@"TEXT",              \
+@"T@\"NSMutableString\"":@"TEXT",       \
+@"T@\"NSDictionary\"":@"BLOB",          \
+@"T@\"NSMutableDictionary\"":@"BLOB",   \
+@"T@\"NSMutableArray\"":@"BLOB",        \
+@"T@\"NSArray\"":@"BLOB",               \
+@"T@\"NSData\"":@"BLOB",                \
+@"T@\"NSDate\"":@"DATE",                \
+@"T@\"NSNumber\"":@"REAL",              \
+@"T@\"NSValue\"":@"REAL",               \
+@"Tq":@"Integer",                       \
+@"Ti":@"Integer",                       \
+@"Tf":@"FLOAT",                         \
+@"Td":@"DOUBLE",                        \
+@"TB":@"BOOLEAN",                       \
+@"Tb":@"BOOLEAN",                       \
+@"Other":@"BLOB"                        \
+}
 
 @implementation SMDBManager
 
-- (instancetype)initWithDBName:(NSString *)DBName {
+- (instancetype)initWithDBPath:(NSString *)DBPath {
     self = [super init];
     if (self) {
-        NSString *dbName = DBName;
-        if (![dbName hasSuffix:@".db"]) {
-            dbName = [DBName stringByAppendingPathExtension:@"db"];
-        }
-        NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:DBName];
-        FMDatabase *db = [[FMDatabase alloc] initWithPath:dbPath];
-        NSLog(@"dbPath:%@", dbPath);
+        FMDatabase *db = [[FMDatabase alloc] initWithPath:DBPath];
+        NSLog(@"dbPath:%@", DBPath);
         self.db = db;
     }
+    return self;
+}
+
+- (instancetype)initWithDBName:(NSString *)DBName {
+    NSString *dbName = DBName;
+    if (![dbName hasSuffix:@".db"]) {
+        dbName = [DBName stringByAppendingPathExtension:@"db"];
+    }
+    NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:DBName];
+    self = [self initWithDBPath:dbPath];
     return self;
 }
 
@@ -61,18 +79,27 @@
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     NSString *className = NSStringFromClass([modelClass class]);
     NSString *name = (tableName&&tableName.length ? tableName : className);
-    NSMutableString * sqlQuery = [NSMutableString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (", name];
+    NSMutableString *sqlQuery = [NSMutableString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (", name];
     id classM = objc_getClass([className UTF8String]);
     unsigned int outCount, i;
-    objc_property_t * properties = class_copyPropertyList(classM, &outCount);
+    objc_property_t *properties = class_copyPropertyList(classM, &outCount);
     for (i = 0; i < outCount; i++) {
         objc_property_t property = properties[i];
-        NSString * attributeName = [NSString stringWithUTF8String:property_getName(property)];
+        NSString *attributeName = [NSString stringWithUTF8String:property_getName(property)];
+        NSString *attributeString = [NSString stringWithUTF8String:property_getAttributes(property)];
+        NSArray *attributes = [attributeString componentsSeparatedByString:@","];
+        NSString *attributeType = [attributes firstObject];
+        NSString *dbType = dbTypeMapper[attributeType];
+        if (!dbType) {
+            attributeType = @"Other";
+            NSAssert1(YES, @"未知类型:%@, 请完善", attributeType);
+        }
+
         if (i == outCount - 1) {
-            [sqlQuery appendFormat:@"%@ TEXT);", attributeName];
+            [sqlQuery appendFormat:@"%@ %@);", attributeName, dbType];
             break;
         }
-        [sqlQuery appendFormat:@"%@ TEXT, ", attributeName];
+        [sqlQuery appendFormat:@"%@ %@, ", attributeName, dbType];
     }
     BOOL isSuccess = [self.db executeUpdate:sqlQuery];
     NSAssert1(isSuccess, @"创建数据库失败! %@", self.db.lastErrorMessage);
@@ -118,7 +145,7 @@
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass {
     NSString *sql = [self sqlForSearchWithTableName:tableName];
-    NSArray *rtns = [self searchTableWithSql:sql modelClass:modelClass];
+    NSArray *rtns = [self searchTableWithSqlFillModelClass:modelClass sql:sql];
     return rtns;
 }
 
@@ -126,11 +153,23 @@
     if (!sql || !sql.length) {
         return 0;
     }
-    NSArray *sqlComponents = [sql componentsSeparatedByString:@" "];
-    if (sqlComponents.count <= 3) {
-        return 0;
+    
+    NSString *sql1 = [sql stringByReplacingOccurrencesOfString:@"(" withString:@" "];
+    sql1 = [sql1 stringByReplacingOccurrencesOfString:@")" withString:@" "];
+    NSArray *sqlComponents = [sql1 componentsSeparatedByString:@" "];
+    NSString *tableName = nil;
+    BOOL canBreak = NO;
+    for (NSString *str in sqlComponents) {
+        if (str.length && canBreak) {
+            tableName = str;
+            break;
+        }
+        if ([[str uppercaseString] rangeOfString:@"INTO"].length) {
+            canBreak = YES;
+        }
     }
-    NSString *tableName = sqlComponents[2];
+    NSAssert(tableName, @"sql语句错误!");
+    
     if (!models || !models.count) {
         return 0;
     }
@@ -151,7 +190,7 @@
     return count;
 }
 
-- (int)deleteTableWithSql:(NSString *)sql {
+- (int)deleteTableWithSql:(NSString*)sql, ... {
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     BOOL isSuccess = [self.db executeUpdate:sql];
@@ -167,7 +206,32 @@
     return isSuccess;
 }
 
-- (NSArray *)searchTableWithSql:(NSString *)sql modelClass:(id)modelClass {
+#warning 会崩溃，未找到原因 用占位符或者参数名时
+- (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ... {
+    if (!sql || !sql.length) {
+        return 0;
+    }
+    
+    NSString *sql1 = [sql stringByReplacingOccurrencesOfString:@"(" withString:@" "];
+    sql1 = [sql1 stringByReplacingOccurrencesOfString:@")" withString:@" "];
+    NSArray *sqlComponents = [sql1 componentsSeparatedByString:@" "];
+    NSString *tableName = nil;
+    BOOL canBreak = NO;
+    for (NSString *str in sqlComponents) {
+        if (str.length && canBreak) {
+            tableName = str;
+            break;
+        }
+        if ([[str uppercaseString] rangeOfString:@"FROM"].length) {
+            canBreak = YES;
+        }
+    }
+    NSAssert(tableName, @"sql语句错误!");
+    
+    if (![self existTable:tableName]) {
+        [self createTable:tableName modelClass:modelClass];
+    }
+    
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     FMResultSet * set = [self.db executeQuery:sql];

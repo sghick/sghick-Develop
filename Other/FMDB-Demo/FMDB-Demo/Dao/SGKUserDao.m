@@ -22,7 +22,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        SMDBManager *dbm = [[SMDBManager alloc] initWithDBName:@"test.db"];
+        SMDBManager *dbm = [[SMDBManager alloc] initWithDBName:@"testA.db"];
         self.dbm = dbm;
     }
     return self;
@@ -30,7 +30,6 @@
 
 - (int)insertUsers:(NSArray *)users {
     int count = [self.dbm insertTable:@"SGKUser" models:users];
-//    int count = [self.dbm insertTableWithSql:sql_insert_user models:users];
     return count;
 }
 
@@ -39,27 +38,25 @@
     return count;
 }
 
-- (int)deleteUsersWithUid:(NSString *)uid {
-    NSString *sql = [NSString stringWithFormat:sql_delete_user_with_uid, uid];
-    int count = [self.dbm deleteTableWithSql:sql];
+- (int)deleteUsersWithUid:(NSInteger)uid {
+    int count = [self.dbm deleteTableWithSql:sql_delete_user_with_uid, uid];
     return count;
 }
 
 - (int)updateUsers:(NSArray *)users {
     int count = [self.dbm updateTable:@"SGKUser" models:users primaryKeys:@[@"uid"]];
-//    int count = [self.dbm updateTableWithSql:sql_update_user model:[users firstObject]];
     return count;
 }
 
 - (NSArray *)searchUsers {
-//    NSArray *rtns = [self.dbm searchTable:@"SGKUser" modelClass:[SGKUser class]];
-    NSArray *rtns = [self.dbm searchTableWithSql:sql_search_user modelClass:[SGKUser class]];
+    NSArray *rtns = [self.dbm searchTable:@"SGKUser" modelClass:[SGKUser class]];
     return rtns;
 }
 
-- (NSArray *)searchUsersWithUserId:(NSString *)uid {
-    NSString *sql = [NSString stringWithFormat:sql_search_user_with_uid, uid];
-    NSArray *rtns = [self.dbm searchTableWithSql:sql modelClass:[SGKUser class]];
+- (NSArray *)searchUsersWithUserId:(NSInteger)uid {
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM SGKUser WHERE uid=%zi", uid];
+    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql];
+//    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql_search_user_with_uid, uid];
     return rtns;
 }
 

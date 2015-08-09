@@ -14,6 +14,7 @@
 #import "SMBaseClassHeader.h"
 
 // Uitl
+#import "FastUserHeader.h"
 #import "ConstHeader.h"
 #import "WordsHeader.h"
 

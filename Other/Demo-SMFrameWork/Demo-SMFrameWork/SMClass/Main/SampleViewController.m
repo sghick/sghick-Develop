@@ -25,6 +25,7 @@ UITableViewDelegate
 @property (strong, nonatomic) SMButton *testFileBtn;
 @property (strong, nonatomic) SMButton *testDBBtn;
 @property (strong, nonatomic) SMButton *testJsonBtn;
+@property (strong, nonatomic) SMButton *testClearBtn;
 
 @property (strong, nonatomic) SMTableView *tableView;
 @property (strong, nonatomic) NSArray * dataSource;
@@ -72,6 +73,12 @@ static NSString *identifier = @"identifier";
     [self.view addSubview:testJsonBtn];
     self.testJsonBtn = testJsonBtn;
     
+    SMButton *testClearBtn = [SMButton buttonWithType:UIButtonTypeSystem];
+    [testClearBtn addTarget:self action:@selector(testClearBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [testClearBtn setTitle:@"Clear" forState:UIControlStateNormal];
+    [self.view addSubview:testClearBtn];
+    self.testClearBtn = testClearBtn;
+    
     SMTableView *tableView = [[SMTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     tableView.dataSource = self;
     tableView.delegate = self;
@@ -85,12 +92,12 @@ static NSString *identifier = @"identifier";
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     // 自动布局
-    NSDictionary * views = NSDictionaryOfVariableBindings(_testGetBtn, _testPostBtn, _testFileBtn, _testDBBtn, _testJsonBtn, _tableView);
+    NSDictionary * views = NSDictionaryOfVariableBindings(_testGetBtn, _testPostBtn, _testFileBtn, _testDBBtn, _testJsonBtn, _testClearBtn, _tableView);
     [UIView setTranslatesAutoresizingMaskIntoConstraintsWithViews:views flag:NO];
-    NSDictionary * metrics = @{@"width":[NSNumber numberWithFloat:(SMScreenWidth - 20*SMWidthScale)/5], @"margin":@"10"};
+    NSDictionary * metrics = @{@"width":[NSNumber numberWithFloat:(SMScreenWidth - 20*SMWidthScale)/6], @"margin":@"10"};
     
     // 横向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_testGetBtn(width)][_testPostBtn(width)][_testFileBtn(width)][_testDBBtn(width)][_testJsonBtn(width)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_testGetBtn(width)][_testPostBtn(width)][_testFileBtn(width)][_testDBBtn(width)][_testJsonBtn(width)][_testClearBtn(width)]"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:metrics
                                                                         views:views]];
@@ -127,6 +134,11 @@ static NSString *identifier = @"identifier";
     
 }
 
+- (void)testClearBtnAction:(UIButton *)sender {
+    self.dataSource = nil;
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
@@ -145,7 +157,7 @@ static NSString *identifier = @"identifier";
 
 #pragma mark - bll delegate
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode {
-    
+    SMLog(@"%@,%@", kLogError, errorCode);
 }
 
 - (void)respondsGetTestData:(NSArray *)array {
@@ -154,11 +166,13 @@ static NSString *identifier = @"identifier";
 }
 
 - (void)respondsPostTestData:(NSArray *)array {
-    
+    self.dataSource = array;
+    [self.tableView reloadData];
 }
 
 - (void)respondsFileTestData:(NSArray *)array {
-    
+    self.dataSource = array;
+    [self.tableView reloadData];
 }
 
 @end

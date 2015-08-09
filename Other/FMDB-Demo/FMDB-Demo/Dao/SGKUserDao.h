@@ -13,9 +13,9 @@
 
 - (int)insertUsers:(NSArray *)users;
 - (int)deleteUsers;
-- (int)deleteUsersWithUid:(NSString *)uid;
+- (int)deleteUsersWithUid:(NSInteger)uid;
 - (int)updateUsers:(NSArray *)users;
 - (NSArray *)searchUsers;
-- (NSArray *)searchUsersWithUserId:(NSString *)uid;
+- (NSArray *)searchUsersWithUserId:(NSInteger)uid;
 
 @end

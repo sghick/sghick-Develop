@@ -1,9 +1,9 @@
 //
 //  SMDBManager.h
-//  FMDB-Demo
+//  Demo-SMFrameWork
 //
 //  Created by 丁治文 on 15/8/9.
-//  Copyright (c) 2015年 qianfeng. All rights reserved.
+//  Copyright (c) 2015年 buding. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,6 +12,10 @@
 @class SMModel;
 @interface SMDBManager : NSObject
 
+@property (strong, nonatomic) FMDatabase *db;
+@property (strong, nonatomic) NSString *DBName;
+
+- (instancetype)initWithDBPath:(NSString *)DBPath;
 - (instancetype)initWithDBName:(NSString *)DBName;
 
 - (BOOL)existTable:(NSString *)tableName;
@@ -24,8 +28,8 @@
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass;
 
 - (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models;
-- (int)deleteTableWithSql:(NSString *)sql;
+- (int)deleteTableWithSql:(NSString*)sql, ...;
 - (int)updateTableWithSql:(NSString *)sql model:(SMModel *)model;
-- (NSArray *)searchTableWithSql:(NSString *)sql modelClass:(id)modelClass;
+- (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ...;
 
 @end
