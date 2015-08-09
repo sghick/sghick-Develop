@@ -11,10 +11,14 @@
 #import "SMNetManager.h"
 #import "SMUrlRequest.h"
 #import "SampleAPI.h"
+#import "SampleDAO.h"
+#import "SampleFile.h"
 
 @interface SampleDal ()
 
 @property (strong, nonatomic) SampleAPI *api;
+@property (strong, nonatomic) SampleDAO *dao;
+@property (strong, nonatomic) SampleFile *file;
 
 @end
 

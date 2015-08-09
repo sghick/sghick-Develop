@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "SampleViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +21,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     // 主界面
-    ViewController * rootVC = [[ViewController alloc] init];
+    SampleViewController * rootVC = [[SampleViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:rootVC];
     self.window.rootViewController = nav;
     

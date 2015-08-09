@@ -1,18 +1,18 @@
 //
-//  ViewController.m
+//  SampleViewController.m
 //  Demo-SMFrameWork
 //
-//  Created by buding on 15/8/3.
+//  Created by 丁治文 on 15/8/9.
 //  Copyright (c) 2015年 buding. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SampleViewController.h"
 #import "SampleBll.h"
 #import "SMResult.h"
 #import "SMJoke.h"
 #import "UITableView+SM.h"
 
-@interface ViewController () <
+@interface SampleViewController () <
 SampleBllDelegate,
 UITableViewDataSource,
 UITableViewDelegate
@@ -33,7 +33,7 @@ UITableViewDelegate
 
 static NSString *identifier = @"identifier";
 
-@implementation ViewController
+@implementation SampleViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -101,9 +101,9 @@ static NSString *identifier = @"identifier";
                                                                         views:views]];
     // 纵向1
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[_testGetBtn][_tableView]|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:metrics
-                                                                               views:views]];
+                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                      metrics:metrics
+                                                                        views:views]];
 }
 
 #pragma mark - action
@@ -120,7 +120,7 @@ static NSString *identifier = @"identifier";
 }
 
 - (void)testDBBtnAction:(UIButton *)sender {
-
+    
 }
 
 - (void)testJsonBtnAction:(UIButton *)sender {
@@ -145,7 +145,7 @@ static NSString *identifier = @"identifier";
 
 #pragma mark - bll delegate
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode {
-
+    
 }
 
 - (void)respondsGetTestData:(NSArray *)array {
