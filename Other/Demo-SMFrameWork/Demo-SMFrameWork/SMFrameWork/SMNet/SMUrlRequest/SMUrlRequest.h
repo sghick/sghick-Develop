@@ -9,14 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "SMModel.h"
 
-@interface SMCacheDB : SMModel
-
-@property (strong, nonatomic) NSString *requestKey;
-@property (strong, nonatomic) NSData *content;
-@property (assign, nonatomic) NSTimeInterval timeOut;
-
-@end
-
 @interface SMUrlRequestParamFile : NSObject
 
 @property (strong, nonatomic) NSData *data;
