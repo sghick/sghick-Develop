@@ -9,7 +9,7 @@
 #ifndef Demo_SMFrameWork_APIHeader_h
 #define Demo_SMFrameWork_APIHeader_h
 
-#define URL_GET_TEST    @""
+#define URL_GET_TEST    @"http://api.1-blog.com/biz/bizserver/xiaohua/list.do"
 #define URL_POST_TEST   @""
 #define URL_FILE_TEST   @""
 

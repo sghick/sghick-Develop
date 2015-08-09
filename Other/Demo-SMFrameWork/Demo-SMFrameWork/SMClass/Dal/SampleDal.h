@@ -20,7 +20,7 @@
 @end
 
 @class SMModel;
-@interface SampleDal : SMBll
+@interface SampleDal : SMDal
 
 - (void)requestGetTestDataWithParam:(SMModel *)param;
 - (void)requestPostTestDataWithParam:(SMModel *)param;

@@ -16,18 +16,23 @@
 - (SMUrlRequest *)requestGetTestWithParam:(SMModel *)param {
     SMUrlRequest *request = [self smUrlRequestWithUrl:[NSURL URLWithString:URL_GET_TEST]];
     request.requestMethod = requestMethodGet;
+    [request.paramsDict setDictionary:param.dictionary];
+    [request.parserMapper setObject:@"SMResult" forKey:parserReturnTypeMainModelOfKey];
+    [request.parserMapper setObject:@"SMJoke" forKey:@"detail"];
     return request;
 }
 
 - (SMUrlRequest *)requestPostTestWithParam:(SMModel *)param {
     SMUrlRequest *request = [self smUrlRequestWithUrl:[NSURL URLWithString:URL_POST_TEST]];
     request.requestMethod = requestMethodPost;
+    [request.paramsDict setDictionary:param.dictionary];
     return request;
 }
 
 - (SMUrlRequest *)requestFILETestWithParam:(SMModel *)param {
     SMUrlRequest *request = [self smUrlRequestWithUrl:[NSURL URLWithString:URL_FILE_TEST]];
     request.requestMethod = requestMethodFile;
+    [request.paramsDict setDictionary:param.dictionary];
     return request;
 }
 

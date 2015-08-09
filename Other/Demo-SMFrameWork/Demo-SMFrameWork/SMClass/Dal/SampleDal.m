@@ -66,8 +66,8 @@
 }
 
 - (void)faildAtion:(SMUrlRequest *)request {
-    if ([self.delegate respondsToSelector:@selector(respondsFialdWithUrlRequest:)]) {
-        [self.delegate respondsFialdWithUrlRequest:request];
+    if ([self.delegate respondsToSelector:@selector(respondsFaildWithUrlRequest:)]) {
+        [self.delegate respondsFaildWithUrlRequest:request];
     }
 }
 

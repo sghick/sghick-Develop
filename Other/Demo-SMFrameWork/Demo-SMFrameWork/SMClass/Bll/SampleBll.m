@@ -9,6 +9,8 @@
 #import "SampleBll.h"
 #import "SampleDal.h"
 #import "SMUrlRequest.h"
+#import "SMResult.h"
+#import "SMJoke.h"
 
 @interface SampleBll () <
 SampleDalDelegate
@@ -51,8 +53,10 @@ SampleDalDelegate
 }
 
 - (void)respondsGetWithUrlRequest:(SMUrlRequest *)request {
+    SMResult *result = request.responseParserObject;
+    NSArray *dataSource = result.detail;
     if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
-        [self.delegate respondsGetTestData:request.responseParserObject];
+        [self.delegate respondsGetTestData:dataSource];
     }
 }
 
