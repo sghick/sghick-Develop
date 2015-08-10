@@ -12,7 +12,7 @@
 @implementation SMLogSys
 
 + (void)log:(NSString *)log fcName:(NSString *)fcName {
-    [self log:log fcName:(NSString *)fcName type:SMLogTypeDefault];
+    [self log:log fcName:(NSString *)fcName type:SMLogTypeDefaultDefine];
 }
 
 + (void)log:(NSString *)log fcName:(NSString *)fcName type:(SMLogType)type {
@@ -45,6 +45,7 @@
 + (void)outputCmdLog:(NSString *)log fcName:(NSString *)fcName {
     NSString *content = SMToString(@"%@%@:%@", SMLogHeader, fcName, log);
     NSLog(@"%@", content);
+    content = nil;
 }
 
 + (void)outputFileLog:(NSString *)log fcName:(NSString *)fcName fileDoc:(NSString *)fileDoc{

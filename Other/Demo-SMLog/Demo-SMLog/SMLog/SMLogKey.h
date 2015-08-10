@@ -15,7 +15,5 @@
 #define kLogWarming     @"warming"
 
 // add your key for log here
-#define kLogStatusBarRefreshFrame       @"StatusBarRefreshFrame"
-#define kLogStatusBarSetText            @"StatusBarSetText"
 
 #endif
