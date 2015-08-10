@@ -13,7 +13,7 @@
 		57FCC6911B6F0AA90024FCA2 /* Demo_SMFrameWorkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FCC6901B6F0AA90024FCA2 /* Demo_SMFrameWorkTests.m */; };
 		FE3688501B78F6400088BF00 /* SampleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3688491B78F6400088BF00 /* SampleAPI.m */; };
 		FE3688511B78F6400088BF00 /* SampleDao.m in Sources */ = {isa = PBXBuildFile; fileRef = FE36884C1B78F6400088BF00 /* SampleDao.m */; };
-		FE3688521B78F6400088BF00 /* SampleFile.m in Sources */ = {isa = PBXBuildFile; fileRef = FE36884F1B78F6400088BF00 /* SampleFile.m */; };
+		FE36885D1B7910030088BF00 /* kRequestLocalTestData.dat in Resources */ = {isa = PBXBuildFile; fileRef = FE36885C1B7910030088BF00 /* kRequestLocalTestData.dat */; };
 		FE74906C1B76814800DC1D46 /* AutoSizeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7490691B76814800DC1D46 /* AutoSizeUtil.m */; };
 		FE74906D1B76814800DC1D46 /* UITableViewCell+AutoSize.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74906B1B76814800DC1D46 /* UITableViewCell+AutoSize.m */; };
 		FE7490701B7683C000DC1D46 /* UITableView+SM.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74906F1B7683C000DC1D46 /* UITableView+SM.m */; };
@@ -30,7 +30,6 @@
 		FE7490941B76853300DC1D46 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7490871B76853300DC1D46 /* UIScrollView+MJRefresh.m */; };
 		FE7490951B76853300DC1D46 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7490891B76853300DC1D46 /* UIView+MJExtension.m */; };
 		FE8DA7981B76F866002A296E /* SMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7951B76F866002A296E /* SMAPI.m */; };
-		FE8DA79E1B76F894002A296E /* SMFile.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA79D1B76F894002A296E /* SMFile.m */; };
 		FE8DA7AA1B76FA0C002A296E /* SMDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7A91B76FA0C002A296E /* SMDAO.m */; };
 		FE8DA7B91B76FC36002A296E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7B81B76FC36002A296E /* RootViewController.m */; };
 		FE8DA7BF1B76FD0F002A296E /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7BE1B76FD0F002A296E /* SampleViewController.m */; };
@@ -108,8 +107,7 @@
 		FE3688491B78F6400088BF00 /* SampleAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAPI.m; sourceTree = "<group>"; };
 		FE36884B1B78F6400088BF00 /* SampleDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleDao.h; sourceTree = "<group>"; };
 		FE36884C1B78F6400088BF00 /* SampleDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleDao.m; sourceTree = "<group>"; };
-		FE36884E1B78F6400088BF00 /* SampleFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleFile.h; sourceTree = "<group>"; };
-		FE36884F1B78F6400088BF00 /* SampleFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleFile.m; sourceTree = "<group>"; };
+		FE36885C1B7910030088BF00 /* kRequestLocalTestData.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = kRequestLocalTestData.dat; sourceTree = "<group>"; };
 		FE7490681B76814800DC1D46 /* AutoSizeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoSizeUtil.h; sourceTree = "<group>"; };
 		FE7490691B76814800DC1D46 /* AutoSizeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoSizeUtil.m; sourceTree = "<group>"; };
 		FE74906A1B76814800DC1D46 /* UITableViewCell+AutoSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+AutoSize.h"; sourceTree = "<group>"; };
@@ -142,8 +140,6 @@
 		FE7490891B76853300DC1D46 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		FE8DA7941B76F866002A296E /* SMAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAPI.h; sourceTree = "<group>"; };
 		FE8DA7951B76F866002A296E /* SMAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAPI.m; sourceTree = "<group>"; };
-		FE8DA79C1B76F894002A296E /* SMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFile.h; sourceTree = "<group>"; };
-		FE8DA79D1B76F894002A296E /* SMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFile.m; sourceTree = "<group>"; };
 		FE8DA7A81B76FA0C002A296E /* SMDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDAO.h; sourceTree = "<group>"; };
 		FE8DA7A91B76FA0C002A296E /* SMDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDAO.m; sourceTree = "<group>"; };
 		FE8DA7B71B76FC36002A296E /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -381,13 +377,12 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
-		FE36884D1B78F6400088BF00 /* File */ = {
+		FE3688591B790FC00088BF00 /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				FE36884E1B78F6400088BF00 /* SampleFile.h */,
-				FE36884F1B78F6400088BF00 /* SampleFile.m */,
+				FE36885C1B7910030088BF00 /* kRequestLocalTestData.dat */,
 			);
-			path = File;
+			path = Local;
 			sourceTree = "<group>";
 		};
 		FE7490671B76814800DC1D46 /* CellAutoSize */ = {
@@ -437,7 +432,6 @@
 			children = (
 				FE8DA7931B76F866002A296E /* SMAPI */,
 				FE8DA7961B76F866002A296E /* SMDB */,
-				FE8DA7971B76F866002A296E /* SMFile */,
 			);
 			path = SMDal;
 			sourceTree = "<group>";
@@ -458,15 +452,6 @@
 				FE8DA7A91B76FA0C002A296E /* SMDAO.m */,
 			);
 			path = SMDB;
-			sourceTree = "<group>";
-		};
-		FE8DA7971B76F866002A296E /* SMFile */ = {
-			isa = PBXGroup;
-			children = (
-				FE8DA79C1B76F894002A296E /* SMFile.h */,
-				FE8DA79D1B76F894002A296E /* SMFile.m */,
-			);
-			path = SMFile;
 			sourceTree = "<group>";
 		};
 		FE8DA7B51B76FBDC002A296E /* Class */ = {
@@ -586,7 +571,6 @@
 			children = (
 				FE3688471B78F6400088BF00 /* API */,
 				FE36884A1B78F6400088BF00 /* DB */,
-				FE36884D1B78F6400088BF00 /* File */,
 			);
 			path = Dal;
 			sourceTree = "<group>";
@@ -594,9 +578,8 @@
 		FEF4C3121B75A2CF00B3CD9F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				FE3688591B790FC00088BF00 /* Local */,
 				FEF4C3131B75A2CF00B3CD9F /* DB */,
-				FEF4C3141B75A2CF00B3CD9F /* Json */,
-				FEF4C3151B75A2CF00B3CD9F /* Plsit */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -607,20 +590,6 @@
 				FE8DA8191B7798C9002A296E /* SqlHeader.h */,
 			);
 			path = DB;
-			sourceTree = "<group>";
-		};
-		FEF4C3141B75A2CF00B3CD9F /* Json */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Json;
-			sourceTree = "<group>";
-		};
-		FEF4C3151B75A2CF00B3CD9F /* Plsit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Plsit;
 			sourceTree = "<group>";
 		};
 		FEF4C3161B75A2CF00B3CD9F /* Model */ = {
@@ -968,6 +937,7 @@
 				57FCC6801B6F0AA90024FCA2 /* Main.storyboard in Resources */,
 				57FCC6851B6F0AA90024FCA2 /* LaunchScreen.xib in Resources */,
 				57FCC6821B6F0AA90024FCA2 /* Images.xcassets in Resources */,
+				FE36885D1B7910030088BF00 /* kRequestLocalTestData.dat in Resources */,
 				FE74908A1B76853300DC1D46 /* MJRefresh.bundle in Resources */,
 				FEF4C3ED1B75B6AB00B3CD9F /* LICENSE in Resources */,
 			);
@@ -1002,7 +972,6 @@
 				FE8DA8281B7799E0002A296E /* SMJoke.m in Sources */,
 				FE74908B1B76853300DC1D46 /* MJRefreshComponent.m in Sources */,
 				FEF4C3EE1B75B6AB00B3CD9F /* README.md in Sources */,
-				FE8DA79E1B76F894002A296E /* SMFile.m in Sources */,
 				FEF4C4341B75CE1800B3CD9F /* SMLabel.m in Sources */,
 				FEF4C3F51B75B6AB00B3CD9F /* UIRefreshControl+AFNetworking.m in Sources */,
 				FEF4C3F41B75B6AB00B3CD9F /* UIProgressView+AFNetworking.m in Sources */,
@@ -1055,7 +1024,6 @@
 				FEF4C3581B75A8A600B3CD9F /* UIDevice+SM.m in Sources */,
 				FE8DA8111B7788E1002A296E /* FMDatabase.m in Sources */,
 				FEF4C3E51B75B6AB00B3CD9F /* AFHTTPRequestOperationManager.m in Sources */,
-				FE3688521B78F6400088BF00 /* SampleFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

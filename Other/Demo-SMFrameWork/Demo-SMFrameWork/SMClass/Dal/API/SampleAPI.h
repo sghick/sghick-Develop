@@ -12,9 +12,8 @@
 @interface SampleAPI : SMAPI
 
 - (SMUrlRequest *)requestGetTestWithParam:(SMModel *)param;
-
 - (SMUrlRequest *)requestPostTestWithParam:(SMModel *)param;
-
 - (SMUrlRequest *)requestFILETestWithParam:(SMModel *)param;
+- (SMUrlRequest *)requestLocalTest;
 
 @end

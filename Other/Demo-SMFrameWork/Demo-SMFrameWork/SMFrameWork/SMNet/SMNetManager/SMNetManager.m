@@ -13,23 +13,27 @@
 @implementation SMNetManager
 
 + (void)addRequest:(SMUrlRequest *)request{
-    // 输入检测
-    if (!request) {
-        SMLog(@"%@:request不能为空", kLogWarming);
-        return;
-    }
-    if (!request.URL) {
-        SMLog(@"%@:未设置url", kLogWarming);
-        [request faild];
-        return;
-    }
-    // 拼接baseUrl
     
-    // 统一添加请求参数
-    [SMNetManager fillRequestParams:request];
-    
-    //关键方法
-    [self loadDataFromAFNetWithRequest:request];
+    if (__SM_USE_LOCAL_DATA__ || [request.requestMethod isEqualToString:requestMethodLocal]) {
+        [self loadDataFromLocalFileWithRequest:request];
+        return;
+    } else {
+        // 输入检测
+        if (!request) {
+            SMLog(@"%@:request不能为空", kLogWarming);
+            return;
+        }
+        if (!request.URL) {
+            SMLog(@"%@:未设置url", kLogWarming);
+            [request faild];
+            return;
+        }
+        // 拼接baseUrl
+        
+        // 统一添加请求参数
+        [SMNetManager fillRequestParams:request];
+        [self loadDataFromAFNetWithRequest:request];
+    }
 }
 
 #pragma mark - DataManager
@@ -103,25 +107,24 @@
     }
 }
 
-+ (void)loadDataFromJsonFileWithRequest:(SMUrlRequest *)request{
-    NSString * path = [[NSBundle mainBundle] pathForResource:request.key ofType:@"json"];
++ (void)loadDataFromLocalFileWithRequest:(SMUrlRequest *)request{
+    NSString * path = [[NSBundle mainBundle] pathForResource:request.key ofType:request.requestLocalPathExtension];
     if (path) {
         [request clearResponse];
         NSData * data = [NSData dataWithContentsOfFile:path];
         if (!data) {
-            
-            SMLog(@"Json请求数据为空,程序即将崩溃: %@, %@", request.key, request.urlString);
+            SMLog(@"Local请求数据为空,程序即将崩溃: %@, %@", request.key, request.urlString);
             request.responseErrorCode = @"0";
-            request.responseErrorMsg = @"JSON请求数据为空";
+            request.responseErrorMsg = @"Local请求数据为空";
             [request faild];
             return;
         }
         request.responseObject = data;
-        SMLog(@"Json获取成功: %@", request.key);
+        SMLog(@"Local获取成功: %@", request.key);
         [request finished];
     }
     else{
-        SMLog(@"Json获取失败: %@", request.key);
+        SMLog(@"Local获取失败: %@", request.key);
         [request faild];
     }
 }

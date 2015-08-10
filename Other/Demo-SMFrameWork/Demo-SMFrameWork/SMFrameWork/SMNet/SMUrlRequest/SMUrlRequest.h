@@ -21,9 +21,10 @@
 @end
 
 // 请求方法
-static NSString *requestMethodGet = @"GET";
-static NSString *requestMethodPost = @"POST";
-static NSString *requestMethodFile = @"FILE";
+static NSString *requestMethodGet   = @"GET";
+static NSString *requestMethodPost  = @"POST";
+static NSString *requestMethodFile  = @"FILE";
+static NSString *requestMethodLocal = @"LOCAL";
 
 @interface SMUrlRequest : NSURLRequest
 
@@ -32,6 +33,7 @@ static NSString *requestMethodFile = @"FILE";
 @property (assign, nonatomic) SEL faildSelector;                    /*< 请求失败时 要调用的方法 */
 @property (strong, nonatomic) NSString *key;                        /*< 唯一标识 */
 @property (strong, nonatomic) NSString *requestMethod;              /*< 请求方式,默认为requestMethodGet */
+@property (strong, nonatomic) NSString *requestLocalPathExtension;  /*< 请求方式为requestMethodLocal,文件的扩展名,默认为json */
 @property (strong, readonly, nonatomic) NSString *urlString;        /*< 设置此属性会同时给父类的URL属性赋值，包括schem */
 @property (strong, nonatomic) NSMutableArray *paramsFiles;          /*< 文件-二进制格式 WPUrlRequestParamFile */
 @property (strong, nonatomic) NSMutableDictionary *paramsDict;      /*< 请求参数-POST/FILE请求用 请求用到的参数列表 字典 */

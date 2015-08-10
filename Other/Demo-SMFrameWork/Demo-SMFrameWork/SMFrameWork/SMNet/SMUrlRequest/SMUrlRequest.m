@@ -168,7 +168,6 @@ static NSString *docListStr = @"";
     if (_responseDictionary) {
         [self responseDictionary];
     }
-    
     if (!self.parserMapper.count) {
         return self.responseString;
     }
@@ -183,6 +182,13 @@ static NSString *docListStr = @"";
         _responseParserObject = [SMModel arrayWithDictionary:self.responseDictionary classNamesMapper:self.parserMapper];
     }
     return _responseParserObject;
+}
+
+- (NSString *)requestLocalPathExtension {
+    if (!_requestLocalPathExtension) {
+        _requestLocalPathExtension = @"json";
+    }
+    return _requestLocalPathExtension;
 }
 
 #pragma mark - cache 缓存
