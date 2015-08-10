@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SMDAO.h"
 
-@interface SampleDao : SMDAO
+@interface SampleDao : NSObject
 
 - (int)insertJokes:(NSArray *)jokes;
 - (int)deleteJokes;
