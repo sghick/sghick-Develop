@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "SMModel.h"
 
 @interface SMUrlRequestParamFile : NSObject
 
@@ -31,6 +31,8 @@ static NSString *requestMethodFile = @"FILE";
 @property (assign, nonatomic) SEL finishedSelector;                 /*< 请求成功时 完成时调用的方法(不使用协议的实现方式) */
 @property (assign, nonatomic) SEL faildSelector;                    /*< 请求失败时 要调用的方法 */
 @property (strong, nonatomic) NSString *key;                        /*< 唯一标识 */
+@property (assign, nonatomic) BOOL userCache;                       /*< 自动缓存 */
+@property (assign, nonatomic) NSTimeInterval timeOut;               /*< 自动缓存期限，0为无期限 */
 @property (strong, nonatomic) NSString *requestMethod;              /*< 请求方式,默认为requestMethodGet */
 @property (strong, readonly, nonatomic) NSString *urlString;        /*< 设置此属性会同时给父类的URL属性赋值，包括schem */
 @property (strong, nonatomic) NSMutableArray *paramsFiles;          /*< 文件-二进制格式 WPUrlRequestParamFile */
@@ -45,6 +47,7 @@ static NSString *requestMethodFile = @"FILE";
 @property (strong, nonatomic) NSString *responseString;             /*< 用于保存请求到的数据 */
 @property (strong, nonatomic) NSDictionary *responseDictionary;     /*< 用于保存请求到的数据 */
 @property (strong, nonatomic) id responseParserObject;              /*< 用于保存请求到的数据 需要设置parser */
+@property (strong, nonatomic) id responseParserCacheObject;         /*< 用于保存请求到的数据 需要设置parser */
 
 #pragma mark - SMUrlRequest
 

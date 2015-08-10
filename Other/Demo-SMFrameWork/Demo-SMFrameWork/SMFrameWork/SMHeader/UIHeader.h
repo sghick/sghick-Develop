@@ -20,7 +20,10 @@
 #define SMSystemVersion ([[[UIDevice currentDevice] systemVersion] floatValue])
 // 设备类型
 #define SMDeviceType [UIDevice currentDevice].model
-
+// 通知中心
+#define SMNotiCenter [NSNotificationCenter defaultCenter]
+// 沙盒
+#define SMUserDefaults [NSUserDefaults standardUserDefaults]
 // 是否4x屏幕尺寸
 #define is4x ([[UIDevice currentDevice] sms_isIPhone4x])
 

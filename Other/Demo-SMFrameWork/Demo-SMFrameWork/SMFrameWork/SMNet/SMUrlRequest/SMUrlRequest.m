@@ -7,7 +7,7 @@
 //
 
 #import "SMUrlRequest.h"
-#import "SMModel.h"
+#import "SMDBManager.h"
 
 @implementation SMUrlRequestParamFile
 
@@ -24,6 +24,10 @@
 
 // 作为userInfo的key
 #define KEY_ASI_HTTP_REQUEST_KEY @"__KEY_ASI_HTTP_REQUEST_KEY__"
+
+@interface SMUrlRequest ()
+
+@end
 
 @implementation SMUrlRequest
 
@@ -91,6 +95,7 @@
     _responseObject = nil;
     _responseString = nil;
     _responseParserObject = nil;
+    _responseParserCacheObject = nil;
 }
 
 /**
@@ -101,6 +106,18 @@
 }
 
 #pragma mark - getter/setter
+- (void)setResponseObject:(id)responseObject {
+    _responseObject = responseObject;
+    if (self.userCache) {
+        NSFileManager *manager = [[NSFileManager alloc] init];
+        NSString *fileDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMRequestCache"];
+        NSString *filePath = [fileDoc stringByAppendingPathComponent:SMToString(@"%@.plist", self.key)];
+        [manager createDirectoryAtPath:fileDoc withIntermediateDirectories:YES attributes:nil error:nil];
+        BOOL success = [self.responseDictionary writeToFile:filePath atomically:YES];
+        NSAssert(success, @"Request自动缓存失败");
+    }
+}
+
 - (NSData *)responseData{
     if (_responseData) {
         // 什么也不做
@@ -159,6 +176,19 @@
         _responseParserObject = [SMModel arrayWithDictionary:self.responseDictionary classNamesMapper:self.parserMapper];
     }
     return _responseParserObject;
+}
+
+- (id)responseParserCacheObject {
+    if (_responseParserCacheObject) {
+        return _responseParserCacheObject;
+    }
+    NSString *fileDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMRequestCache"];
+    NSString *filePath = [fileDoc stringByAppendingPathComponent:SMToString(@"%@.plist", self.key)];
+    _responseDictionary = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    if (_responseDictionary) {
+        return self.responseParserObject;
+    }
+    return nil;
 }
 
 @end

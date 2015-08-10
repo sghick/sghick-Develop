@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SMModel.h"
 
+@class SMModel;
 @protocol SampleBllDelegate <NSObject>
 
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode;

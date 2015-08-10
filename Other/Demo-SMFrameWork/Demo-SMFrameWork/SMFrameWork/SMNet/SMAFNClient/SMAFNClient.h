@@ -6,7 +6,9 @@
 //  Copyright (c) 2015年 buding. All rights reserved.
 //
 
-#define URL_BASE __WP_BASEURL_
+#define URL_BASE __SM_BASEURL_
+// 通知中心，获取网络状态
+#define SMAFNClientNetStateDidChangeNotification @"_KEY__SMAFNClientNetStateDidChangeNotification__"
 
 #import "AFHTTPRequestOperationManager.h"
 

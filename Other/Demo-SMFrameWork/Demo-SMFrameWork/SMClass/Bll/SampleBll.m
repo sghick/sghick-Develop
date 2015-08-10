@@ -7,14 +7,25 @@
 //
 
 #import "SampleBll.h"
-#import "SampleDal.h"
+#import "SMModel.h"
 #import "SMUrlRequest.h"
+#import "SampleAPI.h"
+#import "SampleDao.h"
+#import "SampleFile.h"
 
-@interface SampleBll () <
-SampleDalDelegate
->
+#import "SMUrlRequest.h"
+#import "SMResult.h"
+#import "SMJoke.h"
 
-@property (strong, nonatomic) SampleDal *dal;
+static NSString *kRequestGetTestData = @"kRequestGetTestData";
+static NSString *kRequestPostTestData = @"kRequestPostTestData";
+static NSString *kRequestFileTestData = @"kRequestFileTestData";
+
+@interface SampleBll ()
+
+@property (strong, nonatomic) SampleAPI *api;
+@property (strong, nonatomic) SampleDao *dao;
+@property (strong, nonatomic) SampleFile *file;
 
 @end
 
@@ -23,49 +34,81 @@ SampleDalDelegate
 - (instancetype)init {
     self = [super init];
     if (self) {
-        SampleDal *dal = [[SampleDal alloc] init];
-        dal.delegate = self;
-        self.dal = dal;
+        SampleAPI *api = [[SampleAPI alloc] initWithDelegate:self finishedSelector:@selector(finishedAction:) faildSelector:@selector(faildAtion:)];
+        self.api = api;
+        
+        SampleDao *dao = [[SampleDao alloc] init];
+        self.dao = dao;
+        
+        SampleFile *file = [[SampleFile alloc] init];
+        self.file = file;
     }
     return self;
 }
 
 #pragma mark - request
 - (void)requestGetTestDataWithParam:(SMModel *)param {
-    [self.dal requestGetTestDataWithParam:param];
+    SMUrlRequest *request = [self.api requestGetTestWithParam:param];
+    request.key = kRequestGetTestData;
+    [self addRequest:request userCache:YES];
 }
 
 - (void)requestPostTestDataWithParam:(SMModel *)param {
-    [self.dal requestPostTestDataWithParam:param];
+    SMUrlRequest *request = [self.api requestPostTestWithParam:param];
+    request.key = kRequestPostTestData;
+    request.userCache = YES;
+    [self addRequest:request];
 }
 
 - (void)requestFileTestDataWithParam:(SMModel *)param {
-    [self.dal requestFileTestDataWithParam:param];
+    SMUrlRequest *request = [self.api requestFILETestWithParam:param];
+    request.key = kRequestFileTestData;
+    [self addRequest:request];
 }
 
-#pragma mark - dal delegate
-- (void)respondsFaildWithUrlRequest:(SMUrlRequest *)request {
+#pragma mark - request - responds
+- (void)finishedAction:(SMUrlRequest *)request {
+    if ([kRequestGetTestData isEqualToString:request.key]) {
+        SMResult *result = request.responseParserObject;
+        [self.dao insertJokes:result.detail];
+        if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
+            [self.delegate respondsGetTestData:result.detail];
+        }
+    } else if ([kRequestPostTestData isEqualToString:request.key]) {
+        SMResult *result = request.responseParserObject;
+        if ([self.delegate respondsToSelector:@selector(respondsPostTestData:)]) {
+            [self.delegate respondsPostTestData:result.detail];
+        }
+    } else if ([kRequestFileTestData isEqualToString:request.key]) {
+        if ([self.delegate respondsToSelector:@selector(respondsFileTestData:)]) {
+            [self.delegate respondsFileTestData:nil];
+        }
+    }
+}
+
+- (void)faildAtion:(SMUrlRequest *)request {
     if ([self.delegate respondsToSelector:@selector(respondsFaildWithErrorCode:)]) {
         [self.delegate respondsFaildWithErrorCode:request.responseErrorCode];
     }
 }
 
-- (void)respondsGetWithUrlRequest:(SMUrlRequest *)request {
-    if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
-        [self.delegate respondsGetTestData:request.responseParserObject];
+#pragma mark - SMBllCacheDelegate
+- (void)cacheDBWithRequest:(SMUrlRequest *)request {
+    // 手动缓存
+    if ([kRequestGetTestData isEqualToString:request.key]) {
+        NSArray *array = [self.dao searchJokes];
+        if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
+            [self.delegate respondsGetTestData:array];
+        }
+    // 自动缓存
+    } else if ([kRequestPostTestData isEqualToString:request.key]) {
+        SMResult *result = request.responseParserCacheObject;
+        if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
+            [self.delegate respondsPostTestData:result.detail];
+        }
     }
 }
 
-- (void)respondsPostWithUrlRequest:(SMUrlRequest *)request {
-    if ([self.delegate respondsToSelector:@selector(respondsPostTestData:)]) {
-        [self.delegate respondsPostTestData:request.responseParserObject];
-    }
-}
-
-- (void)respondsFileWithUrlRequest:(SMUrlRequest *)request {
-    if ([self.delegate respondsToSelector:@selector(respondsFileTestData:)]) {
-        [self.delegate respondsFileTestData:request.responseParserObject];
-    }
-}
+#pragma mark - File
 
 @end

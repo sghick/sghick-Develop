@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		57837AA01B784E1000169C9C /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		57EF9FD41B6B21D9009A4D50 /* Demo-SMLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-SMLog.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EF9FD81B6B21D9009A4D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57EF9FD91B6B21D9009A4D50 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		57EF9FD61B6B21D9009A4D50 /* Demo-SMLog */ = {
 			isa = PBXGroup;
 			children = (
+				57837AA01B784E1000169C9C /* Config.h */,
 				57EF9FFD1B6B21EA009A4D50 /* SMLog */,
 				57EF9FDB1B6B21D9009A4D50 /* AppDelegate.h */,
 				57EF9FDC1B6B21D9009A4D50 /* AppDelegate.m */,
@@ -436,6 +438,7 @@
 				57EF9FF91B6B21DA009A4D50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		57EF9FFA1B6B21DA009A4D50 /* Build configuration list for PBXNativeTarget "Demo-SMLogTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +447,7 @@
 				57EF9FFC1B6B21DA009A4D50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

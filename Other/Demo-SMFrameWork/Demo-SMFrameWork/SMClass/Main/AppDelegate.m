@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "SMAFNClient.h"
+#import "SampleViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +22,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     // 主界面
-    ViewController * rootVC = [[ViewController alloc] init];
+    SampleViewController * rootVC = [[SampleViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:rootVC];
     self.window.rootViewController = nav;
     
@@ -49,6 +50,16 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Notification
+- (void)addNotifications {
+    [SMNotiCenter addObserver:self selector:@selector(networkChanged:) name:SMAFNClientNetStateDidChangeNotification object:nil];
+}
+
+#pragma mark - action
+- (void)networkChanged:(NSNotification *)noti {
+    SMLog(@"%@", noti.userInfo[@"name"]);
 }
 
 @end
