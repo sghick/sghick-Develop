@@ -23,8 +23,7 @@ UITableViewDelegate
 @property (strong, nonatomic) SMButton *testGetBtn;
 @property (strong, nonatomic) SMButton *testPostBtn;
 @property (strong, nonatomic) SMButton *testFileBtn;
-@property (strong, nonatomic) SMButton *testDBBtn;
-@property (strong, nonatomic) SMButton *testJsonBtn;
+@property (strong, nonatomic) SMButton *testLocalBtn;
 @property (strong, nonatomic) SMButton *testClearBtn;
 
 @property (strong, nonatomic) SMTableView *tableView;
@@ -61,17 +60,11 @@ static NSString *identifier = @"identifier";
     [self.view addSubview:testFileBtn];
     self.testFileBtn = testFileBtn;
     
-    SMButton *testDBBtn = [SMButton buttonWithType:UIButtonTypeSystem];
-    [testDBBtn addTarget:self action:@selector(testDBBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [testDBBtn setTitle:@"DB" forState:UIControlStateNormal];
-    [self.view addSubview:testDBBtn];
-    self.testDBBtn = testDBBtn;
-    
-    SMButton *testJsonBtn = [SMButton buttonWithType:UIButtonTypeSystem];
-    [testJsonBtn addTarget:self action:@selector(testJsonBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [testJsonBtn setTitle:@"Json" forState:UIControlStateNormal];
-    [self.view addSubview:testJsonBtn];
-    self.testJsonBtn = testJsonBtn;
+    SMButton *testLocalBtn = [SMButton buttonWithType:UIButtonTypeSystem];
+    [testLocalBtn addTarget:self action:@selector(testLocalBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [testLocalBtn setTitle:@"Local" forState:UIControlStateNormal];
+    [self.view addSubview:testLocalBtn];
+    self.testLocalBtn = testLocalBtn;
     
     SMButton *testClearBtn = [SMButton buttonWithType:UIButtonTypeSystem];
     [testClearBtn addTarget:self action:@selector(testClearBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -92,12 +85,12 @@ static NSString *identifier = @"identifier";
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     // 自动布局
-    NSDictionary * views = NSDictionaryOfVariableBindings(_testGetBtn, _testPostBtn, _testFileBtn, _testDBBtn, _testJsonBtn, _testClearBtn, _tableView);
+    NSDictionary * views = NSDictionaryOfVariableBindings(_testGetBtn, _testPostBtn, _testFileBtn, _testLocalBtn, _testClearBtn, _tableView);
     [UIView setTranslatesAutoresizingMaskIntoConstraintsWithViews:views flag:NO];
-    NSDictionary * metrics = @{@"width":[NSNumber numberWithFloat:(SMScreenWidth - 20*SMWidthScale)/6], @"margin":@"10"};
+    NSDictionary * metrics = @{@"width":[NSNumber numberWithFloat:(SMScreenWidth - 20*SMWidthScale)/5], @"margin":@"10"};
     
     // 横向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_testGetBtn(width)][_testPostBtn(width)][_testFileBtn(width)][_testDBBtn(width)][_testJsonBtn(width)][_testClearBtn(width)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_testGetBtn(width)][_testPostBtn(width)][_testFileBtn(width)][_testLocalBtn(width)][_testClearBtn(width)]"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:metrics
                                                                         views:views]];
@@ -126,12 +119,8 @@ static NSString *identifier = @"identifier";
     [self.bll requestFileTestDataWithParam:nil];
 }
 
-- (void)testDBBtnAction:(UIButton *)sender {
-    
-}
-
-- (void)testJsonBtnAction:(UIButton *)sender {
-    
+- (void)testLocalBtnAction:(UIButton *)sender {
+    [self.bll requestLocalTestData];
 }
 
 - (void)testClearBtnAction:(UIButton *)sender {
@@ -171,6 +160,11 @@ static NSString *identifier = @"identifier";
 }
 
 - (void)respondsFileTestData:(NSArray *)array {
+    self.dataSource = array;
+    [self.tableView reloadData];
+}
+
+- (void)respondsLocalTestData:(NSArray *)array {
     self.dataSource = array;
     [self.tableView reloadData];
 }

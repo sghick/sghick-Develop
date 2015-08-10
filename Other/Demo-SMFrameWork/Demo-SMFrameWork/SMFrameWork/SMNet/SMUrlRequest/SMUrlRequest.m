@@ -24,6 +24,8 @@
 
 // 作为userInfo的key
 #define KEY_ASI_HTTP_REQUEST_KEY @"__KEY_ASI_HTTP_REQUEST_KEY__"
+// 缓存文件夹的路径
+static NSString *docListStr = @"";
 
 @interface SMUrlRequest ()
 
@@ -109,12 +111,17 @@
 - (void)setResponseObject:(id)responseObject {
     _responseObject = responseObject;
     if (self.userCache) {
+        NSString *filePath = [self.cachefileDoc stringByAppendingPathComponent:SMToString(@"%@.dat", self.key)];
         NSFileManager *manager = [[NSFileManager alloc] init];
-        NSString *fileDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMRequestCache"];
-        NSString *filePath = [fileDoc stringByAppendingPathComponent:SMToString(@"%@.plist", self.key)];
-        [manager createDirectoryAtPath:fileDoc withIntermediateDirectories:YES attributes:nil error:nil];
-        BOOL success = [self.responseDictionary writeToFile:filePath atomically:YES];
-        NSAssert(success, @"Request自动缓存失败");
+        BOOL isDoc = YES;
+        if (![manager fileExistsAtPath:self.cachefileDoc isDirectory:&isDoc]) {
+            [manager createDirectoryAtPath:self.cachefileDoc withIntermediateDirectories:YES attributes:nil error:nil];
+            docListStr = [docListStr stringByAppendingFormat:@"%@:", self.cachefileDoc];
+        }
+        NSData *data = self.responseData;
+        NSError *error = nil;
+        BOOL success = [data writeToFile:filePath options:NSDataWritingAtomic error:&error];
+        NSAssert(success, @"Request自动缓存失败:\n\t%@\n\t%@", filePath, error);
     }
 }
 
@@ -161,7 +168,6 @@
     if (_responseDictionary) {
         [self responseDictionary];
     }
-    
     if (!self.parserMapper.count) {
         return self.responseString;
     }
@@ -178,17 +184,60 @@
     return _responseParserObject;
 }
 
+- (NSString *)requestLocalPathExtension {
+    if (!_requestLocalPathExtension) {
+        _requestLocalPathExtension = @"json";
+    }
+    return _requestLocalPathExtension;
+}
+
+#pragma mark - cache 缓存
+- (NSString *)cachefileDoc {
+    if (!_cachefileDoc || !_cachefileDoc.length) {
+        _cachefileDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMRequestCache"];
+    }
+    return _cachefileDoc;
+}
+
 - (id)responseParserCacheObject {
     if (_responseParserCacheObject) {
         return _responseParserCacheObject;
     }
-    NSString *fileDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMRequestCache"];
-    NSString *filePath = [fileDoc stringByAppendingPathComponent:SMToString(@"%@.plist", self.key)];
-    _responseDictionary = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (_responseDictionary) {
+    NSString *filePath = [self.cachefileDoc stringByAppendingPathComponent:SMToString(@"%@.dat", self.key)];
+    NSError *error = nil;
+    _responseData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingUncached error:&error];
+    if (_responseData && _responseData.length) {
         return self.responseParserObject;
     }
     return nil;
+}
+
+- (void)clearCache {
+    NSString *filePath = [self.cachefileDoc stringByAppendingPathComponent:SMToString(@"%@.dat", self.key)];
+    NSFileManager *manager = [[NSFileManager alloc] init];
+    NSError *error = nil;
+    BOOL success = [manager removeItemAtPath:filePath error:&error];
+    if (!success) {
+        SMLog(@"删除缓存文件失败:\n\t%@\n\t%@", filePath, error);
+    }
+}
+
++ (void)clearAllCache {
+    NSArray *docList = [docListStr componentsSeparatedByString:@":"];
+    NSFileManager *manager = [[NSFileManager alloc] init];
+    NSError *error = nil;
+    int count = 0;
+    for (NSString *doc in docList) {
+        if (doc.length) {
+            BOOL success = [manager removeItemAtPath:doc error:&error];
+            count += success;
+            if (!success) {
+                SMLog(@"删除缓存文件夹失败:\n\t%@\n\t%@", doc, error);
+            }
+        }
+    }
+    SMLog(@"成功清除缓存 %d 处", count);
+    docListStr = @"";
 }
 
 @end

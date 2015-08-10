@@ -11,7 +11,6 @@
 #import "SMUrlRequest.h"
 #import "SampleAPI.h"
 #import "SampleDao.h"
-#import "SampleFile.h"
 
 #import "SMUrlRequest.h"
 #import "SMResult.h"
@@ -20,12 +19,12 @@
 static NSString *kRequestGetTestData = @"kRequestGetTestData";
 static NSString *kRequestPostTestData = @"kRequestPostTestData";
 static NSString *kRequestFileTestData = @"kRequestFileTestData";
+static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
 
 @interface SampleBll ()
 
 @property (strong, nonatomic) SampleAPI *api;
 @property (strong, nonatomic) SampleDao *dao;
-@property (strong, nonatomic) SampleFile *file;
 
 @end
 
@@ -39,9 +38,6 @@ static NSString *kRequestFileTestData = @"kRequestFileTestData";
         
         SampleDao *dao = [[SampleDao alloc] init];
         self.dao = dao;
-        
-        SampleFile *file = [[SampleFile alloc] init];
-        self.file = file;
     }
     return self;
 }
@@ -66,6 +62,12 @@ static NSString *kRequestFileTestData = @"kRequestFileTestData";
     [self addRequest:request];
 }
 
+- (void)requestLocalTestData {
+    SMUrlRequest *request = [self.api requestLocalTest];
+    request.key = kRequestLocalTestData;
+    [self addRequest:request];
+}
+
 #pragma mark - request - responds
 - (void)finishedAction:(SMUrlRequest *)request {
     if ([kRequestGetTestData isEqualToString:request.key]) {
@@ -82,6 +84,11 @@ static NSString *kRequestFileTestData = @"kRequestFileTestData";
     } else if ([kRequestFileTestData isEqualToString:request.key]) {
         if ([self.delegate respondsToSelector:@selector(respondsFileTestData:)]) {
             [self.delegate respondsFileTestData:nil];
+        }
+    } else if ([kRequestLocalTestData isEqualToString:request.key]) {
+        SMResult *result = request.responseParserObject;
+        if ([self.delegate respondsToSelector:@selector(respondsLocalTestData:)]) {
+            [self.delegate respondsLocalTestData:result.detail];
         }
     }
 }

@@ -38,4 +38,12 @@
     return request;
 }
 
+- (SMUrlRequest *)requestLocalTest {
+    SMUrlRequest *request = [self smUrlRequestWithUrl:nil];
+    request.requestMethod = requestMethodLocal;
+    request.requestLocalPathExtension = @"dat";
+    [request.parserMapper setObject:@"SMResult" forKey:parserReturnTypeMainModelOfKey];
+    [request.parserMapper setObject:@"SMJoke" forKey:@"detail"];
+    return request;
+}
 @end

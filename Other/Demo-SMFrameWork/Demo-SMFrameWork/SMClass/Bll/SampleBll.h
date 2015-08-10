@@ -16,6 +16,7 @@
 - (void)respondsGetTestData:(NSArray *)array;
 - (void)respondsPostTestData:(NSArray *)array;
 - (void)respondsFileTestData:(NSArray *)array;
+- (void)respondsLocalTestData:(NSArray *)array;
 
 @end
 
@@ -24,5 +25,6 @@
 - (void)requestGetTestDataWithParam:(SMModel *)param;
 - (void)requestPostTestDataWithParam:(SMModel *)param;
 - (void)requestFileTestDataWithParam:(SMModel *)param;
+- (void)requestLocalTestData;
 
 @end
