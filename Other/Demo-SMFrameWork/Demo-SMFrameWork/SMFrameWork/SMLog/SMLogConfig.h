@@ -12,7 +12,16 @@
 #import "SMLogSys.h"
 #import "SMConfig.h"
 
-// 总开关 (上线自动关闭所有Log)
+#ifndef __ON__
+#define __ON__  (1)
+#endif
+
+#ifndef __OFF__
+#define __OFF__ (0)
+#endif
+
+#warning 上线前关闭
+// 总开关 (上线自动关闭所有SMLog)
 #define __DUBUG__               ( __SM_DEBUG__ )
 
 // 输出到控制台
@@ -28,7 +37,7 @@
 #define SMFunctionName          (SMToString(@"%s", __PRETTY_FUNCTION__))
 #define SMToString(a...)        ([NSString stringWithFormat:a])
 
-#define SMLogTypeDefault        (SMLogTypeCmd)
+#define SMLogTypeDefaultDefine  (SMLogTypeCmd)
 #define SMLog(lg...)            ([SMLogSys log:SMToString(lg) fcName:SMFunctionName])
 #define SMLog1(SMLogType, desc, arg1) ([SMLogSys log:SMToString(desc, arg1) fcName:SMFunctionName type:SMLogType])
 #define SMLog2(SMLogType, desc, arg1, arg2) ([SMLogSys log:SMToString(desc, arg1, arg2) fcName:SMFunctionName type:SMLogType])
