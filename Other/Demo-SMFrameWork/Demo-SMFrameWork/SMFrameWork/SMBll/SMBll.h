@@ -17,6 +17,7 @@
 @end
 
 @class SMUrlRequest;
+@class SMRequestQueue;
 @interface SMBll : NSObject <
 SMBllCacheDelegate
 >
@@ -24,7 +25,10 @@ SMBllCacheDelegate
 @property (assign, nonatomic) id delegate;
 
 - (void)addRequest:(SMUrlRequest *)request;
-- (void)addRequest:(SMUrlRequest *)request userCache:(BOOL)userCache;
+- (void)addRequest:(SMUrlRequest *)request useCache:(BOOL)useCache;
+- (void)addRequest:(SMUrlRequest *)request useQueue:(BOOL)useQueue;
+- (void)addRequest:(SMUrlRequest *)request useCache:(BOOL)useCache useQueue:(BOOL)useQueue;
+- (void)requestQueueWithTimesOut:(NSInteger)timesOut cancelAllRequest:(BOOL)cancelAllRequest;   /*< 重试次数 */
 - (void)cancelAllRequest;
 
 @end

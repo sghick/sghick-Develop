@@ -11,8 +11,7 @@
 #import "SMUrlRequest.h"
 #import "SampleAPI.h"
 #import "SampleDao.h"
-
-#import "SMUrlRequest.h"
+#import "SMRequestQueue.h"
 #import "SMResult.h"
 #import "SMJoke.h"
 
@@ -23,6 +22,7 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
 
 @interface SampleBll ()
 
+@property (strong, nonatomic) SMRequestQueue *queue;
 @property (strong, nonatomic) SampleAPI *api;
 @property (strong, nonatomic) SampleDao *dao;
 
@@ -33,6 +33,9 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
 - (instancetype)init {
     self = [super init];
     if (self) {
+        SMRequestQueue *queue = [SMRequestQueue shareInstance];
+        self.queue = queue;
+        
         SampleAPI *api = [[SampleAPI alloc] initWithDelegate:self finishedSelector:@selector(finishedAction:) faildSelector:@selector(faildAtion:)];
         self.api = api;
         
@@ -46,13 +49,15 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
 - (void)requestGetTestDataWithParam:(SMModel *)param {
     SMUrlRequest *request = [self.api requestGetTestWithParam:param];
     request.key = kRequestGetTestData;
-    [self addRequest:request userCache:YES];
+    [self addRequest:request useCache:YES useQueue:YES];
 }
 
 - (void)requestPostTestDataWithParam:(SMModel *)param {
     SMUrlRequest *request = [self.api requestPostTestWithParam:param];
     request.key = kRequestPostTestData;
-    request.userCache = YES;
+    request.useCache = YES;
+    request.useQueue = YES;
+    request.cacheTimeOut = 1000;
     [self addRequest:request];
 }
 
@@ -70,8 +75,11 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
 
 #pragma mark - request - responds
 - (void)finishedAction:(SMUrlRequest *)request {
+    // 删除队列中的请求
+    [self.queue removeRequest:request compareWithKey:NO];
     if ([kRequestGetTestData isEqualToString:request.key]) {
         SMResult *result = request.responseParserObject;
+        [self.dao deleteJokes];
         [self.dao insertJokes:result.detail];
         if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
             [self.delegate respondsGetTestData:result.detail];
@@ -94,6 +102,8 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
 }
 
 - (void)faildAtion:(SMUrlRequest *)request {
+    // 请求失败, 每个请求最多重试5次
+    [self requestQueueWithTimesOut:5 cancelAllRequest:YES];
     if ([self.delegate respondsToSelector:@selector(respondsFaildWithErrorCode:)]) {
         [self.delegate respondsFaildWithErrorCode:request.responseErrorCode];
     }

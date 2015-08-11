@@ -29,6 +29,7 @@
 		FE7490931B76853300DC1D46 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7490851B76853300DC1D46 /* UIScrollView+MJExtension.m */; };
 		FE7490941B76853300DC1D46 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7490871B76853300DC1D46 /* UIScrollView+MJRefresh.m */; };
 		FE7490951B76853300DC1D46 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7490891B76853300DC1D46 /* UIView+MJExtension.m */; };
+		FE7B26221B7A57F000CA4AEC /* SMRequestQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7B26211B7A57F000CA4AEC /* SMRequestQueue.m */; };
 		FE8DA7981B76F866002A296E /* SMAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7951B76F866002A296E /* SMAPI.m */; };
 		FE8DA7AA1B76FA0C002A296E /* SMDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7A91B76FA0C002A296E /* SMDAO.m */; };
 		FE8DA7B91B76FC36002A296E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7B81B76FC36002A296E /* RootViewController.m */; };
@@ -138,6 +139,8 @@
 		FE7490871B76853300DC1D46 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		FE7490881B76853300DC1D46 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		FE7490891B76853300DC1D46 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		FE7B26201B7A57F000CA4AEC /* SMRequestQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMRequestQueue.h; sourceTree = "<group>"; };
+		FE7B26211B7A57F000CA4AEC /* SMRequestQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMRequestQueue.m; sourceTree = "<group>"; };
 		FE8DA7941B76F866002A296E /* SMAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAPI.h; sourceTree = "<group>"; };
 		FE8DA7951B76F866002A296E /* SMAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAPI.m; sourceTree = "<group>"; };
 		FE8DA7A81B76FA0C002A296E /* SMDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDAO.h; sourceTree = "<group>"; };
@@ -814,6 +817,8 @@
 				FEF4C3FC1B75B7A800B3CD9F /* SMNetManager.m */,
 				FEF4C3FE1B75BD8300B3CD9F /* SMUrlRequest+SM.h */,
 				FEF4C3FF1B75BD8300B3CD9F /* SMUrlRequest+SM.m */,
+				FE7B26201B7A57F000CA4AEC /* SMRequestQueue.h */,
+				FE7B26211B7A57F000CA4AEC /* SMRequestQueue.m */,
 			);
 			path = SMNetManager;
 			sourceTree = "<group>";
@@ -974,6 +979,7 @@
 				FEF4C3EE1B75B6AB00B3CD9F /* README.md in Sources */,
 				FEF4C4341B75CE1800B3CD9F /* SMLabel.m in Sources */,
 				FEF4C3F51B75B6AB00B3CD9F /* UIRefreshControl+AFNetworking.m in Sources */,
+				FE7B26221B7A57F000CA4AEC /* SMRequestQueue.m in Sources */,
 				FEF4C3F41B75B6AB00B3CD9F /* UIProgressView+AFNetworking.m in Sources */,
 				FE7490921B76853300DC1D46 /* MJRefreshLegendHeader.m in Sources */,
 				FEF4C3E41B75B6AB00B3CD9F /* AFHTTPRequestOperation.m in Sources */,

@@ -37,7 +37,7 @@
 }
 
 #pragma mark - DataManager
-+ (void)loadDataFromAFNetWithRequest:(SMUrlRequest *)request{
++ (void)loadDataFromAFNetWithRequest:(SMUrlRequest *)request {
     //根据请求参数的请求方法分为三种请求
     //第一种，POST请求
     if ([requestMethodPost isEqualToString:request.requestMethod]) {
@@ -107,7 +107,7 @@
     }
 }
 
-+ (void)loadDataFromLocalFileWithRequest:(SMUrlRequest *)request{
++ (void)loadDataFromLocalFileWithRequest:(SMUrlRequest *)request {
     NSString * path = [[NSBundle mainBundle] pathForResource:request.key ofType:request.requestLocalPathExtension];
     if (path) {
         [request clearResponse];
