@@ -38,11 +38,4 @@ typedef enum {
  */
 + (SMNetStatus *)netStatus;
 
-/**
- *  请求本地数据
- *
- *  @param request 请求具体参数
- */
-+ (void)loadDataFromJsonFileWithRequest:(SMUrlRequest *)request;
-
 @end

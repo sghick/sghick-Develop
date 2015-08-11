@@ -110,7 +110,7 @@ static NSString *docListStr = @"";
 #pragma mark - getter/setter
 - (void)setResponseObject:(id)responseObject {
     _responseObject = responseObject;
-    if (self.userCache) {
+    if (self.useCache) {
         NSString *filePath = [self.cachefileDoc stringByAppendingPathComponent:SMToString(@"%@.dat", self.key)];
         NSFileManager *manager = [[NSFileManager alloc] init];
         BOOL isDoc = YES;
@@ -122,6 +122,16 @@ static NSString *docListStr = @"";
         NSError *error = nil;
         BOOL success = [data writeToFile:filePath options:NSDataWritingAtomic error:&error];
         NSAssert(success, @"Request自动缓存失败:\n\t%@\n\t%@", filePath, error);
+        if (success && (self.cacheTimeOut > 0)) {
+            // 增加缓存期限
+            NSString *timeOutIndexFilePath = [self.cachefileDoc stringByAppendingPathComponent:@"timeOutIndex.dat"];
+            NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:timeOutIndexFilePath];
+            NSMutableDictionary *timeOuthIndexDict = [NSMutableDictionary dictionary];
+            [timeOuthIndexDict setDictionary:dict];
+            NSTimeInterval timeInterval = self.cacheTimeOut + [NSDate timeIntervalSinceReferenceDate];
+            [timeOuthIndexDict setValue:[NSNumber numberWithDouble:timeInterval] forKey:self.key];
+            [timeOuthIndexDict writeToFile:timeOutIndexFilePath atomically:YES];
+        }
     }
 }
 
@@ -203,11 +213,21 @@ static NSString *docListStr = @"";
     if (_responseParserCacheObject) {
         return _responseParserCacheObject;
     }
-    NSString *filePath = [self.cachefileDoc stringByAppendingPathComponent:SMToString(@"%@.dat", self.key)];
-    NSError *error = nil;
-    _responseData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingUncached error:&error];
-    if (_responseData && _responseData.length) {
-        return self.responseParserObject;
+    NSDictionary *timeOutIndexDict = nil;
+    if (self.cacheTimeOut) {
+        // 读取缓存期限
+        NSString *timeOutIndexFilePath = [self.cachefileDoc stringByAppendingPathComponent:@"timeOutIndex.dat"];
+        timeOutIndexDict = [NSDictionary dictionaryWithContentsOfFile:timeOutIndexFilePath];
+    }
+    NSTimeInterval timeOut = ((NSNumber *)(timeOutIndexDict[self.key])).doubleValue;
+    BOOL isTimeOut = (timeOut < [NSDate timeIntervalSinceReferenceDate]);
+    if (!isTimeOut) {
+        NSString *filePath = [self.cachefileDoc stringByAppendingPathComponent:SMToString(@"%@.dat", self.key)];
+        NSError *error = nil;
+        _responseData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingUncached error:&error];
+        if (_responseData && _responseData.length) {
+            return self.responseParserObject;
+        }
     }
     return nil;
 }
@@ -219,6 +239,14 @@ static NSString *docListStr = @"";
     BOOL success = [manager removeItemAtPath:filePath error:&error];
     if (!success) {
         SMLog(@"删除缓存文件失败:\n\t%@\n\t%@", filePath, error);
+    } else if (self.cacheTimeOut > 0) {
+        // 删除缓存期限
+        NSString *timeOutIndexFilePath = [self.cachefileDoc stringByAppendingPathComponent:@"timeOutIndex.dat"];
+        NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:timeOutIndexFilePath];
+        NSMutableDictionary *timeOuthIndexDict = [NSMutableDictionary dictionary];
+        [timeOuthIndexDict setDictionary:dict];
+        [timeOuthIndexDict removeObjectForKey:self.key];
+        [timeOuthIndexDict writeToFile:timeOutIndexFilePath atomically:YES];
     }
 }
 

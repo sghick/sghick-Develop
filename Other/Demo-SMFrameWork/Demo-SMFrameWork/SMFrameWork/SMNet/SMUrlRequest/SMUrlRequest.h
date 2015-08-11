@@ -50,9 +50,13 @@ static NSString *requestMethodLocal = @"LOCAL";
 
 // 缓存
 @property (strong, nonatomic) NSString *cachefileDoc;               /*< 自动缓存的缓存目录，默认 ~/Document/SMRequestCache/ */
-@property (assign, nonatomic) BOOL userCache;                       /*< 自动缓存 */
-@property (assign, nonatomic) NSTimeInterval timeOut;               /*< 自动缓存期限，0为无期限 */
+@property (assign, nonatomic) BOOL useCache;                        /*< 自动缓存 自动缓存期限，0为无期限*/
+@property (assign, nonatomic) NSTimeInterval cacheTimeOut;          /*< 自动缓存期限，0为无期限 */
 @property (strong, nonatomic) id responseParserCacheObject;         /*< 用于保存请求到的数据 需要设置parser */
+
+// 队列
+@property (assign, nonatomic) BOOL useQueue;                        /*< 自动放入队列 */
+@property (assign, nonatomic) NSInteger requestCount;               /*< 用于在队列中请求的次数累计 */
 
 #pragma mark - SMUrlRequest
 
