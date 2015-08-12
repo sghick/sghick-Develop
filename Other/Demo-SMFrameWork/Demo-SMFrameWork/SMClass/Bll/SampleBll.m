@@ -56,7 +56,6 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
     SMUrlRequest *request = [self.api requestPostTestWithParam:param];
     request.key = kRequestPostTestData;
     request.useCache = YES;
-    request.useQueue = YES;
     request.cacheTimeOut = 1000;
     [self addRequest:request];
 }
@@ -79,6 +78,7 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
     [self.queue removeRequest:request compareWithKey:NO];
     if ([kRequestGetTestData isEqualToString:request.key]) {
         SMResult *result = request.responseParserObject;
+        // 手动缓存
         [self.dao deleteJokes];
         [self.dao insertJokes:result.detail];
         if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
@@ -111,8 +111,8 @@ static NSString *kRequestLocalTestData = @"kRequestLocalTestData";
 
 #pragma mark - SMBllCacheDelegate
 - (void)cacheDBWithRequest:(SMUrlRequest *)request {
-    // 手动缓存
     if ([kRequestGetTestData isEqualToString:request.key]) {
+        // 手动缓存
         NSArray *array = [self.dao searchJokes];
         if ([self.delegate respondsToSelector:@selector(respondsGetTestData:)]) {
             [self.delegate respondsGetTestData:array];

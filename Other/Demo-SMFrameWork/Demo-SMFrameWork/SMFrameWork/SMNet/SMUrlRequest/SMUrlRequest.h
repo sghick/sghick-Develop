@@ -55,7 +55,6 @@ static NSString *requestMethodLocal = @"LOCAL";
 @property (strong, nonatomic) id responseParserCacheObject;         /*< 用于保存请求到的数据 需要设置parser */
 
 // 队列
-@property (assign, nonatomic) BOOL useQueue;                        /*< 自动放入队列 */
 @property (assign, nonatomic) NSInteger requestCount;               /*< 用于在队列中请求的次数累计 */
 
 #pragma mark - SMUrlRequest
