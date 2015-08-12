@@ -14,7 +14,7 @@
 @implementation SMBll
 
 - (void)addRequest:(SMUrlRequest *)request {
-    [self addRequest:request useCache:request.useCache useQueue:request.useQueue];
+    [self addRequest:request useCache:request.useCache];
 }
 
 - (void)addRequest:(SMUrlRequest *)request useCache:(BOOL)useCache {
