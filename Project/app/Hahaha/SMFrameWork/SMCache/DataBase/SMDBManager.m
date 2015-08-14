@@ -217,18 +217,29 @@
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass {
     NSString *sql = [self sqlForSearchWithTableName:tableName];
-    NSArray *rtns = [self searchTableWithSqlFillModelClass:modelClass sql:sql];
+    NSArray *rtns = [self searchTableWithSqlFillModelClass:modelClass sql:sql, nil];
     return rtns;
 }
 
-#warning 用占位符或者参数名时会崩溃，未找到原因
-- (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ... {
+- (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ... NS_REQUIRES_NIL_TERMINATION {
     if (!sql || !sql.length) {
         return 0;
     }
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    FMResultSet * set = [self.db executeQuery:sql];
+    
+    NSMutableArray* arrays = [NSMutableArray array];
+    va_list argList;
+    if (sql) {
+        va_start(argList, sql);
+        id arg;
+        while ((arg = va_arg(argList, id))) {
+            [arrays addObject:arg];
+        }
+    }
+
+    FMResultSet * set = [self.db executeQuery:sql withArgumentsInArray:arrays];
+
     NSMutableArray * rtns = [NSMutableArray array];
     while ([set next]) {
         NSDictionary *dict = [set resultDictionary];
@@ -239,17 +250,6 @@
     }
     [self.db close];
     return rtns;
-}
-
-- (NSDictionary *)searchTableWithSql:(NSString *)sql, ... {
-    if (!sql || !sql.length) {
-        return 0;
-    }
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    FMResultSet * set = [self.db executeQuery:sql];
-    [self.db close];
-    return set.resultDictionary;
 }
 
 #pragma mark - ()

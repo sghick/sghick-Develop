@@ -54,8 +54,7 @@
 }
 
 - (NSArray *)searchJokesWithUserId:(NSString *)uid {
-    NSString *sql = SMToString(@"SELECT * FROME tb_joke WHERE uid=%@", uid);
-    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql];
+    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_with_uid, uid, nil];
     return rtns;
 }
 

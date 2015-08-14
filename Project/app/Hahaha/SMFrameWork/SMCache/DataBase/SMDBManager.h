@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FMDB.h"
 
 @class FMDatabase;
 @class SMModel;
@@ -33,7 +34,6 @@
 - (int)updateTableWithSql:(NSString *)sql, ...;
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass;
-- (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ...;
-- (NSDictionary *)searchTableWithSql:(NSString *)sql, ...;
+- (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end
