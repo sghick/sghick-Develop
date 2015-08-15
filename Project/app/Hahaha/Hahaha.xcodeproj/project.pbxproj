@@ -14,8 +14,6 @@
 		FE8CF96D1B7D6AF7002A1A92 /* SMTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8B11B7D6AF7002A1A92 /* SMTableView.m */; };
 		FE8CF96E1B7D6AF7002A1A92 /* SMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8B31B7D6AF7002A1A92 /* SMTextField.m */; };
 		FE8CF96F1B7D6AF7002A1A92 /* SMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8B51B7D6AF7002A1A92 /* SMViewController.m */; };
-		FE8CF9711B7D6AF7002A1A92 /* SampleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8BD1B7D6AF7002A1A92 /* SampleAPI.m */; };
-		FE8CF9721B7D6AF7002A1A92 /* SampleDao.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8C01B7D6AF7002A1A92 /* SampleDao.m */; };
 		FE8CF9731B7D6AF7002A1A92 /* kRequestLocalTestData.dat in Resources */ = {isa = PBXBuildFile; fileRef = FE8CF8C51B7D6AF7002A1A92 /* kRequestLocalTestData.dat */; };
 		FE8CF9741B7D6AF7002A1A92 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8C81B7D6AF7002A1A92 /* AppDelegate.m */; };
 		FE8CF9751B7D6AF7002A1A92 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8C91B7D6AF7002A1A92 /* main.m */; };
@@ -103,10 +101,6 @@
 		FE8CF8B41B7D6AF7002A1A92 /* SMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMViewController.h; sourceTree = "<group>"; };
 		FE8CF8B51B7D6AF7002A1A92 /* SMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMViewController.m; sourceTree = "<group>"; };
 		FE8CF8B61B7D6AF7002A1A92 /* SMBaseClassHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseClassHeader.h; sourceTree = "<group>"; };
-		FE8CF8BC1B7D6AF7002A1A92 /* SampleAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleAPI.h; sourceTree = "<group>"; };
-		FE8CF8BD1B7D6AF7002A1A92 /* SampleAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleAPI.m; sourceTree = "<group>"; };
-		FE8CF8BF1B7D6AF7002A1A92 /* SampleDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleDao.h; sourceTree = "<group>"; };
-		FE8CF8C01B7D6AF7002A1A92 /* SampleDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleDao.m; sourceTree = "<group>"; };
 		FE8CF8C31B7D6AF7002A1A92 /* SqlHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqlHeader.h; sourceTree = "<group>"; };
 		FE8CF8C51B7D6AF7002A1A92 /* kRequestLocalTestData.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = kRequestLocalTestData.dat; sourceTree = "<group>"; };
 		FE8CF8C71B7D6AF7002A1A92 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -361,8 +355,6 @@
 		FE8CF8BB1B7D6AF7002A1A92 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				FE8CF8BC1B7D6AF7002A1A92 /* SampleAPI.h */,
-				FE8CF8BD1B7D6AF7002A1A92 /* SampleAPI.m */,
 				FE8CF9CB1B7D73F1002A1A92 /* JokeAPI.h */,
 				FE8CF9CC1B7D73F1002A1A92 /* JokeAPI.m */,
 			);
@@ -372,8 +364,6 @@
 		FE8CF8BE1B7D6AF7002A1A92 /* DB */ = {
 			isa = PBXGroup;
 			children = (
-				FE8CF8BF1B7D6AF7002A1A92 /* SampleDao.h */,
-				FE8CF8C01B7D6AF7002A1A92 /* SampleDao.m */,
 				FE8CF9CE1B7D73FE002A1A92 /* JokeDao.h */,
 				FE8CF9CF1B7D73FE002A1A92 /* JokeDao.m */,
 			);
@@ -865,7 +855,6 @@
 				FE8CF9AC1B7D6AF7002A1A92 /* MJRefreshLegendHeader.m in Sources */,
 				FE8CF9AF1B7D6AF7002A1A92 /* UIView+MJExtension.m in Sources */,
 				FE8CF98E1B7D6AF7002A1A92 /* AFHTTPSessionManager.m in Sources */,
-				FE8CF9711B7D6AF7002A1A92 /* SampleAPI.m in Sources */,
 				FE8CF98A1B7D6AF7002A1A92 /* SMUrlRequest+SM.m in Sources */,
 				FE8CF9961B7D6AF7002A1A92 /* README.md in Sources */,
 				FE8CF9911B7D6AF7002A1A92 /* AFURLConnectionOperation.m in Sources */,
@@ -910,7 +899,6 @@
 				FE8CF9A21B7D6AF7002A1A92 /* FMDatabaseQueue.m in Sources */,
 				FE8CF98F1B7D6AF7002A1A92 /* AFNetworkReachabilityManager.m in Sources */,
 				FE8CF9A51B7D6AF7002A1A92 /* MJRefreshComponent.m in Sources */,
-				FE8CF9721B7D6AF7002A1A92 /* SampleDao.m in Sources */,
 				FE8CF9A61B7D6AF7002A1A92 /* MJRefreshConst.m in Sources */,
 				FE8CF97C1B7D6AF7002A1A92 /* SMDBManager.m in Sources */,
 				FE8CF9811B7D6AF7002A1A92 /* UIView+SM.m in Sources */,

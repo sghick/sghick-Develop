@@ -13,10 +13,10 @@
 
 - (int)insertJokes:(NSArray *)jokes;
 - (int)deleteJokes;
-- (int)deleteJokesWithUid:(NSString *)uid;
+- (int)deleteJokesWithId:(NSString *)xhid;
 - (int)updateJokes:(NSArray *)jokes;
 - (int)updateJoke:(SMJoke *)joke;
 - (NSArray *)searchJokes;
-- (NSArray *)searchJokesWithUserId:(NSString *)uid;
+- (NSArray *)searchJokesWithId:(NSString *)xhid;
 
 @end

@@ -51,13 +51,13 @@ static NSString *kRequestJokeList = @"kRequestJokeList";
 }
 
 #pragma mark - db option
-- (void)makeJokeReadWithUid:(NSString *)uid {
-    SMJoke *joke = [self.dao searchJokesWithUserId:uid].firstObject;
+- (void)makeJokeReadWithId:(NSString *)xhid {
+    SMJoke *joke = [self.dao searchJokesWithId:xhid].firstObject;
     if (joke) {
         joke.isRead = YES;
         [self.dao updateJoke:joke];
     } else {
-        SMLog(@"joke uid:%@ 不存在", uid);
+        SMLog(@"joke uid:%@ 不存在", xhid);
     }
 }
 

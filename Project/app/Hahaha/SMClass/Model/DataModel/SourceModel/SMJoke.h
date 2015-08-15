@@ -10,12 +10,13 @@
 
 @interface SMJoke : SMModel
 
-@property (strong, nonatomic) NSString *author;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *xhid;
 @property (strong, nonatomic) NSString *content;
+@property (strong, nonatomic) NSString *author;
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSString *picUrl;
 @property (strong, nonatomic) NSString *status;
-@property (strong, nonatomic) NSString *xhid;
 
 // DB
 @property (assign, nonatomic) BOOL isRead;

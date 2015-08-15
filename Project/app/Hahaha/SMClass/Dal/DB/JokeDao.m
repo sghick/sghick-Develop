@@ -29,7 +29,7 @@
 }
 
 - (int)insertJokes:(NSArray *)jokes {
-    int count = [self.dbm insertTable:@"tb_joke" models:jokes primaryKeys:@[@"uid"]];
+    int count = [self.dbm insertTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
     return count;
 }
 
@@ -38,18 +38,18 @@
     return count;
 }
 
-- (int)deleteJokesWithUid:(NSString *)uid {
-    int count = [self.dbm deleteTableWithSql:sql_delete_jokes_with_uid, uid];
+- (int)deleteJokesWithId:(NSString *)xhid {
+    int count = [self.dbm deleteTableWithSql:sql_delete_jokes_with_id, xhid];
     return count;
 }
 
 - (int)updateJokes:(NSArray *)jokes {
-    int count = [self.dbm updateTable:@"tb_joke" models:jokes primaryKeys:@[@"uid"]];
+    int count = [self.dbm updateTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
     return count;
 }
 
 - (int)updateJoke:(SMJoke *)joke {
-    int count = [self.dbm updateTable:@"tb_joke" model:joke primaryKeys:@[@"uid"]];
+    int count = [self.dbm updateTable:@"tb_joke" model:joke primaryKeys:@[@"xhid"]];
     return count;
 }
 
@@ -58,8 +58,8 @@
     return rtns;
 }
 
-- (NSArray *)searchJokesWithUserId:(NSString *)uid {
-    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_with_uid, uid, nil];
+- (NSArray *)searchJokesWithId:(NSString *)xhid {
+    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_with_id, xhid, nil];
     return rtns;
 }
 

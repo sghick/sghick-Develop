@@ -40,7 +40,7 @@
     self.title = self.joke.author;
     textView.text = self.joke.content;
     
-    [self.bll makeJokeReadWithUid:self.joke.uid];
+    [self.bll makeJokeReadWithId:self.joke.xhid];
 }
 
 - (void)leftSwipeAction:(UISwipeGestureRecognizer *)sender {

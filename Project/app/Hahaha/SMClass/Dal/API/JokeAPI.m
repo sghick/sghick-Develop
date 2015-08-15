@@ -18,6 +18,8 @@
     request.requestMethod = requestMethodGet;
     [request.parserMapper setObject:@"SMResult" forKey:parserReturnTypeMainModelOfKey];
     [request.parserMapper setObject:@"SMJoke" forKey:@"detail"];
+    [request.parserKeysMapper setObject:@"uid" forKey:@"id"];
+    [request.parserKeysMapper setObject:@"title" forKey:@"author"];
     return request;
 }
 

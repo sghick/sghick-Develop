@@ -96,7 +96,7 @@ static NSString *identifier = @"identifier";
         color = [UIColor blackColor];
     }
     
-    cell.textLabel.text = joke.author;
+    cell.textLabel.text = joke.title;
     cell.textLabel.textColor = color;
     cell.detailTextLabel.text = joke.content;
     cell.detailTextLabel.textColor = color;

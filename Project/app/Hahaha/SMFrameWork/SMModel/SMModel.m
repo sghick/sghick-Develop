@@ -12,24 +12,24 @@
 
 @implementation SMModel
 
-- (id)valueForUndefinedKey:(NSString *)key{
-    SMLog(@"getUndifineKey:%@ in %@", key, NSStringFromClass([self class]));
-    return nil;
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    [super setValue:value forUndefinedKey:key];
+    SMLog(@"setValueForUndefinedKey:%@ in %@", key, NSStringFromClass([self class]));
 }
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    SMLog(@"setValueForUndefinedKey:%@ in %@", key, NSStringFromClass([self class]));
+- (void)setValue:(id)value forKey:(NSString *)key {
+    NSString *unKey = self.keysMapper[key];
+    if (unKey) {
+        [super setValue:value forKey:unKey];
+    } else {
+        [super setValue:value forKey:key];
+    }
 }
 
 - (NSString *)description{
     return SMToString(@"%@", self.dictionary);
 }
 
-/**
- *  返回一个字典对象
- *
- *  @return 一个字典对象
- */
 - (NSDictionary *)dictionary{
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:0];
     id classM = objc_getClass([NSStringFromClass([self class]) UTF8String]);
@@ -48,13 +48,14 @@
     return dict;
 }
 
-/**
- *  设置model对象
- *
- *  @param dict   要设置的值
- *  @param mapper 映射
- */
 - (void)setValuesWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper{
+    [self setValuesWithDictionary:dict classNamesMapper:mapper keysMapper:nil];
+}
+
+- (void)setValuesWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper keysMapper:(NSDictionary *)keysMapper {
+    if (_keysMapper != keysMapper) {
+        _keysMapper = keysMapper;
+    }
     NSDictionary * newDict = [SMModel dictionaryFormateToString:dict];
     [self setValuesForKeysWithDictionary:newDict];
     if (!mapper) {
@@ -72,22 +73,18 @@
         for (NSDictionary * subDict in arr) {
             Class modelClass = NSClassFromString(mClass);
             SMModel * model = [[modelClass alloc] init];
-            [model setValuesWithDictionary:subDict classNamesMapper:curDict];
+            [model setValuesWithDictionary:subDict classNamesMapper:curDict keysMapper:keysMapper];
             [subModel addObject:model];
         }
         [self setValue:subModel forKey:key];
     }
 }
 
-/**
- *  设置并返回一个数组
- *
- *  @param dict   要设置的值
- *  @param mapper 映射
- *
- *  @return 数组
- */
-+ (NSArray *)arrayWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper{
++ (NSArray *)arrayWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper {
+    return [self arrayWithDictionary:dict classNamesMapper:mapper keysMapper:nil];
+}
+
++ (NSArray *)arrayWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper keysMapper:(NSDictionary *)keysMapper {
     NSMutableArray * rtnArr = [[NSMutableArray alloc] initWithCapacity:0];
     Class mainClass = NSClassFromString([mapper objectForKey:parserReturnTypeMainArrayOfKey]);
     if (!mainClass) {
@@ -101,7 +98,7 @@
             [curDict removeObjectForKey:key];
             for (NSDictionary * subDict in arr) {
                 SMModel * model = [[mainClass alloc] init];
-                [model setValuesWithDictionary:subDict classNamesMapper:curDict];
+                [model setValuesWithDictionary:subDict classNamesMapper:curDict keysMapper:keysMapper];
                 [rtnArr addObject:model];
             }
         }
@@ -109,9 +106,6 @@
     return rtnArr;
 }
 
-/**
- *  将字典中的value转成NSString类型
- */
 + (NSDictionary *)dictionaryFormateToString:(NSDictionary *)dict{
     NSMutableDictionary * rtn = [NSMutableDictionary dictionaryWithDictionary:dict];
     NSArray * keys = [dict allKeys];

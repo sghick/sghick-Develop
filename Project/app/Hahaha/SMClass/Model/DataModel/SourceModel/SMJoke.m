@@ -10,10 +10,4 @@
 
 @implementation SMJoke
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    if ([@"id" isEqualToString:key]) {
-        self.uid = value;
-    }
-}
-
 @end

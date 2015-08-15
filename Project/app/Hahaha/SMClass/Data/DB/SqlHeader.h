@@ -9,8 +9,8 @@
 #ifndef Demo_SMFrameWork_SqlHeader_h
 #define Demo_SMFrameWork_SqlHeader_h
 
-#define sql_delete_jokes_with_uid   @"DELETE tb_joke WHERE uid=:uid"
-#define sql_set_jokes_read_with_uid @"UPDATE tb_joke SET read = true WHERE uid=:uid"
-#define sql_search_jokes_with_uid   @"SELECT * FROM tb_joke WHERE uid=:uid"
+#define sql_delete_jokes_with_id   @"DELETE tb_joke WHERE xhid=:xhid"
+#define sql_set_jokes_read_with_id @"UPDATE tb_joke SET read = true WHERE xhid=:xhid"
+#define sql_search_jokes_with_id   @"SELECT * FROM tb_joke WHERE xhid=:xhid"
 
 #endif
