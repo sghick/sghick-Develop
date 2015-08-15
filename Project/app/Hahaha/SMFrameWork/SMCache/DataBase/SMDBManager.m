@@ -103,7 +103,7 @@
         }
         // 主键
         if ([primaryKeys containsObject:attributeName]) {
-            [sqlQuery appendFormat:@"%@ %@ primary key, ", attributeName, dbType];
+            [sqlQuery appendFormat:@"%@ %@ PRIMARY KEY NOT NULL, ", attributeName, dbType];
         } else {
             [sqlQuery appendFormat:@"%@ %@, ", attributeName, dbType];
         }
@@ -288,7 +288,6 @@
     }
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    
     NSMutableArray* arrays = [NSMutableArray array];
     va_list argList;
     if (sql) {
@@ -298,16 +297,21 @@
             [arrays addObject:arg];
         }
     }
-
     FMResultSet * set = [self.db executeQuery:sql withArgumentsInArray:arrays];
-
     NSMutableArray * rtns = [NSMutableArray array];
-    while ([set next]) {
-        NSDictionary *dict = [set resultDictionary];
-        Class mdClass = [modelClass class];
-        NSObject *model = [[mdClass alloc] init];
-        [model setValuesForKeysWithDictionary:dict];
-        [rtns addObject:model];
+    if (modelClass) {
+        while ([set next]) {
+            NSDictionary *dict = [set resultDictionary];
+            Class mdClass = [modelClass class];
+            NSObject *model = [[mdClass alloc] init];
+            [model setValuesForKeysWithDictionary:dict];
+            [rtns addObject:model];
+        }
+    } else {
+        while ([set next]) {
+            NSDictionary *dict = [set resultDictionary];
+            [rtns addObject:dict];
+        }
     }
     [self.db close];
     return rtns;

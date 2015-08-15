@@ -18,5 +18,7 @@
 - (int)updateJoke:(SMJoke *)joke;
 - (NSArray *)searchJokes;
 - (NSArray *)searchJokesWithId:(NSString *)xhid;
+- (NSString *)searchJokesMaxid;
+- (NSString *)searchJokesMinid;
 
 @end

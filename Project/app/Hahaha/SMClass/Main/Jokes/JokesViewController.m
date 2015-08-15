@@ -13,12 +13,6 @@
 #import "UITableView+SM.h"
 #import "JokeDetailViewController.h"
 
-typedef NS_ENUM(NSInteger, JokesType) {
-    JokesType1,
-    JokesType2,
-    JokesType3
-};
-
 @interface JokesViewController ()<
 JokeBllDelegate,
 UITableViewDataSource,
@@ -30,7 +24,6 @@ JokeDetailViewControllerDelegate
 
 @property (strong, nonatomic) SMTableView *tableView;
 @property (strong, nonatomic) NSMutableArray * dataSource;
-@property (assign, nonatomic) JokesType jokesType;
 
 @end
 
@@ -56,12 +49,14 @@ static NSString *identifier = @"identifier";
     self.dataSource = [NSMutableArray array];
     [tableView mj_addMJRefreshOperationBlock:^(int page) {
         [self requestJokesWithCurPage:page];
-    } operationType:SMMjOperationTypeDefault refresh:NO];
+    } operationType:SMMjOperationTypeDefault refresh:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self requestJokesWithCurPage:1];
+    [self.dataSource removeAllObjects];
+    [self.dataSource addObjectsFromArray:[self.bll searchJokesFromDB]];
+    [self.tableView reloadData];
 }
 
 - (void)updateViewConstraints {
@@ -161,12 +156,12 @@ static NSString *identifier = @"identifier";
 
 #pragma mark - bll delegate
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode {
-    SMLog(@"%@,%@", kLogError, errorCode);
     [self.tableView mj_faildRefresh];
 }
 
 - (void)respondsJokeList:(NSArray *)array curPage:(int)curPage {
-    SMLog(@"%zi,%zi", self.dataSource.count, curPage);
+    SMLog(@"%zi:%d", array.count, curPage);
+    [self.dataSource removeAllObjects];
     [self.tableView mj_finishedFillDataSource:self.dataSource curPage:curPage newDataSource:array];
     [self.tableView reloadData];
 }

@@ -36,8 +36,8 @@
     
     JokeBll *bll = [[JokeBll alloc] init];
     self.bll = bll;
-    
-    self.title = self.joke.author;
+
+    self.title = self.joke.title;
     textView.text = self.joke.content;
     
     [self.bll makeJokeReadWithId:self.joke.xhid];

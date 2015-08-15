@@ -54,13 +54,25 @@
 }
 
 - (NSArray *)searchJokes {
-    NSArray *rtns = [self.dbm searchTable:@"tb_joke" modelClass:[SMJoke class]];
+    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes, nil];
     return rtns;
 }
 
 - (NSArray *)searchJokesWithId:(NSString *)xhid {
     NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_with_id, xhid, nil];
     return rtns;
+}
+
+- (NSString *)searchJokesMaxid {
+    NSArray *rtn = [self.dbm searchTableWithSqlFillModelClass:nil sql:sql_search_jokes_max_id, nil];
+    NSDictionary *dict = [rtn firstObject];
+    return dict[@"xhid"];
+}
+
+- (NSString *)searchJokesMinid {
+    NSArray *rtn = [self.dbm searchTableWithSqlFillModelClass:nil sql:sql_search_jokes_min_id, nil];
+    NSDictionary *dict = [rtn firstObject];
+    return dict[@"xhid"];
 }
 
 @end

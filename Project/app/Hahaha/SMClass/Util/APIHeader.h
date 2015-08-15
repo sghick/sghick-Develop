@@ -9,8 +9,8 @@
 #ifndef Demo_SMFrameWork_APIHeader_h
 #define Demo_SMFrameWork_APIHeader_h
 
-#define URL_JOKE_LIST1      @"http://japi.juhe.cn/joke/content/list.from"
-#define URL_JOKE_LIST2      @"http://api.1-blog.com/biz/bizserver/xiaohua/list.do"
-#define URL_JOKE_LIST3      @"http://api.laifudao.com/open/xiaohua.json"
+#define URL_JOKE_LIST1      @"http://api.1-blog.com/biz/bizserver/xiaohua/list.do"
+#define URL_JOKE_LIST2      @"http://api.laifudao.com/open/xiaohua.json"
+#define URL_JOKE_LIST3      @""
 
 #endif

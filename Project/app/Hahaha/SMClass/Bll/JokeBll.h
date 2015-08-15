@@ -20,7 +20,7 @@
 @interface JokeBll : SMBll
 
 - (void)requestJokeListWithCurPage:(int)curPage;
-
 - (void)makeJokeReadWithId:(NSString *)xhid;
+- (NSArray *)searchJokesFromDB;
 
 @end

@@ -13,8 +13,7 @@
 @implementation SMModel
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    [super setValue:value forUndefinedKey:key];
-    SMLog(@"setValueForUndefinedKey:%@ in %@", key, NSStringFromClass([self class]));
+//    SMLog(@"setValueForUndefinedKey:%@ in %@", key, NSStringFromClass([self class]));
 }
 
 - (void)setValue:(id)value forKey:(NSString *)key {
@@ -22,7 +21,12 @@
     if (unKey) {
         [super setValue:value forKey:unKey];
     } else {
-        [super setValue:value forKey:key];
+        @try {
+            [super setValue:value forKey:key];
+        }
+        @catch (NSException *exception) {
+            [self setValue:value forUndefinedKey:key];
+        }
     }
 }
 
@@ -90,18 +94,28 @@
     if (!mainClass) {
         SMLog(@"%@:未设置key:parserReturnTypeMainArrayOfKey的类名映射！", kLogWarming);
     }
-    for (NSString * key in mapper.allKeys) {
-        if ([NSStringFromClass(mainClass) isEqualToString:[mapper objectForKey:key]]) {
-            NSArray * arr = [dict objectForKey:key];
-            NSMutableDictionary * curDict = [[NSMutableDictionary alloc] initWithDictionary:mapper];
-            [curDict removeObjectForKey:parserReturnTypeMainArrayOfKey];
-            [curDict removeObjectForKey:key];
-            for (NSDictionary * subDict in arr) {
-                SMModel * model = [[mainClass alloc] init];
-                [model setValuesWithDictionary:subDict classNamesMapper:curDict keysMapper:keysMapper];
-                [rtnArr addObject:model];
+    if ([dict isKindOfClass:[NSDictionary class]]) {
+        for (NSString * key in mapper.allKeys) {
+            if ([NSStringFromClass(mainClass) isEqualToString:[mapper objectForKey:key]]) {
+                NSArray * arr = [dict objectForKey:key];
+                NSMutableDictionary * curDict = [[NSMutableDictionary alloc] initWithDictionary:mapper];
+                [curDict removeObjectForKey:parserReturnTypeMainArrayOfKey];
+                [curDict removeObjectForKey:key];
+                for (NSDictionary * subDict in arr) {
+                    SMModel * model = [[mainClass alloc] init];
+                    [model setValuesWithDictionary:subDict classNamesMapper:curDict keysMapper:keysMapper];
+                    [rtnArr addObject:model];
+                }
             }
         }
+    } else if ([dict isKindOfClass:[NSArray class]]) {
+        for (NSDictionary *subDict in dict) {
+            SMModel * model = [[mainClass alloc] init];
+            [model setValuesWithDictionary:subDict classNamesMapper:mapper keysMapper:keysMapper];
+            [rtnArr addObject:model];
+        }
+    } else {
+        SMLog(@"错误：数据源是字典和数组以外的类型！");
     }
     return rtnArr;
 }

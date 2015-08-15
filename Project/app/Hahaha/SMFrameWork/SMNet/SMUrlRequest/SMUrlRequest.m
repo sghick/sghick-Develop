@@ -189,7 +189,7 @@ static NSString *docListStr = @"";
         [newMapper removeObjectForKey:parserReturnTypeMainModelOfKey];
         [model setValuesWithDictionary:self.responseDictionary classNamesMapper:newMapper keysMapper:self.parserKeysMapper];
         _responseParserObject = model;
-    } else{
+    } else {
         _responseParserObject = [SMModel arrayWithDictionary:self.responseDictionary classNamesMapper:self.parserMapper keysMapper:self.parserKeysMapper];
     }
     return _responseParserObject;

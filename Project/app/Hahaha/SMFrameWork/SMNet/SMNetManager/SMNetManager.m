@@ -57,7 +57,12 @@
             //把返回的对象 传递给 request.responseObject
             request.responseObject = responseObject;
             SMLog(@"POST请求成功: %@, %@", request.key, request.urlString);
-            SMLog(@"=====>%@", responseObject);
+            if ([responseObject isKindOfClass:[NSData class]]) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                SMLog(@"===DATA==>%@", dict);
+            } else {
+                SMLog(@"===DICT==>%@", responseObject);
+            }
             //执行request finished 方法
             [request finished];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -71,7 +76,7 @@
             [request faild];
         }];
     } else if ([requestMethodGet isEqualToString:request.requestMethod]) {
-        [[SMAFNClient sharedClient] GET:request.urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[SMAFNClient sharedClient] GET:request.urlString parameters:request.paramsDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [request clearResponse];
             if (!responseObject) {
                 SMLog(@"GET请求数据为空,程序即将崩溃: %@, %@", request.key, request.urlString);
@@ -82,6 +87,12 @@
             }
             request.responseObject = responseObject;
             SMLog(@"GET请求成功: %@, %@", request.key, request.urlString);
+            if ([responseObject isKindOfClass:[NSData class]]) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                SMLog(@"===DATA==>%@", dict);
+            } else {
+                SMLog(@"===DICT==>%@", responseObject);
+            }
             [request finished];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             SMLog(@"GET请求失败: %@, %@", request.key, error);
