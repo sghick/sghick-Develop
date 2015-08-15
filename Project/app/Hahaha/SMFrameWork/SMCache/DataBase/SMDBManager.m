@@ -123,6 +123,15 @@
     return count;
 }
 
+- (int)insertTable:(NSString *)tableName model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys {
+    if (!model) {
+        return 0;
+    }
+    NSString *sql = [self sqlForInsertWithTableName:tableName model:model];
+    int count = [self insertTableWithSql:sql model:model primaryKeys:primaryKeys];
+    return count;
+}
+
 - (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
     if (!sql || !sql.length) {
         return 0;
@@ -164,6 +173,45 @@
     return count;
 }
 
+- (int)insertTableWithSql:(NSString *)sql model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys {
+    if (!sql || !sql.length) {
+        return 0;
+    }
+    
+    NSString *sql1 = [sql stringByReplacingOccurrencesOfString:@"(" withString:@" "];
+    sql1 = [sql1 stringByReplacingOccurrencesOfString:@")" withString:@" "];
+    NSArray *sqlComponents = [sql1 componentsSeparatedByString:@" "];
+    NSString *tableName = nil;
+    BOOL canBreak = NO;
+    for (NSString *str in sqlComponents) {
+        if (str.length && canBreak) {
+            tableName = str;
+            break;
+        }
+        if ([[str uppercaseString] rangeOfString:@"INTO"].length) {
+            canBreak = YES;
+        }
+    }
+    NSAssert(tableName, @"sql语句错误!");
+    
+    if (!model) {
+        return 0;
+    }
+    if (![self existTable:tableName]) {
+        [self createTable:tableName modelClass:[model class] primaryKeys:primaryKeys];
+    }
+    BOOL isSet = [self.db open];
+    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
+    int count = 0;
+    if ([model isKindOfClass:[SMModel class]]) {
+        NSString *sql = [self sqlForInsertWithTableName:tableName model:model];
+        BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:((SMModel *)model).dictionary];
+        count += isSuccess;
+    }
+    [self.db close];
+    return count;
+}
+
 - (int)deleteTable:(NSString *)tableName {
     NSString *sql = [self sqlForDeleteWithTableName:tableName];
     int count = [self deleteTableWithSql:sql];
@@ -182,18 +230,31 @@
     if (!models || !models.count) {
         return 0;
     }
-    NSString *sql = [self sqlForUpdateWithTableName:tableName model:[models firstObject] primaryKeys:primaryKeys];
-    if (!models || !models.count) {
-        return 0;
-    }
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[SMModel class]]) {
+            NSString *sql = [self sqlForUpdateWithTableName:tableName model:[models firstObject] primaryKeys:primaryKeys];
             BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:((SMModel *)model).dictionary];
             count += isSuccess;
         }
+    }
+    [self.db close];
+    return count;
+}
+
+- (int)updateTable:(NSString *)tableName model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys {
+    if (!model) {
+        return 0;
+    }
+    BOOL isSet = [self.db open];
+    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
+    int count = 0;
+    if ([model isKindOfClass:[SMModel class]]) {
+        NSString *sql = [self sqlForUpdateWithTableName:tableName model:model primaryKeys:primaryKeys];
+        BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:((SMModel *)model).dictionary];
+        count += isSuccess;
     }
     [self.db close];
     return count;

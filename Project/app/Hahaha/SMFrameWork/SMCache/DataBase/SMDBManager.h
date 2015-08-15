@@ -24,12 +24,15 @@
 - (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass;
 
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
+- (int)insertTable:(NSString *)tableName model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys;
 - (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
+- (int)insertTableWithSql:(NSString *)sql model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys;
 
 - (int)deleteTable:(NSString *)tableName;
 - (int)deleteTableWithSql:(NSString*)sql, ...;
 
 - (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
+- (int)updateTable:(NSString *)tableName model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys;
 - (int)updateTableWithSql:(NSString *)sql model:(SMModel *)model;
 - (int)updateTableWithSql:(NSString *)sql, ...;
 

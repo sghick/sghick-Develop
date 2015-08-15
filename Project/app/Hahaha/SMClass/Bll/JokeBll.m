@@ -50,14 +50,25 @@ static NSString *kRequestJokeList = @"kRequestJokeList";
     [self addRequest:request useCache:YES useQueue:YES];
 }
 
+#pragma mark - db option
+- (void)makeJokeReadWithUid:(NSString *)uid {
+    SMJoke *joke = [self.dao searchJokesWithUserId:uid].firstObject;
+    if (joke) {
+        joke.isRead = YES;
+        [self.dao updateJoke:joke];
+    } else {
+        SMLog(@"joke uid:%@ 不存在", uid);
+    }
+}
+
 #pragma mark - request - responds
 - (void)finishedAction:(SMUrlRequest *)request {
     if ([kRequestJokeList isEqualToString:request.key]) {
         SMResult *result = request.responseParserObject;
-        [self.dao insertJokes:result.detail];
-        NSArray *detail = [self.dao searchJokes];
+        int count = [self.dao insertJokes:result.detail];
+        NSArray *detail = [[[self.dao searchJokes] reverseObjectEnumerator] allObjects];
         if ([self.delegate respondsToSelector:@selector(respondsJokeList:curPage:)]) {
-            [self.delegate respondsJokeList:detail curPage:request.page];
+            [self.delegate respondsJokeList:detail curPage:(count?request.page:1)];
         }
     }
 }
@@ -73,7 +84,7 @@ static NSString *kRequestJokeList = @"kRequestJokeList";
 #pragma mark - SMBllCacheDelegate
 - (void)cacheDBWithRequest:(SMUrlRequest *)request {
     if ([kRequestJokeList isEqualToString:request.key]) {
-        NSArray *detail = [self.dao searchJokes];
+        NSArray *detail = [[[self.dao searchJokes] reverseObjectEnumerator] allObjects];
         if ([self.delegate respondsToSelector:@selector(respondsJokeList:curPage:)]) {
             [self.delegate respondsJokeList:detail curPage:1];
         }

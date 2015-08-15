@@ -21,4 +21,6 @@
 
 - (void)requestJokeListWithCurPage:(int)curPage;
 
+- (void)makeJokeReadWithUid:(NSString *)uid;
+
 @end

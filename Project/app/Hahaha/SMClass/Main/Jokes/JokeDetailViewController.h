@@ -8,9 +8,20 @@
 
 #import "SMViewController.h"
 
+@class JokeDetailViewController;
+@protocol JokeDetailViewControllerDelegate <NSObject>
+
+- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToLastWithIndexPath:(NSIndexPath *)indexPath;
+- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToNextWithIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @class SMJoke;
 @interface JokeDetailViewController : SMViewController
 
 @property (strong, nonatomic) SMJoke *joke;
+@property (strong, nonatomic) NSIndexPath *indexPath;
+
+@property (assign, nonatomic) id <JokeDetailViewControllerDelegate> delegate;
 
 @end

@@ -217,11 +217,13 @@ static char SMMjOperationKey;
     if (curPage == 1) {
         [dataSource removeAllObjects];
         [dataSource addObjectsFromArray:newDataSource];
+        [self.footer endRefreshing];
         [self.header endRefreshing];
     }
     else{
         [dataSource addObjectsFromArray:newDataSource];
         [self.footer endRefreshing];
+        [self.header endRefreshing];
     }
     return curPage;
 }

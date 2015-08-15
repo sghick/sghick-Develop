@@ -16,7 +16,8 @@
 @interface JokesViewController ()<
 JokeBllDelegate,
 UITableViewDataSource,
-UITableViewDelegate
+UITableViewDelegate,
+JokeDetailViewControllerDelegate
 >
 
 @property (strong, nonatomic) JokeBll *bll;
@@ -51,6 +52,11 @@ static NSString *identifier = @"identifier";
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.bll requestJokeListWithCurPage:1];
+}
+
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     // 自动布局
@@ -83,8 +89,17 @@ static NSString *identifier = @"identifier";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     SMJoke *joke = self.dataSource[indexPath.row];
+    UIColor *color = nil;
+    if (joke.isRead) {
+        color = [UIColor grayColor];
+    } else {
+        color = [UIColor blackColor];
+    }
+    
     cell.textLabel.text = joke.author;
+    cell.textLabel.textColor = color;
     cell.detailTextLabel.text = joke.content;
+    cell.detailTextLabel.textColor = color;
     return cell;
 }
 
@@ -92,8 +107,46 @@ static NSString *identifier = @"identifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SMJoke *joke = self.dataSource[indexPath.row];
     JokeDetailViewController *vc = [[JokeDetailViewController alloc] init];
+    vc.delegate = self;
     vc.joke = joke;
+    vc.indexPath = indexPath;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - JokeDetailViewControllerDelegate
+- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToLastWithIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        SMLog(@"到头了！");
+        return;
+    }
+    NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
+    SMJoke *joke = self.dataSource[lastIndexPath.row];
+    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
+    detailVC.delegate = self;
+    detailVC.joke = joke;
+    detailVC.indexPath = lastIndexPath;
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    [viewControllers insertObject:detailVC atIndex:(viewControllers.count - 1)];
+    self.navigationController.viewControllers = viewControllers;
+    [viewController.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToNextWithIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == self.dataSource.count - 1) {
+        SMLog(@"到最后了！");
+        return;
+    }
+    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
+    SMJoke *joke = self.dataSource[nextIndexPath.row];
+    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
+    detailVC.delegate = self;
+    detailVC.joke = joke;
+    detailVC.indexPath = nextIndexPath;
+    viewController.title = self.title;
+    [viewController.navigationController pushViewController:detailVC animated:YES];
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    [viewControllers removeObject:viewController];
+    self.navigationController.viewControllers = viewControllers;
 }
 
 #pragma mark - bll delegate
@@ -103,6 +156,7 @@ static NSString *identifier = @"identifier";
 }
 
 - (void)respondsJokeList:(NSArray *)array curPage:(int)curPage {
+    SMLog(@"%zi,%zi", self.dataSource.count, curPage);
     [self.tableView mj_finishedFillDataSource:self.dataSource curPage:curPage newDataSource:array];
     [self.tableView reloadData];
 }

@@ -52,6 +52,7 @@ static NSString *identifier = @"identifier";
 #pragma mark - action
 - (void)jokesBtnAction:(UIButton *)sender {
     JokesViewController *jokesVC = [[JokesViewController alloc] init];
+    jokesVC.title = sender.titleLabel.text;
     [self.navigationController pushViewController:jokesVC animated:YES];
 }
 

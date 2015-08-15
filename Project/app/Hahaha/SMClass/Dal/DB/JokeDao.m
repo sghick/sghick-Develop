@@ -48,6 +48,11 @@
     return count;
 }
 
+- (int)updateJoke:(SMJoke *)joke {
+    int count = [self.dbm updateTable:@"tb_joke" model:joke primaryKeys:@[@"uid"]];
+    return count;
+}
+
 - (NSArray *)searchJokes {
     NSArray *rtns = [self.dbm searchTable:@"tb_joke" modelClass:[SMJoke class]];
     return rtns;

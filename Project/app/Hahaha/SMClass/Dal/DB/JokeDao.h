@@ -8,12 +8,14 @@
 
 #import "SMDAO.h"
 
+@class SMJoke;
 @interface JokeDao : SMDAO
 
 - (int)insertJokes:(NSArray *)jokes;
 - (int)deleteJokes;
 - (int)deleteJokesWithUid:(NSString *)uid;
 - (int)updateJokes:(NSArray *)jokes;
+- (int)updateJoke:(SMJoke *)joke;
 - (NSArray *)searchJokes;
 - (NSArray *)searchJokesWithUserId:(NSString *)uid;
 
