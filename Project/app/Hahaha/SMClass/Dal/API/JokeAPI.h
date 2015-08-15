@@ -11,6 +11,8 @@
 @class SMModel;
 @interface JokeAPI : SMAPI
 
-- (SMUrlRequest *)requestJokeList;
+- (SMUrlRequest *)requestJokeList1;
+- (SMUrlRequest *)requestJokeList2;
+- (SMUrlRequest *)requestJokeList3;
 
 @end

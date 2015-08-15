@@ -13,6 +13,12 @@
 #import "UITableView+SM.h"
 #import "JokeDetailViewController.h"
 
+typedef NS_ENUM(NSInteger, JokesType) {
+    JokesType1,
+    JokesType2,
+    JokesType3
+};
+
 @interface JokesViewController ()<
 JokeBllDelegate,
 UITableViewDataSource,
@@ -24,6 +30,7 @@ JokeDetailViewControllerDelegate
 
 @property (strong, nonatomic) SMTableView *tableView;
 @property (strong, nonatomic) NSMutableArray * dataSource;
+@property (assign, nonatomic) JokesType jokesType;
 
 @end
 
@@ -48,13 +55,13 @@ static NSString *identifier = @"identifier";
     
     self.dataSource = [NSMutableArray array];
     [tableView mj_addMJRefreshOperationBlock:^(int page) {
-        [self.bll requestJokeListWithCurPage:page];
-    }];
+        [self requestJokesWithCurPage:page];
+    } operationType:SMMjOperationTypeDefault refresh:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.bll requestJokeListWithCurPage:1];
+    [self requestJokesWithCurPage:1];
 }
 
 - (void)updateViewConstraints {
@@ -76,7 +83,10 @@ static NSString *identifier = @"identifier";
                                                                         views:views]];
 }
 
-#pragma mark - action
+#pragma mark - request
+- (void)requestJokesWithCurPage:(int)curPage {
+    [self.bll requestJokeListWithCurPage:curPage];
+}
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

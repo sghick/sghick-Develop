@@ -44,7 +44,7 @@ static NSString *kRequestJokeList = @"kRequestJokeList";
 
 #pragma mark - request
 - (void)requestJokeListWithCurPage:(int)curPage {
-    SMUrlRequest *request = [self.api requestJokeList];
+    SMUrlRequest *request = [self.api requestJokeList1];
     request.key = kRequestJokeList;
     request.page = curPage;
     [self addRequest:request useCache:YES useQueue:YES];

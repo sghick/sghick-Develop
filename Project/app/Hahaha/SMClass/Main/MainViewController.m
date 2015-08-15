@@ -21,6 +21,8 @@ static NSString *identifier = @"identifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"文子娱乐圈";
+    
     SMButton *jokesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
     [jokesBtn setTitle:@"笑话" forState:UIControlStateNormal];
     [jokesBtn addTarget:self action:@selector(jokesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
