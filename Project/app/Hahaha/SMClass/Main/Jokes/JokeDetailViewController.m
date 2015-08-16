@@ -32,6 +32,7 @@
     UITextView *textView = [[UITextView alloc] init];
     textView.frame = CGRectMake(10, 10, SMScreenWidth - 10, SMScreenHeight - 10);
     textView.userInteractionEnabled = NO;
+    textView.font = [UIFont systemFontOfSize:15*SMWidthScale];
     [self.view addSubview:textView];
     
     JokeBll *bll = [[JokeBll alloc] init];

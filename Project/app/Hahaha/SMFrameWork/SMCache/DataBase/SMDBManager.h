@@ -21,7 +21,7 @@
 
 - (BOOL)existTable:(NSString *)tableName;
 + (BOOL)existTable:(NSString *)tableName inDataBase:(FMDatabase *)db;
-- (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass;
+- (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
 
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
 - (int)insertTable:(NSString *)tableName model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys;

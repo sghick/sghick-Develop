@@ -50,9 +50,8 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
         SMResult *result = request.responseParserObject;
         int count = [self.dao insertJokes:result.detail];
         SMLog(@"请求到%zi条, 新增数据%d条",result.detail.count, count);
-        NSArray *detail = [self.dao searchJokes];
-        if ([self.delegate respondsToSelector:@selector(respondsJokeList:curPage:)]) {
-            [self.delegate respondsJokeList:detail curPage:request.page];
+        if ([self.delegate respondsToSelector:@selector(respondsJokesCount:curPage:)]) {
+            [self.delegate respondsJokesCount:count curPage:request.page];
         }
     }
     if ([kRequestJokeList2 isEqualToString:request.key]) {
@@ -62,18 +61,8 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
         }
         int count = [self.dao insertJokes:results];
         SMLog(@"请求到%zi条, 新增数据%d条",results.count, count);
-        NSArray *detail = [self.dao searchJokes];
-        if ([self.delegate respondsToSelector:@selector(respondsJokeList:curPage:)]) {
-            [self.delegate respondsJokeList:detail curPage:request.page];
-        }
-    }
-    if ([kRequestJokeList3 isEqualToString:request.key]) {
-        SMResult *result = request.responseParserObject;
-        int count = [self.dao insertJokes:result.detail];
-        SMLog(@"请求到%zi条, 新增数据%d条",result.detail.count, count);
-        NSArray *detail = [self.dao searchJokes];
-        if ([self.delegate respondsToSelector:@selector(respondsJokeList:curPage:)]) {
-            [self.delegate respondsJokeList:detail curPage:request.page];
+        if ([self.delegate respondsToSelector:@selector(respondsJokesCount:curPage:)]) {
+            [self.delegate respondsJokesCount:count curPage:request.page];
         }
     }
 }
@@ -86,35 +75,18 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
     }
 }
 
-#pragma mark - SMBllCacheDelegate
-- (void)cacheDBWithRequest:(SMUrlRequest *)request {
-    if ([kRequestJokeList1 isEqualToString:request.key]
-        || [kRequestJokeList2 isEqualToString:request.key]
-        || [kRequestJokeList3 isEqualToString:request.key]) {
-        NSArray *detail = [[[self.dao searchJokes] reverseObjectEnumerator] allObjects];
-        if ([self.delegate respondsToSelector:@selector(respondsJokeList:curPage:)]) {
-            [self.delegate respondsJokeList:detail curPage:1];
-        }
-    }
-}
-
 #pragma mark - option
 - (void)requestJokeListWithCurPage:(int)curPage {
     SMUrlRequest *request1 = [self.api requestJokeList1];
     request1.key = kRequestJokeList1;
     request1.page = curPage;
     [request1.paramsDict setObject:[NSString stringWithFormat:@"%d", curPage] forKey:@"page"];
-    [self addRequest:request1 useCache:YES useQueue:YES];
+    [self addRequest:request1 useQueue:YES];
     
-//    SMUrlRequest *request2 = [self.api requestJokeList2];
-//    request2.key = kRequestJokeList2;
-//    request2.page = curPage;
-//    [self addRequest:request2 useCache:YES useQueue:YES];
-
-//    SMUrlRequest *request3 = [self.api requestJokeList3];
-//    request3.key = kRequestJokeList3;
-//    request3.page = curPage;
-//    [self addRequest:request3 useCache:YES useQueue:YES];
+    SMUrlRequest *request2 = [self.api requestJokeList2];
+    request2.key = kRequestJokeList2;
+    request2.page = curPage;
+    [self addRequest:request2 useQueue:YES];
 }
 
 - (void)makeJokeReadWithId:(NSString *)xhid {
@@ -127,8 +99,8 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
     }
 }
 
-- (NSArray *)searchJokesFromDB {
-    return [self.dao searchJokes];
+- (NSArray *)searchJokesFromDBIsRead:(BOOL)isRead {
+    return [self.dao searchJokesIsRead:isRead];
 }
 
 @end

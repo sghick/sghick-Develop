@@ -12,6 +12,7 @@
 @interface MainViewController ()
 
 @property (strong, nonatomic) SMButton *jokesBtn;
+@property (strong, nonatomic) SMButton *movesBtn;
 
 @end
 
@@ -29,18 +30,24 @@ static NSString *identifier = @"identifier";
     [self.view addSubview:jokesBtn];
     self.jokesBtn = jokesBtn;
     
+    SMButton *movesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
+    [movesBtn setTitle:@"电影" forState:UIControlStateNormal];
+    [movesBtn addTarget:self action:@selector(movesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:movesBtn];
+    self.movesBtn = movesBtn;
+    
     [self updateViewConstraints];
 }
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     // 自动布局
-    NSDictionary * views = NSDictionaryOfVariableBindings(_jokesBtn);
+    NSDictionary * views = NSDictionaryOfVariableBindings(_jokesBtn, _movesBtn);
     [UIView setTranslatesAutoresizingMaskIntoConstraintsWithViews:views flag:NO];
-    NSDictionary * metrics = @{@"width":[NSNumber numberWithFloat:(SMScreenWidth - 20*SMWidthScale)/1], @"margin":@"10"};
+    NSDictionary * metrics = @{@"width":[NSNumber numberWithFloat:(SMScreenWidth - 20*SMWidthScale)/2], @"margin":@"10"};
     
     // 横向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_jokesBtn(width)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_jokesBtn(width)][_movesBtn(width)]"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:metrics
                                                                         views:views]];
@@ -56,6 +63,10 @@ static NSString *identifier = @"identifier";
     JokesViewController *jokesVC = [[JokesViewController alloc] init];
     jokesVC.title = sender.titleLabel.text;
     [self.navigationController pushViewController:jokesVC animated:YES];
+}
+
+- (void)movesBtnAction:(UIButton *)sender {
+    
 }
 
 @end

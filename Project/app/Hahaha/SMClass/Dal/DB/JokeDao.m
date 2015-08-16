@@ -58,6 +58,11 @@
     return rtns;
 }
 
+- (NSArray *)searchJokesIsRead:(BOOL)isRead {
+    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_isRead, SMToString(@"%d", isRead), nil];
+    return rtns;
+}
+
 - (NSArray *)searchJokesWithId:(NSString *)xhid {
     NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_with_id, xhid, nil];
     return rtns;

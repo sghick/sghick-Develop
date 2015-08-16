@@ -12,7 +12,7 @@
 
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode;
 
-- (void)respondsJokeList:(NSArray *)array curPage:(int)curPage;
+- (void)respondsJokesCount:(int)count curPage:(int)curPage;
 
 @end
 
@@ -21,6 +21,6 @@
 
 - (void)requestJokeListWithCurPage:(int)curPage;
 - (void)makeJokeReadWithId:(NSString *)xhid;
-- (NSArray *)searchJokesFromDB;
+- (NSArray *)searchJokesFromDBIsRead:(BOOL)isRead;
 
 @end

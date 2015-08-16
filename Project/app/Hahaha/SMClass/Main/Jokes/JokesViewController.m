@@ -23,7 +23,8 @@ JokeDetailViewControllerDelegate
 @property (strong, nonatomic) JokeBll *bll;
 
 @property (strong, nonatomic) SMTableView *tableView;
-@property (strong, nonatomic) NSMutableArray * dataSource;
+@property (strong, nonatomic) UISegmentedControl *segment;
+@property (strong, nonatomic) NSArray * dataSource;
 
 @end
 
@@ -37,50 +38,50 @@ static NSString *identifier = @"identifier";
     bll.delegate = self;
     self.bll = bll;
     
-    SMTableView *tableView = [[SMTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    [tableView setExtraCellLineHidden];
-    [self.view addSubview:tableView];
-    self.tableView = tableView;
-    
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.segment];
     [self updateViewConstraints];
     
-    self.dataSource = [NSMutableArray array];
-    [tableView mj_addMJRefreshOperationBlock:^(int page) {
+    [self.tableView mj_addMJRefreshOperationBlock:^(int page) {
         [self requestJokesWithCurPage:page];
     } operationType:SMMjOperationTypeDefault refresh:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.dataSource removeAllObjects];
-    [self.dataSource addObjectsFromArray:[self.bll searchJokesFromDB]];
-    [self.tableView reloadData];
+    [self loadDataFromDBIsRead:self.segment.selectedSegmentIndex];
 }
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     // 自动布局
-    NSDictionary * views = NSDictionaryOfVariableBindings(_tableView);
+    NSDictionary * views = NSDictionaryOfVariableBindings(_segment, _tableView);
     [UIView setTranslatesAutoresizingMaskIntoConstraintsWithViews:views flag:NO];
-    NSDictionary *metrics = @{};
+    NSDictionary *metrics = @{
+                              @"top":SMToString(@"%f", 64.0f),
+                              @"segHeight":SMToString(@"%f", 30.0f)
+                              };
     
-    // 横向1
+    // tableView横向
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|"
                                                                       options:NSLayoutFormatDirectionLeadingToTrailing
                                                                       metrics:metrics
                                                                         views:views]];
-    // 纵向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_tableView]|"
+    // tableView纵向
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-segHeight-[_tableView]|"
                                                                       options:NSLayoutFormatDirectionLeadingToTrailing
                                                                       metrics:metrics
                                                                         views:views]];
-}
-
-#pragma mark - request
-- (void)requestJokesWithCurPage:(int)curPage {
-    [self.bll requestJokeListWithCurPage:curPage];
+    // 横向1
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_segment]|"
+                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                      metrics:metrics
+                                                                        views:views]];
+    // 纵向1
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[_segment(segHeight)]"
+                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                      metrics:metrics
+                                                                        views:views]];
 }
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
@@ -154,16 +155,53 @@ static NSString *identifier = @"identifier";
     self.navigationController.viewControllers = viewControllers;
 }
 
+#pragma mark - action
+- (void)segmentAction:(UISegmentedControl *)sender {
+    [self loadDataFromDBIsRead:sender.selectedSegmentIndex];
+}
+
+#pragma mark - request/loadData
+- (void)requestJokesWithCurPage:(int)curPage {
+    [self.bll requestJokeListWithCurPage:curPage];
+}
+
+- (void)loadDataFromDBIsRead:(BOOL)isRead {
+    self.dataSource = [self.bll searchJokesFromDBIsRead:isRead];
+    [self.tableView reloadData];
+}
+
 #pragma mark - bll delegate
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode {
     [self.tableView mj_faildRefresh];
 }
 
-- (void)respondsJokeList:(NSArray *)array curPage:(int)curPage {
-    SMLog(@"%zi:%d", array.count, curPage);
-    [self.dataSource removeAllObjects];
-    [self.tableView mj_finishedFillDataSource:self.dataSource curPage:curPage newDataSource:array];
-    [self.tableView reloadData];
+- (void)respondsJokesCount:(int)count curPage:(int)curPage {
+    SMLog(@"新增 %d 条", count);
+    [self.tableView mj_finishedFillDataSource:nil curPage:curPage newDataSource:nil];
+    [self loadDataFromDBIsRead:self.segment.selectedSegmentIndex];
+}
+
+#pragma mark - UI getter/setter
+- (SMTableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[SMTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        [_tableView setExtraCellLineHidden];
+    }
+    return _tableView;
+}
+
+- (UISegmentedControl *)segment {
+    if (!_segment) {
+        _segment = [[UISegmentedControl alloc] initWithItems:@[@"未读", @"已读"]];
+        _segment.selectedSegmentIndex = 0;
+        _segment.tintColor = [UIColor blueColor];
+        _segment.backgroundColor = [UIColor whiteColor];
+        [_segment setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateSelected];
+        [_segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _segment;
 }
 
 @end
