@@ -56,7 +56,7 @@
 - (NSArray *)searchUsersWithUserId:(NSInteger)uid {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM SGKUser WHERE uid=%zi", uid];
     NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql];
-//    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql_search_user_with_uid, uid];
+//    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql_search_user_with_uid, uid, nil];
     return rtns;
 }
 
