@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		570F087C1B81A4130068AC99 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 570F087B1B81A4130068AC99 /* libsqlite3.dylib */; };
+		570F08801B81A5480068AC99 /* JokeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 570F087F1B81A5480068AC99 /* JokeView.m */; };
 		FE0ECE4E1B7FCDFA00B3B37D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */; };
 		FE0ECE501B7FCE1000B3B37D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */; };
 		FE7D332C1B7E358400CE6284 /* JokesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D332B1B7E358400CE6284 /* JokesViewController.m */; };
@@ -91,6 +93,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		570F087B1B81A4130068AC99 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		570F087E1B81A5480068AC99 /* JokeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JokeView.h; sourceTree = "<group>"; };
+		570F087F1B81A5480068AC99 /* JokeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JokeView.m; sourceTree = "<group>"; };
 		FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Hahaha/Images.xcassets; sourceTree = "<group>"; };
 		FE7D332A1B7E358400CE6284 /* JokesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JokesViewController.h; sourceTree = "<group>"; };
@@ -277,6 +282,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				570F087C1B81A4130068AC99 /* libsqlite3.dylib in Frameworks */,
 				FE0ECE4E1B7FCDFA00B3B37D /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +290,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		570F087D1B81A5270068AC99 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				570F087E1B81A5480068AC99 /* JokeView.h */,
+				570F087F1B81A5480068AC99 /* JokeView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FE7D33291B7E356200CE6284 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +314,7 @@
 				FE8CF87B1B7CCFC2002A1A92 /* Products */,
 				FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */,
 				FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */,
+				570F087B1B81A4130068AC99 /* libsqlite3.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -727,6 +743,7 @@
 				FE7D332B1B7E358400CE6284 /* JokesViewController.m */,
 				FE8CF9D21B7D785F002A1A92 /* JokeDetailViewController.h */,
 				FE8CF9D31B7D785F002A1A92 /* JokeDetailViewController.m */,
+				570F087D1B81A5270068AC99 /* Views */,
 			);
 			path = Jokes;
 			sourceTree = "<group>";
@@ -915,6 +932,7 @@
 				FE8CF96C1B7D6AF7002A1A92 /* SMNavigationController.m in Sources */,
 				FE8CF9A91B7D6AF7002A1A92 /* MJRefreshGifHeader.m in Sources */,
 				FE8CF96E1B7D6AF7002A1A92 /* SMTextField.m in Sources */,
+				570F08801B81A5480068AC99 /* JokeView.m in Sources */,
 				FE8CF9751B7D6AF7002A1A92 /* main.m in Sources */,
 				FEAFBE851B808C6B007D4143 /* UIImage+GIF.m in Sources */,
 				FE8CF96F1B7D6AF7002A1A92 /* SMViewController.m in Sources */,

@@ -21,6 +21,8 @@
 
 @property (strong, nonatomic) SMJoke *joke;
 @property (strong, nonatomic) NSIndexPath *indexPath;
+// 要等待完全载入了才能响应重力感应
+@property (assign, nonatomic) BOOL gravity;
 
 @property (assign, nonatomic) id <JokeDetailViewControllerDelegate> delegate;
 
