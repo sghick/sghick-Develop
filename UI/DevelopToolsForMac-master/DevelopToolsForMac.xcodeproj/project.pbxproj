@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		575D2DBE1B7C3F4E00543A14 /* Cryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DAF1B7C3F4E00543A14 /* Cryptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		575D2DBF1B7C3F4E00543A14 /* SGDalHeaderCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DB21B7C3F4E00543A14 /* SGDalHeaderCreate.m */; };
+		575D2DC01B7C3F4E00543A14 /* SGDalSourceCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DB41B7C3F4E00543A14 /* SGDalSourceCreate.m */; };
+		575D2DC11B7C3F4E00543A14 /* SGFormateJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DB61B7C3F4E00543A14 /* SGFormateJson.m */; };
+		575D2DC21B7C3F4E00543A14 /* SGFormateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DB81B7C3F4E00543A14 /* SGFormateModel.m */; };
+		575D2DC31B7C3F4E00543A14 /* SGChinese2Unicode.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DBB1B7C3F4E00543A14 /* SGChinese2Unicode.m */; };
+		575D2DC41B7C3F4E00543A14 /* SGUnicode2Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DBD1B7C3F4E00543A14 /* SGUnicode2Chinese.m */; };
+		575D2DC71B7C3F8C00543A14 /* SGCryptorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DC61B7C3F8C00543A14 /* SGCryptorHelper.m */; };
 		FE15F9901B296DD000B6EB23 /* NSString+SG.m in Sources */ = {isa = PBXBuildFile; fileRef = FE15F98F1B296DD000B6EB23 /* NSString+SG.m */; };
 		FE9416631B25721600569018 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9416621B25721600569018 /* main.m */; };
 		FE9416651B25721600569018 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE9416641B25721600569018 /* Images.xcassets */; };
@@ -14,14 +22,8 @@
 		FE9416741B25721600569018 /* DevelopToolsForMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9416731B25721600569018 /* DevelopToolsForMacTests.m */; };
 		FE9416851B25728A00569018 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9416831B25728A00569018 /* AppDelegate.m */; };
 		FE9416971B25904600569018 /* SGConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9416961B25904600569018 /* SGConfigManager.m */; };
-		FE9416A51B25A20500569018 /* SGUnicode2Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9416A41B25A20500569018 /* SGUnicode2Chinese.m */; };
-		FE9416A81B25A21100569018 /* SGChinese2Unicode.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9416A71B25A21100569018 /* SGChinese2Unicode.m */; };
 		FEEA76B81B281F9C0095C11B /* SGBaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEA76B41B281F9C0095C11B /* SGBaseTool.m */; };
 		FEEA76B91B281F9C0095C11B /* SGTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEA76B61B281F9C0095C11B /* SGTool.m */; };
-		FEEA76BC1B2834DD0095C11B /* SGFormateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEA76BB1B2834DD0095C11B /* SGFormateModel.m */; };
-		FEEA76BF1B2834F70095C11B /* SGFormateJson.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEA76BE1B2834F70095C11B /* SGFormateJson.m */; };
-		FEEA76C21B2840E80095C11B /* SGDalHeaderCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEA76C11B2840E80095C11B /* SGDalHeaderCreate.m */; };
-		FEEA76C51B2840FC0095C11B /* SGDalSourceCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEA76C41B2840FC0095C11B /* SGDalSourceCreate.m */; };
 		FEFF9E781B26B3F4001E44D5 /* setting.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEFF9E771B26B3F4001E44D5 /* setting.plist */; };
 		FEFF9E811B26BCB4001E44D5 /* WPBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9E801B26BCB4001E44D5 /* WPBaseModel.m */; };
 /* End PBXBuildFile section */
@@ -37,6 +39,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		575D2DAE1B7C3F4E00543A14 /* Cryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cryptor.h; sourceTree = "<group>"; };
+		575D2DAF1B7C3F4E00543A14 /* Cryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cryptor.m; sourceTree = "<group>"; };
+		575D2DB11B7C3F4E00543A14 /* SGDalHeaderCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDalHeaderCreate.h; sourceTree = "<group>"; };
+		575D2DB21B7C3F4E00543A14 /* SGDalHeaderCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDalHeaderCreate.m; sourceTree = "<group>"; };
+		575D2DB31B7C3F4E00543A14 /* SGDalSourceCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDalSourceCreate.h; sourceTree = "<group>"; };
+		575D2DB41B7C3F4E00543A14 /* SGDalSourceCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDalSourceCreate.m; sourceTree = "<group>"; };
+		575D2DB51B7C3F4E00543A14 /* SGFormateJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGFormateJson.h; sourceTree = "<group>"; };
+		575D2DB61B7C3F4E00543A14 /* SGFormateJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFormateJson.m; sourceTree = "<group>"; };
+		575D2DB71B7C3F4E00543A14 /* SGFormateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGFormateModel.h; sourceTree = "<group>"; };
+		575D2DB81B7C3F4E00543A14 /* SGFormateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFormateModel.m; sourceTree = "<group>"; };
+		575D2DBA1B7C3F4E00543A14 /* SGChinese2Unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGChinese2Unicode.h; sourceTree = "<group>"; };
+		575D2DBB1B7C3F4E00543A14 /* SGChinese2Unicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGChinese2Unicode.m; sourceTree = "<group>"; };
+		575D2DBC1B7C3F4E00543A14 /* SGUnicode2Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGUnicode2Chinese.h; sourceTree = "<group>"; };
+		575D2DBD1B7C3F4E00543A14 /* SGUnicode2Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGUnicode2Chinese.m; sourceTree = "<group>"; };
+		575D2DC51B7C3F8C00543A14 /* SGCryptorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGCryptorHelper.h; sourceTree = "<group>"; };
+		575D2DC61B7C3F8C00543A14 /* SGCryptorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGCryptorHelper.m; sourceTree = "<group>"; };
 		FE15F98D1B296D6400B6EB23 /* SGCommonHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGCommonHeader.h; sourceTree = "<group>"; };
 		FE15F98E1B296DD000B6EB23 /* NSString+SG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SG.h"; sourceTree = "<group>"; };
 		FE15F98F1B296DD000B6EB23 /* NSString+SG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SG.m"; sourceTree = "<group>"; };
@@ -54,22 +72,10 @@
 		FE9416961B25904600569018 /* SGConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGConfigManager.m; sourceTree = "<group>"; };
 		FE94169B1B2596D900569018 /* SGFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGFunctions.h; sourceTree = "<group>"; };
 		FE94169C1B25971100569018 /* SGConfigHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGConfigHeader.h; sourceTree = "<group>"; };
-		FE9416A31B25A20500569018 /* SGUnicode2Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGUnicode2Chinese.h; sourceTree = "<group>"; };
-		FE9416A41B25A20500569018 /* SGUnicode2Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGUnicode2Chinese.m; sourceTree = "<group>"; };
-		FE9416A61B25A21100569018 /* SGChinese2Unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGChinese2Unicode.h; sourceTree = "<group>"; };
-		FE9416A71B25A21100569018 /* SGChinese2Unicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGChinese2Unicode.m; sourceTree = "<group>"; };
 		FEEA76B31B281F9C0095C11B /* SGBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGBaseTool.h; sourceTree = "<group>"; };
 		FEEA76B41B281F9C0095C11B /* SGBaseTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGBaseTool.m; sourceTree = "<group>"; };
 		FEEA76B51B281F9C0095C11B /* SGTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTool.h; sourceTree = "<group>"; };
 		FEEA76B61B281F9C0095C11B /* SGTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTool.m; sourceTree = "<group>"; };
-		FEEA76BA1B2834DD0095C11B /* SGFormateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGFormateModel.h; sourceTree = "<group>"; };
-		FEEA76BB1B2834DD0095C11B /* SGFormateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFormateModel.m; sourceTree = "<group>"; };
-		FEEA76BD1B2834F70095C11B /* SGFormateJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGFormateJson.h; sourceTree = "<group>"; };
-		FEEA76BE1B2834F70095C11B /* SGFormateJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGFormateJson.m; sourceTree = "<group>"; };
-		FEEA76C01B2840E80095C11B /* SGDalHeaderCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDalHeaderCreate.h; sourceTree = "<group>"; };
-		FEEA76C11B2840E80095C11B /* SGDalHeaderCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDalHeaderCreate.m; sourceTree = "<group>"; };
-		FEEA76C31B2840FC0095C11B /* SGDalSourceCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDalSourceCreate.h; sourceTree = "<group>"; };
-		FEEA76C41B2840FC0095C11B /* SGDalSourceCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDalSourceCreate.m; sourceTree = "<group>"; };
 		FEFF9E771B26B3F4001E44D5 /* setting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = setting.plist; sourceTree = "<group>"; };
 		FEFF9E7F1B26BCB4001E44D5 /* WPBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPBaseModel.h; sourceTree = "<group>"; };
 		FEFF9E801B26BCB4001E44D5 /* WPBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPBaseModel.m; sourceTree = "<group>"; };
@@ -93,6 +99,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		575D2DAC1B7C3F4E00543A14 /* T_cryptor加密解密 */ = {
+			isa = PBXGroup;
+			children = (
+				575D2DAD1B7C3F4E00543A14 /* Cryptor */,
+				575D2DC51B7C3F8C00543A14 /* SGCryptorHelper.h */,
+				575D2DC61B7C3F8C00543A14 /* SGCryptorHelper.m */,
+			);
+			path = "T_cryptor加密解密";
+			sourceTree = "<group>";
+		};
+		575D2DAD1B7C3F4E00543A14 /* Cryptor */ = {
+			isa = PBXGroup;
+			children = (
+				575D2DAE1B7C3F4E00543A14 /* Cryptor.h */,
+				575D2DAF1B7C3F4E00543A14 /* Cryptor.m */,
+			);
+			path = Cryptor;
+			sourceTree = "<group>";
+		};
+		575D2DB01B7C3F4E00543A14 /* T_modelCreate */ = {
+			isa = PBXGroup;
+			children = (
+				575D2DB11B7C3F4E00543A14 /* SGDalHeaderCreate.h */,
+				575D2DB21B7C3F4E00543A14 /* SGDalHeaderCreate.m */,
+				575D2DB31B7C3F4E00543A14 /* SGDalSourceCreate.h */,
+				575D2DB41B7C3F4E00543A14 /* SGDalSourceCreate.m */,
+				575D2DB51B7C3F4E00543A14 /* SGFormateJson.h */,
+				575D2DB61B7C3F4E00543A14 /* SGFormateJson.m */,
+				575D2DB71B7C3F4E00543A14 /* SGFormateModel.h */,
+				575D2DB81B7C3F4E00543A14 /* SGFormateModel.m */,
+			);
+			path = T_modelCreate;
+			sourceTree = "<group>";
+		};
+		575D2DB91B7C3F4E00543A14 /* T_unicode2chinese */ = {
+			isa = PBXGroup;
+			children = (
+				575D2DBA1B7C3F4E00543A14 /* SGChinese2Unicode.h */,
+				575D2DBB1B7C3F4E00543A14 /* SGChinese2Unicode.m */,
+				575D2DBC1B7C3F4E00543A14 /* SGUnicode2Chinese.h */,
+				575D2DBD1B7C3F4E00543A14 /* SGUnicode2Chinese.m */,
+			);
+			path = T_unicode2chinese;
+			sourceTree = "<group>";
+		};
 		FE15F9881B296C7700B6EB23 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,38 +244,13 @@
 		FE9416841B25728A00569018 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				575D2DAC1B7C3F4E00543A14 /* T_cryptor加密解密 */,
+				575D2DB01B7C3F4E00543A14 /* T_modelCreate */,
+				575D2DB91B7C3F4E00543A14 /* T_unicode2chinese */,
 				FEEA76B21B281F7A0095C11B /* base */,
 				FE15F9881B296C7700B6EB23 /* common */,
-				FEEA76B11B281F690095C11B /* modelCreate */,
-				FE9416861B257C4900569018 /* unicode2chinese */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		FE9416861B257C4900569018 /* unicode2chinese */ = {
-			isa = PBXGroup;
-			children = (
-				FE9416A31B25A20500569018 /* SGUnicode2Chinese.h */,
-				FE9416A41B25A20500569018 /* SGUnicode2Chinese.m */,
-				FE9416A61B25A21100569018 /* SGChinese2Unicode.h */,
-				FE9416A71B25A21100569018 /* SGChinese2Unicode.m */,
-			);
-			path = unicode2chinese;
-			sourceTree = "<group>";
-		};
-		FEEA76B11B281F690095C11B /* modelCreate */ = {
-			isa = PBXGroup;
-			children = (
-				FEEA76BA1B2834DD0095C11B /* SGFormateModel.h */,
-				FEEA76BB1B2834DD0095C11B /* SGFormateModel.m */,
-				FEEA76BD1B2834F70095C11B /* SGFormateJson.h */,
-				FEEA76BE1B2834F70095C11B /* SGFormateJson.m */,
-				FEEA76C01B2840E80095C11B /* SGDalHeaderCreate.h */,
-				FEEA76C11B2840E80095C11B /* SGDalHeaderCreate.m */,
-				FEEA76C31B2840FC0095C11B /* SGDalSourceCreate.h */,
-				FEEA76C41B2840FC0095C11B /* SGDalSourceCreate.m */,
-			);
-			path = modelCreate;
 			sourceTree = "<group>";
 		};
 		FEEA76B21B281F7A0095C11B /* base */ = {
@@ -355,19 +381,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEEA76BF1B2834F70095C11B /* SGFormateJson.m in Sources */,
+				575D2DC21B7C3F4E00543A14 /* SGFormateModel.m in Sources */,
+				575D2DC31B7C3F4E00543A14 /* SGChinese2Unicode.m in Sources */,
+				575D2DC11B7C3F4E00543A14 /* SGFormateJson.m in Sources */,
 				FE15F9901B296DD000B6EB23 /* NSString+SG.m in Sources */,
-				FEEA76C51B2840FC0095C11B /* SGDalSourceCreate.m in Sources */,
-				FE9416A81B25A21100569018 /* SGChinese2Unicode.m in Sources */,
+				575D2DC41B7C3F4E00543A14 /* SGUnicode2Chinese.m in Sources */,
+				575D2DC71B7C3F8C00543A14 /* SGCryptorHelper.m in Sources */,
 				FEEA76B81B281F9C0095C11B /* SGBaseTool.m in Sources */,
 				FE9416851B25728A00569018 /* AppDelegate.m in Sources */,
-				FEEA76BC1B2834DD0095C11B /* SGFormateModel.m in Sources */,
-				FEEA76C21B2840E80095C11B /* SGDalHeaderCreate.m in Sources */,
+				575D2DBF1B7C3F4E00543A14 /* SGDalHeaderCreate.m in Sources */,
+				575D2DC01B7C3F4E00543A14 /* SGDalSourceCreate.m in Sources */,
 				FEFF9E811B26BCB4001E44D5 /* WPBaseModel.m in Sources */,
 				FE9416631B25721600569018 /* main.m in Sources */,
-				FE9416A51B25A20500569018 /* SGUnicode2Chinese.m in Sources */,
 				FE9416971B25904600569018 /* SGConfigManager.m in Sources */,
 				FEEA76B91B281F9C0095C11B /* SGTool.m in Sources */,
+				575D2DBE1B7C3F4E00543A14 /* Cryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

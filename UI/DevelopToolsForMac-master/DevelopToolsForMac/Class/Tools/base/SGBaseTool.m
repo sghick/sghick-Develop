@@ -12,6 +12,7 @@
 #pragma mark - 要重写的方法/静态库应该提供此方法作为接口
 - (void)execute:(id (^)())setup block:(void (^)(id))block{
     NSLog(@"子类应该重写此方法：SGBaseTool execute");
+    block(@"方法错误，子类子执行execute方法");
 }
 
 

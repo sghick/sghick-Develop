@@ -87,14 +87,14 @@
 - (IBAction)excuteBtnClick:(id)sender {
     SGConfigManager * manager = [SGConfigManager defaultConfigManager];
     [self.tool setupBlock:^id{
-        if (!manager.curConfig.inputType.intValue) {
+        if (!manager.curConfig.inputType.boolValue) {
             return inputTextView.string;
         }
         else{
             return [NSString stringWithContentsOfFile:inputTextView.string encoding:NSUTF8StringEncoding error:nil];
         }
     } resultBlock:^(id result) {
-        if (!manager.curConfig.outputType.intValue) {
+        if (!manager.curConfig.outputType.boolValue) {
             outputTextView.string = result;
         }
         else{
@@ -102,6 +102,11 @@
         }
     }];
     [self.tool startThread];
+}
+
+- (IBAction)helpBtnClick:(id)sender {
+    SGConfigManager * manager = [SGConfigManager defaultConfigManager];
+    outputTextView.string = manager.curConfig.helpMsg;
 }
 
 - (int)indexOfSearchText:(NSString *)searchText inArray:(NSArray *)array {

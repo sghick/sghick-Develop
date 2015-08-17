@@ -23,6 +23,7 @@
 - (IBAction)inputMatrixClick:(id)sender;
 - (IBAction)outputMatrixClick:(id)sender;
 - (IBAction)excuteBtnClick:(id)sender;
+- (IBAction)helpBtnClick:(id)sender;
 
 @end
 

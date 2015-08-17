@@ -96,42 +96,12 @@
 			<key>outputString</key>
 			<string></string>
 		</dict>
-		<key>7-test测试1</key>
+		<key>7-DES加密解密</key>
 		<dict>
 			<key>className</key>
-			<string>SGDalSourceCreate</string>
+			<string>SGCryptorHelper</string>
 			<key>helpMsg</key>
-			<string></string>
-			<key>inputType</key>
-			<string>0</string>
-			<key>outputType</key>
-			<string>0</string>
-			<key>inputString</key>
-			<string></string>
-			<key>outputString</key>
-			<string></string>
-		</dict>
-		<key>8-测试test2</key>
-		<dict>
-			<key>className</key>
-			<string>SGDalSourceCreate</string>
-			<key>helpMsg</key>
-			<string></string>
-			<key>inputType</key>
-			<string>0</string>
-			<key>outputType</key>
-			<string>0</string>
-			<key>inputString</key>
-			<string></string>
-			<key>outputString</key>
-			<string></string>
-		</dict>
-		<key>9-测试test测试3</key>
-		<dict>
-			<key>className</key>
-			<string>SGDalSourceCreate</string>
-			<key>helpMsg</key>
-			<string></string>
+			<string>格式是:  key:searl</string>
 			<key>inputType</key>
 			<string>0</string>
 			<key>outputType</key>
