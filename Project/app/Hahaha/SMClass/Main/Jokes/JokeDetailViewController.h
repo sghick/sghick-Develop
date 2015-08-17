@@ -11,8 +11,8 @@
 @class JokeDetailViewController;
 @protocol JokeDetailViewControllerDelegate <NSObject>
 
-- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToLastWithIndexPath:(NSIndexPath *)indexPath;
-- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToNextWithIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)jokeDetailViewController:(JokeDetailViewController *)viewController changeToLastWithIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)jokeDetailViewController:(JokeDetailViewController *)viewController changeToNextWithIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

@@ -120,10 +120,10 @@ static NSString *identifier = @"identifier";
 }
 
 #pragma mark - JokeDetailViewControllerDelegate
-- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToLastWithIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)jokeDetailViewController:(JokeDetailViewController *)viewController changeToLastWithIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         SMLog(@"到头了！");
-        return;
+        return NO;
     }
     NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
     SMJoke *joke = self.dataSource[lastIndexPath.row];
@@ -135,12 +135,13 @@ static NSString *identifier = @"identifier";
     [viewControllers insertObject:detailVC atIndex:(viewControllers.count - 1)];
     self.navigationController.viewControllers = viewControllers;
     [viewController.navigationController popViewControllerAnimated:YES];
+    return YES;
 }
 
-- (void)jokeDetailViewController:(JokeDetailViewController *)viewController changeToNextWithIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)jokeDetailViewController:(JokeDetailViewController *)viewController changeToNextWithIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == self.dataSource.count - 1) {
         SMLog(@"到最后了！");
-        return;
+        return NO;
     }
     NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
     SMJoke *joke = self.dataSource[nextIndexPath.row];
@@ -153,6 +154,7 @@ static NSString *identifier = @"identifier";
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     [viewControllers removeObject:viewController];
     self.navigationController.viewControllers = viewControllers;
+    return YES;
 }
 
 #pragma mark - action

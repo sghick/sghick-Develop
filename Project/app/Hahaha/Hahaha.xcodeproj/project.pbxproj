@@ -839,6 +839,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = FE8CF8711B7CCFC2002A1A92;
 			productRefGroup = FE8CF87B1B7CCFC2002A1A92 /* Products */;
@@ -1044,6 +1045,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/SMClass/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SMClass/Third/UMAnalytics_Sdk_3.5.10",
+					"$(PROJECT_DIR)/SMClass/Third/UMSocial_Sdk_4.2.3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1060,6 +1066,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/SMClass/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SMClass/Third/UMAnalytics_Sdk_3.5.10",
+					"$(PROJECT_DIR)/SMClass/Third/UMSocial_Sdk_4.2.3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
