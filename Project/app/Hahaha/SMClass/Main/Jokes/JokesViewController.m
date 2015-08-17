@@ -111,10 +111,11 @@ static NSString *identifier = @"identifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SMJoke *joke = self.dataSource[indexPath.row];
     JokeDetailViewController *vc = [[JokeDetailViewController alloc] init];
-    vc.delegate = self;
+    SMJoke *joke = self.dataSource[indexPath.row];
     vc.joke = joke;
+    vc.delegate = self;
+    vc.gravity = YES;
     vc.indexPath = indexPath;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -137,7 +138,7 @@ static NSString *identifier = @"identifier";
 //    [viewController.navigationController popViewControllerAnimated:YES];
     viewController.indexPath = lastIndexPath;
     viewController.joke = joke;
-    [UIView transitionWithView:viewController.view duration:1.0f options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
+    [UIView transitionWithView:viewController.view duration:0.5f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
         
     } completion:^(BOOL finished) {
         viewController.gravity = YES;
@@ -163,7 +164,7 @@ static NSString *identifier = @"identifier";
 //    self.navigationController.viewControllers = viewControllers;
     viewController.indexPath = nextIndexPath;
     viewController.joke = joke;
-    [UIView transitionWithView:viewController.view duration:1.0f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+    [UIView transitionWithView:viewController.view duration:0.5f options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
         
     } completion:^(BOOL finished) {
         viewController.gravity = YES;

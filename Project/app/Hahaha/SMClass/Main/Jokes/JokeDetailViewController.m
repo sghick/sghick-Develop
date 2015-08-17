@@ -50,6 +50,7 @@
     jokeView.frame = SMScreenBounds;
     [self.view addSubview:jokeView];
     self.jokeView = jokeView;
+    self.jokeView.joke = self.joke;
     
     // 开启重力感应
     [self validateGravityStart:YES];
