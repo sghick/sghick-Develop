@@ -127,14 +127,21 @@ static NSString *identifier = @"identifier";
     }
     NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
     SMJoke *joke = self.dataSource[lastIndexPath.row];
-    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
-    detailVC.delegate = self;
-    detailVC.joke = joke;
-    detailVC.indexPath = lastIndexPath;
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-    [viewControllers insertObject:detailVC atIndex:(viewControllers.count - 1)];
-    self.navigationController.viewControllers = viewControllers;
-    [viewController.navigationController popViewControllerAnimated:YES];
+//    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
+//    detailVC.delegate = self;
+//    detailVC.joke = joke;
+//    detailVC.indexPath = lastIndexPath;
+//    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+//    [viewControllers insertObject:detailVC atIndex:(viewControllers.count - 1)];
+//    self.navigationController.viewControllers = viewControllers;
+//    [viewController.navigationController popViewControllerAnimated:YES];
+    viewController.indexPath = lastIndexPath;
+    viewController.joke = joke;
+    [UIView transitionWithView:viewController.view duration:1.0f options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
+        
+    } completion:^(BOOL finished) {
+        viewController.gravity = YES;
+    }];
     return YES;
 }
 
@@ -145,15 +152,22 @@ static NSString *identifier = @"identifier";
     }
     NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
     SMJoke *joke = self.dataSource[nextIndexPath.row];
-    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
-    detailVC.delegate = self;
-    detailVC.joke = joke;
-    detailVC.indexPath = nextIndexPath;
-    viewController.title = self.title;
-    [viewController.navigationController pushViewController:detailVC animated:YES];
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-    [viewControllers removeObject:viewController];
-    self.navigationController.viewControllers = viewControllers;
+//    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
+//    detailVC.delegate = self;
+//    detailVC.joke = joke;
+//    detailVC.indexPath = nextIndexPath;
+//    viewController.title = self.title;
+//    [viewController.navigationController pushViewController:detailVC animated:YES];
+//    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+//    [viewControllers removeObject:viewController];
+//    self.navigationController.viewControllers = viewControllers;
+    viewController.indexPath = nextIndexPath;
+    viewController.joke = joke;
+    [UIView transitionWithView:viewController.view duration:1.0f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        
+    } completion:^(BOOL finished) {
+        viewController.gravity = YES;
+    }];
     return YES;
 }
 
