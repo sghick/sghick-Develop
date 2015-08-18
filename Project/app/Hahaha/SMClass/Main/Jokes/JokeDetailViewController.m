@@ -53,7 +53,9 @@
     self.jokeView.joke = self.joke;
     
     // 开启重力感应
-    [self validateGravityStart:YES];
+    BOOL openMotionSwitch = [SMUserDefaults boolForKey:kOpenMotionSwitch];
+    gravityItem.title = (openMotionSwitch?@"关闭":@"开启");
+    [self validateGravityStart:openMotionSwitch];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -90,6 +92,7 @@
 }
 
 - (void)validateGravityStart:(BOOL)start {
+    [SMUserDefaults setBool:start forKey:kOpenMotionSwitch];
     if (start) {
         [self startMotionInQueue];
     } else {
