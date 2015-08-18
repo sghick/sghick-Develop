@@ -37,7 +37,7 @@
 - (NSDictionary *)dictionary{
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:0];
     for (NSString *key in self.allKeys) {
-        [dict setObject:[self valueForKey:key] forKey:key];
+        [dict setValue:[self valueForKey:key] forKey:key];
     }
     return dict;
 }

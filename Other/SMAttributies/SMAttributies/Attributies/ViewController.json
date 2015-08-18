@@ -1,0 +1,19 @@
+{
+    "frame1" : {
+        "attributies" : {},
+        "percentageFrame" : {
+            "height" : "-",
+            "margin" : "1,1,1,1",
+            "maxHeight" : "-",
+            "maxWidth" : "-",
+            "scale" : "-,-",
+            "screenScale" : "3,5",
+            "width" : "-"
+        },
+        "realFrame" : {
+            "height" : "100",
+            "margin" : "20,10,-,-",
+            "width" : "100"
+        }
+    }
+}
