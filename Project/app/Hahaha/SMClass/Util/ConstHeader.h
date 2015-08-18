@@ -14,5 +14,8 @@
 // http://www.umeng.com/apps/748300dc02a55f0efc46fc55/appkey 友盟分享
 #define appKeyUmeng     @"55cf64cfe0f55a20cd003847"
 
+// 重力感应的开关
+#define kOpenMotionSwitch  @"openMotionSwitch"
+
 #endif
 

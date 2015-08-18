@@ -36,20 +36,31 @@
 
 - (NSDictionary *)dictionary{
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:0];
-    id classM = objc_getClass([NSStringFromClass([self class]) UTF8String]);
-    // i 计数 、  outCount 放我们的属性个数
-    unsigned int outCount, i;
-    // 反射得到属性的个数
-    objc_property_t * properties = class_copyPropertyList(classM, &outCount);
-    // 循环 得到属性名称
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        // 获得属性名称
-        NSString * attributeName = [NSString stringWithUTF8String:property_getName(property)];
-        [dict setValue:[self valueForKey:attributeName] forKey:attributeName];
+    for (NSString *key in self.allKeys) {
+        [dict setObject:[self valueForKey:key] forKey:key];
     }
-    free(properties);
     return dict;
+}
+
+- (NSArray *)allKeys {
+    if (!_allKeys) {
+        NSMutableArray * keys = [[NSMutableArray alloc] initWithCapacity:0];
+        id classM = objc_getClass([NSStringFromClass([self class]) UTF8String]);
+        // i 计数 、  outCount 放我们的属性个数
+        unsigned int outCount, i;
+        // 反射得到属性的个数
+        objc_property_t * properties = class_copyPropertyList(classM, &outCount);
+        // 循环 得到属性名称
+        for (i = 0; i < outCount; i++) {
+            objc_property_t property = properties[i];
+            // 获得属性名称
+            NSString * attributeName = [NSString stringWithUTF8String:property_getName(property)];
+            [keys addObject:attributeName];
+        }
+        free(properties);
+        _allKeys = keys;
+    }
+    return _allKeys;
 }
 
 - (void)setValuesWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper{
@@ -133,6 +144,38 @@
         }
     }
     return rtn;
+}
+
+#pragma mark - 归档
+- (NSData *)data {
+    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:self];
+    return data;
+}
+
++ (NSData *)dataFromModel:(SMModel *)model {
+    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:model];
+    return data;
+}
+
++ (instancetype)modelFromData:(NSData *)data {
+    SMModel * model = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    return model;
+}
+
+#pragma mark - NSCoding
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    NSDictionary *dict = self.dictionary;
+    for (NSString *key in dict.allKeys) {
+        [aCoder encodeObject:dict[key] forKey:key];
+    }
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder{;
+    for (NSString *key in self.allKeys) {
+        id value = [aDecoder decodeObjectForKey:key];
+        [self setValue:value forKey:key];
+    }
+    return self;
 }
 
 @end
