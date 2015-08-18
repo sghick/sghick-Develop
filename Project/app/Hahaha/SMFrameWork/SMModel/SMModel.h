@@ -10,9 +10,13 @@ static NSString * parserReturnTypeMainModelOfKey = @"__parserReturnTypeMainModel
 static NSString * parserReturnTypeMainArrayOfKey = @"__parserReturnTypeMainArrayOfKey__";
 
 #import <Foundation/Foundation.h>
+#import "NSUserDefaults+SMModel.h"
 
-@interface SMModel : NSObject
+@interface SMModel : NSObject <
+NSCoding
+>
 
+@property (strong, nonatomic) NSArray *allKeys;
 @property (strong, readonly, nonatomic) NSDictionary *keysMapper;
 
 - (NSDictionary *)dictionary;
@@ -24,5 +28,10 @@ static NSString * parserReturnTypeMainArrayOfKey = @"__parserReturnTypeMainArray
 + (NSArray *)arrayWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper keysMapper:(NSDictionary *)keysMapper;
 
 + (NSDictionary *)dictionaryFormateToString:(NSDictionary *)dict;
+
+#pragma mark - 归档
+- (NSData *)data;
++ (NSData *)dataFromModel:(SMModel *)model;
++ (instancetype)modelFromData:(NSData *)data;
 
 @end

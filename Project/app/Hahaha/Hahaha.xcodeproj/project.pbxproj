@@ -11,6 +11,8 @@
 		570F08801B81A5480068AC99 /* JokeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 570F087F1B81A5480068AC99 /* JokeView.m */; };
 		FE0ECE4E1B7FCDFA00B3B37D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */; };
 		FE0ECE501B7FCE1000B3B37D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */; };
+		FE35E17A1B839201000BBF68 /* SMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FE35E1791B839201000BBF68 /* SMTest.m */; };
+		FE35E17D1B8397D3000BBF68 /* NSUserDefaults+SMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE35E17C1B8397D3000BBF68 /* NSUserDefaults+SMModel.m */; };
 		FE7D332C1B7E358400CE6284 /* JokesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D332B1B7E358400CE6284 /* JokesViewController.m */; };
 		FE8CF96A1B7D6AF7002A1A92 /* SMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8AB1B7D6AF7002A1A92 /* SMButton.m */; };
 		FE8CF96B1B7D6AF7002A1A92 /* SMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8AD1B7D6AF7002A1A92 /* SMLabel.m */; };
@@ -98,6 +100,10 @@
 		570F087F1B81A5480068AC99 /* JokeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JokeView.m; sourceTree = "<group>"; };
 		FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Hahaha/Images.xcassets; sourceTree = "<group>"; };
+		FE35E1781B839201000BBF68 /* SMTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTest.h; sourceTree = "<group>"; };
+		FE35E1791B839201000BBF68 /* SMTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTest.m; sourceTree = "<group>"; };
+		FE35E17B1B8397D3000BBF68 /* NSUserDefaults+SMModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SMModel.h"; sourceTree = "<group>"; };
+		FE35E17C1B8397D3000BBF68 /* NSUserDefaults+SMModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SMModel.m"; sourceTree = "<group>"; };
 		FE7D332A1B7E358400CE6284 /* JokesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JokesViewController.h; sourceTree = "<group>"; };
 		FE7D332B1B7E358400CE6284 /* JokesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JokesViewController.m; sourceTree = "<group>"; };
 		FE8CF87A1B7CCFC2002A1A92 /* Hahaha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hahaha.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -469,6 +475,8 @@
 				FE8CF8D11B7D6AF7002A1A92 /* SMJoke.m */,
 				FE8CF8D21B7D6AF7002A1A92 /* SMResult.h */,
 				FE8CF8D31B7D6AF7002A1A92 /* SMResult.m */,
+				FE35E1781B839201000BBF68 /* SMTest.h */,
+				FE35E1791B839201000BBF68 /* SMTest.m */,
 			);
 			path = SourceModel;
 			sourceTree = "<group>";
@@ -623,6 +631,8 @@
 			children = (
 				FE8CF90A1B7D6AF7002A1A92 /* SMModel.h */,
 				FE8CF90B1B7D6AF7002A1A92 /* SMModel.m */,
+				FE35E17B1B8397D3000BBF68 /* NSUserDefaults+SMModel.h */,
+				FE35E17C1B8397D3000BBF68 /* NSUserDefaults+SMModel.m */,
 			);
 			path = SMModel;
 			sourceTree = "<group>";
@@ -920,6 +930,7 @@
 				FE8CF97F1B7D6AF7002A1A92 /* UIDevice+SM.m in Sources */,
 				FE8CF9741B7D6AF7002A1A92 /* AppDelegate.m in Sources */,
 				FEAFBE7C1B808C6B007D4143 /* NSData+ImageContentType.m in Sources */,
+				FE35E17D1B8397D3000BBF68 /* NSUserDefaults+SMModel.m in Sources */,
 				FEAFBE891B808C6B007D4143 /* UIImageView+WebCache.m in Sources */,
 				FE8CF99F1B7D6AF7002A1A92 /* FMDatabase.m in Sources */,
 				FEAFBE7B1B808C6B007D4143 /* MKAnnotationView+WebCache.m in Sources */,
@@ -954,6 +965,7 @@
 				FE8CF9811B7D6AF7002A1A92 /* UIView+SM.m in Sources */,
 				FE8CF9771B7D6AF7002A1A92 /* SMJoke.m in Sources */,
 				FEAFBE7D1B808C6B007D4143 /* SDImageCache.m in Sources */,
+				FE35E17A1B839201000BBF68 /* SMTest.m in Sources */,
 				FEAFBE831B808C6B007D4143 /* SDWebImagePrefetcher.m in Sources */,
 				FEAFBE801B808C6B007D4143 /* SDWebImageDownloader.m in Sources */,
 				FEAFBE871B808C6B007D4143 /* UIImage+WebP.m in Sources */,
