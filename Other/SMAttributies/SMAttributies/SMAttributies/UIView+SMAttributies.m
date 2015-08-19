@@ -6,18 +6,8 @@
 //  Copyright © 2015年 sumrise.com. All rights reserved.
 //
 
-#define cScreenWidth    [UIScreen mainScreen].bounds.size.width
-#define cScreenHeight   [UIScreen mainScreen].bounds.size.height
-
 // 分隔符
-#define cPartComma      @","
 #define cPartPoint      @"."
-// 自动符
-#define cAuto           @"-"
-// 使用比例宽,使用scale中的值
-#define cScaleX          @"x"
-// 使用比例高,使用scale中的值
-#define cScaleY          @"y"
 
 #import "UIView+SMAttributies.h"
 #import "SMAttributiesModel.h"
@@ -45,7 +35,9 @@
         return;
     }
     // 添加子视图
-    [self addSubview:view];
+    if (!view.superview || (view.superview && (view.superview != self))) {
+        [self addSubview:view];
+    }
     
     // 设置view的属性
     NSDictionary *attributies = subDict[@"attributies"];
@@ -57,47 +49,59 @@
         // 约束
         SMPercentageFrame *percentageFrame = [[SMPercentageFrame alloc] init];
         [percentageFrame setValuesForKeysWithDictionary:subDict[@"percentageFrame"]];
+        SMTransPercentageFrame *trans = [SMTransPercentageFrame transWithPercentageFrame:percentageFrame pathKey:pathKey];
+        // 格式检查
+        for (NSString *error in trans.errors) {
+            NSLog(@"%@", error);
+        }
+        NSAssert(!trans.errors.count, @"布局错误");
+        
     } else if (subDict[@"realFrame"]) {
         // 设置view的实际frame,设置了约束,frame自动失效
         SMRealFrame *realFrame = [[SMRealFrame alloc] init];
         [realFrame setValuesForKeysWithDictionary:subDict[@"realFrame"]];
-        NSArray *partScale = [realFrame.scale componentsSeparatedByString:cPartComma];
-        if (partScale && partScale.count != 2) {
-            NSAssert1(NO, @"pathKey:%@ realFrame.scale格式错误,正确格式:\"-,-\"", pathKey);
-        } else if (partScale) {
-            
+        SMTransRealFrame *trans = [SMTransRealFrame transWithRealFrame:realFrame pathKey:pathKey];
+        // 格式检查
+        for (NSString *error in trans.errors) {
+            NSLog(@"%@", error);
         }
-        NSArray *partMagin = [realFrame.insets componentsSeparatedByString:cPartComma];
-        if (partMagin && partMagin.count != 4) {
-            NSAssert1(NO, @"pathKey:%@ realFrame.insets格式错误,正确格式:\"-,-,-,-\"", pathKey);
-        } else if (partMagin) {
-            
-        }
+        NSAssert(!trans.errors.count, @"布局错误");
+        
         // frame初始化，默认为父视图bounds
         CGRect frame = self.bounds;
-        
-        // 宽
-        if ([realFrame.width isEqualToString:cAuto]) {
-            // 自动
-            
-        } else if ([realFrame.width rangeOfString:cScaleX].location != NSNotFound) {
-            // 用比例x
-            
-        } else if ([realFrame.width rangeOfString:cScaleY].location != NSNotFound) {
-            // 用比例y
+        // 横向
+        if (!trans.isAutoWidth) {
+            // 实际大小
+            frame.size.width = trans.width*trans.scaleX;
+            if (!trans.isAutoInsetsLeft) {
+                frame.origin.x = trans.insetsLeft;
+            } else if (!trans.isAutoInsetsRight) {
+                frame.origin.x = CGRectGetWidth(self.bounds) - CGRectGetWidth(frame) - trans.insetsRight;
+            } else {
+                // 左右都为自动值 居中
+                frame.origin.x = (CGRectGetWidth(self.bounds) - CGRectGetWidth(frame))/2;
+            }
+        } else {
+            frame.origin.x = trans.insetsLeft;
+            frame.size.width = CGRectGetWidth(self.bounds) - trans.insetsLeft - trans.insetsRight;
         }
         
-        // 高
-        if ([realFrame.height isEqualToString:cAuto]) {
-            // 自动
-            
-        } else if ([realFrame.height rangeOfString:cScaleX].location != NSNotFound) {
-            // 用比例x
-            
-        } else if ([realFrame.height rangeOfString:cScaleY].location != NSNotFound) {
-            // 用比例y
+        // 纵向
+        if (!trans.isAutoHeight) {
+            // 实际大小
+            frame.size.height = trans.height*trans.scaleY;
+            if (!trans.isAutoInsetsTop) {
+                frame.origin.y = trans.insetsTop;
+            } else if (!trans.isAutoInsetsBottom) {
+                frame.origin.y = CGRectGetHeight(self.bounds) - CGRectGetHeight(frame) - trans.insetsBottom;
+            } else {
+                // 左右都为自动值 居中
+                frame.origin.y = (CGRectGetHeight(self.bounds) - CGRectGetHeight(frame))/2;
+            }
+        } else {
+            frame.origin.y = trans.insetsTop;
+            frame.size.height = CGRectGetHeight(self.bounds) - trans.insetsTop - trans.insetsBottom;
         }
-        
         // 设置子视图的frame
         view.frame = frame;
     } else {

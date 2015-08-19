@@ -3,17 +3,14 @@
         "attributies" : {},
         "percentageFrame" : {
             "screenScale" : "-,-",
-            "maxHeight" : "-",
-            "maxWidth" : "-",
+            "maxSize" : "-,-",
             "scale" : "-,-",
-            "width" : "-",
-            "height" : "-",
+            "size" : "-,-",
             "insets" : "1,1,1,1"
         },
         "realFrame" : {
             "scale" : "-,-",
-            "width" : "-",
-            "height" : "-",
+            "size" : "-,-",
             "insets" : "-,-,-,-"
         }
     },
@@ -21,10 +18,14 @@
     "frame1" : {
         "attributies" : {},
         "realFrame" : {
-            "scale" : "-,-",
-            "width" : "100x",
-            "height" : "100y",
-            "insets" : "20,10,-,-"
+            "size" : "100x,100x",
+        }
+    },
+    
+    "frame2" : {
+        "attributies" : {},
+        "realFrame" : {
+            "size" : "200x,200x",
         }
     }
 }
