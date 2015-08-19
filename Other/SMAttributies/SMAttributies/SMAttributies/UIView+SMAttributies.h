@@ -10,6 +10,6 @@
 
 @interface UIView (SMAttributies)
 
-- (void)displayWithAttributiesKey:(NSString *)key;
+- (void)addSubview:(nonnull UIView *)view attributePathKey:(nonnull NSString *)pathKey;
 
 @end

@@ -1,19 +1,30 @@
 {
-    "frame1" : {
+    "formatSample" : {
         "attributies" : {},
         "percentageFrame" : {
-            "height" : "-",
-            "margin" : "1,1,1,1",
+            "screenScale" : "-,-",
             "maxHeight" : "-",
             "maxWidth" : "-",
             "scale" : "-,-",
-            "screenScale" : "3,5",
-            "width" : "-"
+            "width" : "-",
+            "height" : "-",
+            "insets" : "1,1,1,1"
         },
         "realFrame" : {
-            "height" : "100",
-            "margin" : "20,10,-,-",
-            "width" : "100"
+            "scale" : "-,-",
+            "width" : "-",
+            "height" : "-",
+            "insets" : "-,-,-,-"
+        }
+    },
+    
+    "frame1" : {
+        "attributies" : {},
+        "realFrame" : {
+            "scale" : "-,-",
+            "width" : "100x",
+            "height" : "100y",
+            "insets" : "20,10,-,-"
         }
     }
 }

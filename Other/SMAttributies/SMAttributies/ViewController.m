@@ -19,8 +19,8 @@
     [super viewDidLoad];
     
     UIView *view1 = [[UIView alloc] init];
-    [view1 displayWithAttributiesKey:@"frame1"];
-    [self.view addSubview:view1];
+    view1.backgroundColor = [UIColor redColor];
+    [self.view addSubview:view1 attributePathKey:@"ViewController.frame1"];
     
     
 }
