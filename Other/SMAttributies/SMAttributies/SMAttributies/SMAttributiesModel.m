@@ -6,47 +6,23 @@
 //  Copyright © 2015年 sumrise.com. All rights reserved.
 //
 
-#define cScreenWidth    [UIScreen mainScreen].bounds.size.width
-#define cScreenHeight   [UIScreen mainScreen].bounds.size.height
-//获取屏幕宽比例(curScale = 568.0f 相对iPhone5s的)
-#define cWidthScale ({\
-CGFloat widthScale = 1.0; \
-CGFloat curScale = 320.0f;\
-if(cScreenWidth == 414){ \
-widthScale = 414/curScale;\
-}else if(cScreenWidth == 375){ \
-widthScale = 375/curScale;\
-}else if(cScreenWidth == 320){ \
-widthScale = 320/curScale;\
-}\
-widthScale;\
-})
+#define cScreenWidth        [UIScreen mainScreen].bounds.size.width
+#define cScreenHeight       [UIScreen mainScreen].bounds.size.height
+//获取屏幕宽比例(curScale = 320.0f 相对iPhone5s的)
+#define cWidthScale         (cScreenWidth/320.0f)
 //获取屏幕高比例(curScale = 568.0f 相对iPhone5s的)
-#define cHeightScale ({\
-CGFloat heightScale = 1.0; \
-CGFloat curScale = 568.0f;\
-if(cScreenHeight == 736){ \
-heightScale = 736/curScale;\
-}else if(cScreenHeight == 667){ \
-heightScale = 667/curScale;\
-}else if(cScreenHeight == 568){ \
-heightScale = 568/curScale;\
-}else if(cScreenHeight == 480){ \
-heightScale = 480/curScale;\
-}\
-heightScale;\
-})
+#define cHeightScale        (cScreenHeight/568.0f)
 
 #define cToString(a...)     ([NSString stringWithFormat:a])
 #define cToFloat(a)         (((NSString *)(a)).floatValue)
 // 自动符
-#define cAuto           @"-"
+#define cAuto               @"-"
 // 使用比例宽,使用scale中的值
-#define cScaleX          @"x"
+#define cScaleX             @"x"
 // 使用比例高,使用scale中的值
-#define cScaleY          @"y"
+#define cScaleY             @"y"
 // 逗号分隔符
-#define cPartComma      @","
+#define cPartComma          @","
 
 #import "SMAttributiesModel.h"
 
