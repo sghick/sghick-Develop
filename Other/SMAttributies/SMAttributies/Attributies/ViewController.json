@@ -1,6 +1,5 @@
 {
     "formatSample" : {
-        "attributies" : {},
         "percentageFrame" : {
             "screenScale" : "-,-",
             "maxSize" : "-,-",
@@ -16,15 +15,20 @@
     },
     
     "frame1" : {
-        "attributies" : {},
+        "percentageFrame" : {
+            "screenScale" : "5,10",
+            "maxSize" : "-,-",
+            "size" : "3,8",
+            "insets" : "-,-,-,-"
+        },
         "realFrame" : {
             "size" : "100x,100x",
         }
     },
     
     "frame2" : {
-        "attributies" : {},
         "realFrame" : {
+            "scale" : "-,-",
             "size" : "200x,200x",
         }
     }

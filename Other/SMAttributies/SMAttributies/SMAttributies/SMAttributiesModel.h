@@ -11,8 +11,8 @@
 #pragma mark - 解析文件用
 @interface SMPercentageFrame : NSObject
 @property (strong, nonatomic) NSString *screenScale;    /*< 可空,父视图宽高比例划分,默认为"-,-" */
-@property (strong, nonatomic) NSString *scale;          /*< 可空,宽高系数的比例,"-"表示自动,默认为"-,-" */
 @property (strong, nonatomic) NSString *maxSize;        /*< 可空,view最大size,默认为"-,-" */
+@property (strong, nonatomic) NSString *scale;          /*< 可空,宽高系数的比例,"-"表示自动,默认为"-,-" */
 @property (strong, nonatomic) NSString *size;           /*< 可空,view的size,默认为"-,-" */
 @property (strong, nonatomic) NSString *insets;         /*< 可空,view四个方向的空白区,默认为"-,-,-,-" */
 @end
