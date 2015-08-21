@@ -29,6 +29,36 @@
     }
 }
 
+- (CGSize)sizeWithConstraints {
+    if (self.superview) {
+        CGRect frame = self.superview.bounds;
+        if (CGRectIsEmpty(frame)) {
+            frame.size = [self.superview sizeWithConstraints];
+        }
+        for (NSLayoutConstraint *constraint in self.superview.constraints) {
+            NSString *str = [NSString stringWithFormat:@"%@", constraint];
+            NSLog(@"%@", str);
+            if ([str rangeOfString:[NSString stringWithFormat:@"%x", (int32_t)self]].location != NSNotFound) {
+                NSInteger vlocation = [str rangeOfString:@"V:"].location;
+                if ((vlocation != NSNotFound)) {
+                    NSString *subStr = [str substringWithRange:NSMakeRange(vlocation + 2, str.length - vlocation - 2)];
+                    while ((vlocation = [subStr rangeOfString:@"-("].location) != NSNotFound) {
+                        subStr = [subStr substringWithRange:NSMakeRange(vlocation + 2, subStr.length - vlocation - 2)];
+                        frame.size.width -= subStr.floatValue;
+                    }
+                } else {
+                    NSString *subStr = str;
+                    while ((vlocation = [subStr rangeOfString:@"-("].location) != NSNotFound) {
+                        subStr = [subStr substringWithRange:NSMakeRange(vlocation + 2, subStr.length - vlocation - 2)];
+                        frame.size.height -= subStr.floatValue;
+                    }
+                }
+            }
+        }
+        return frame.size;
+    }
+    return [UIScreen mainScreen].bounds.size;
+}
 
 #pragma mark - ()
 - (NSDictionary *)parserFileWithPathKey:(nonnull NSString *)pathKey {
@@ -71,7 +101,9 @@
     NSAssert(!trans.errors.count, @"布局错误");
     // frame初始化，默认为父视图bounds
     CGRect frame = self.bounds;
-    
+    if (CGRectIsEmpty(frame)) {
+        frame.size = [self sizeWithConstraints];
+    }
     if (!trans.userFrame) {
         // 关闭系统约束,使用自动布局
         [view setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -124,7 +156,7 @@
         // 增加约束
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatHs options:optionsHs metrics:metrics views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatVs options:optionsVs metrics:metrics views:views]];
-        NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
+//        NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
     } else {
         // 横向
         if (!trans.isAutoWidth) {
@@ -161,7 +193,7 @@
         }
         // 设置子视图的frame
         view.frame = frame;
-        NSLog(@"%@:", view);
+//        NSLog(@"%@:", view);
     }
     
 }

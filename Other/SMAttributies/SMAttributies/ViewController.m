@@ -25,13 +25,6 @@
     UIView *view2 = [[UIView alloc] init];
     view2.backgroundColor = [UIColor colorWithRed:122/255.0 green:222/255.0 blue:20/255.0 alpha:0.5];
     [view1 addSubview:view2 attributePathKey:@"ViewController.frame2"];
-    
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

@@ -11,5 +11,6 @@
 @interface UIView (SMAttributies)
 
 - (void)addSubview:(nonnull UIView *)view attributePathKey:(nonnull NSString *)pathKey;
+- (CGSize)sizeWithConstraints;
 
 @end
