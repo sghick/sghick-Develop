@@ -1,35 +1,27 @@
 {
     "formatSample" : {
         "percentageFrame" : {
+            "userFrame" : "-",
             "screenScale" : "-,-",
-            "maxSize" : "-,-",
             "scale" : "-,-",
             "size" : "-,-",
             "insets" : "1,1,1,1"
-        },
-        "realFrame" : {
-            "scale" : "-,-",
-            "size" : "-,-",
-            "insets" : "-,-,-,-"
         }
     },
     
     "frame1" : {
         "percentageFrame" : {
-            "screenScale" : "5,10",
-            "maxSize" : "-,-",
-            "size" : "3,8",
-            "insets" : "-,-,-,-"
-        },
-        "realFrame" : {
-            "size" : "100x,100x",
+            "userFrame" : "-",
+            "screenScale" : "10,10",
+            "insets" : "1,1,3,5"
         }
     },
     
     "frame2" : {
-        "realFrame" : {
-            "scale" : "-,-",
-            "size" : "200x,200x",
+        "percentageFrame" : {
+            "userFrame" : "-",
+            "screenScale" : "5,5",
+            "insets" : "1,1,1,1"
         }
     }
 }
