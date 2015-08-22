@@ -1,0 +1,16 @@
+{
+    "tableView" : {
+        "percentageFrame" : {
+            "screenScale" : "1,-",
+            "size" : "1,-",
+            "insets" : "30,-,-,-"
+        }
+    },
+    "segment" : {
+        "percentageFrame" : {
+            "screenScale" : "1,-",
+            "size" : "1,30",
+            "insets" : "64,-,-,-"
+        }
+    }
+}

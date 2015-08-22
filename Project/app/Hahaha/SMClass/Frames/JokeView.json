@@ -1,0 +1,9 @@
+{
+    "JokeView" : {
+        "percentageFrame" : {
+            "screenScale" : "6,-",
+            "size" : "1,30",
+            "insets" : "64,2,-,3"
+        }
+    },
+}

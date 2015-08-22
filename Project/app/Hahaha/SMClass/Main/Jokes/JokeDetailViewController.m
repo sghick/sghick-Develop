@@ -47,8 +47,7 @@
     [self.navigationItem setRightBarButtonItems:@[gravityItem, shareItem]];
     
     JokeView *jokeView = [[JokeView alloc] init];
-    jokeView.frame = SMScreenBounds;
-    [self.view addSubview:jokeView];
+    [self.view addSubview:jokeView attributePathKey:@"JokeDetailViewController.jokeView"];
     self.jokeView = jokeView;
     self.jokeView.joke = self.joke;
     

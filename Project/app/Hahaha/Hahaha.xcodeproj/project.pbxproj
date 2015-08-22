@@ -76,6 +76,13 @@
 		FEA6CCF31B8043750087F9DA /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA6CCE81B8043750087F9DA /* AFURLRequestSerialization.m */; };
 		FEA6CCF41B8043750087F9DA /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA6CCEA1B8043750087F9DA /* AFURLResponseSerialization.m */; };
 		FEA6CCF51B8043750087F9DA /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA6CCEC1B8043750087F9DA /* AFURLSessionManager.m */; };
+		FEA753831B89087300533B89 /* SMAttributiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA753801B89087300533B89 /* SMAttributiesModel.m */; };
+		FEA753841B89087300533B89 /* UIView+SMAttributies.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA753821B89087300533B89 /* UIView+SMAttributies.m */; };
+		FEA753861B89089000533B89 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA753851B89089000533B89 /* sample.json */; };
+		FEA7538B1B89095000533B89 /* MainViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA7538A1B89095000533B89 /* MainViewController.json */; };
+		FEA7538D1B890C5000533B89 /* JokesViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA7538C1B890C5000533B89 /* JokesViewController.json */; };
+		FEA7538F1B890C7700533B89 /* JokeDetailViewController.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA7538E1B890C7700533B89 /* JokeDetailViewController.json */; };
+		FEA753911B890F9300533B89 /* JokeView.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA753901B890F9300533B89 /* JokeView.json */; };
 		FEAFBE7B1B808C6B007D4143 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAFBE5B1B808C6B007D4143 /* MKAnnotationView+WebCache.m */; };
 		FEAFBE7C1B808C6B007D4143 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAFBE5D1B808C6B007D4143 /* NSData+ImageContentType.m */; };
 		FEAFBE7D1B808C6B007D4143 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAFBE5F1B808C6B007D4143 /* SDImageCache.m */; };
@@ -248,6 +255,15 @@
 		FEA6CCEA1B8043750087F9DA /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		FEA6CCEB1B8043750087F9DA /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		FEA6CCEC1B8043750087F9DA /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		FEA7537F1B89087300533B89 /* SMAttributiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttributiesModel.h; sourceTree = "<group>"; };
+		FEA753801B89087300533B89 /* SMAttributiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttributiesModel.m; sourceTree = "<group>"; };
+		FEA753811B89087300533B89 /* UIView+SMAttributies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SMAttributies.h"; sourceTree = "<group>"; };
+		FEA753821B89087300533B89 /* UIView+SMAttributies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SMAttributies.m"; sourceTree = "<group>"; };
+		FEA753851B89089000533B89 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
+		FEA7538A1B89095000533B89 /* MainViewController.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainViewController.json; sourceTree = "<group>"; };
+		FEA7538C1B890C5000533B89 /* JokesViewController.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JokesViewController.json; sourceTree = "<group>"; };
+		FEA7538E1B890C7700533B89 /* JokeDetailViewController.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JokeDetailViewController.json; sourceTree = "<group>"; };
+		FEA753901B890F9300533B89 /* JokeView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JokeView.json; sourceTree = "<group>"; };
 		FEAFBE5A1B808C6B007D4143 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		FEAFBE5B1B808C6B007D4143 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		FEAFBE5C1B808C6B007D4143 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -343,6 +359,7 @@
 				FE8CF8CD1B7D6AF7002A1A92 /* Model */,
 				FE8CF8D41B7D6AF7002A1A92 /* Third */,
 				FE8CF8DA1B7D6AF7002A1A92 /* Util */,
+				FEA753871B8908C300533B89 /* Frames */,
 				FE8CF9BD1B7D6F46002A1A92 /* Supporting Files */,
 			);
 			path = SMClass;
@@ -681,6 +698,7 @@
 		FE8CF91A1B7D6AF7002A1A92 /* SMThird */ = {
 			isa = PBXGroup;
 			children = (
+				FEA7537E1B89087300533B89 /* SMAttributies */,
 				FEA6CCD91B8043750087F9DA /* AFNetworking */,
 				FE8CF9441B7D6AF7002A1A92 /* fmdb */,
 				FE8CF9501B7D6AF7002A1A92 /* MJRefresh */,
@@ -784,6 +802,29 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		FEA7537E1B89087300533B89 /* SMAttributies */ = {
+			isa = PBXGroup;
+			children = (
+				FEA753851B89089000533B89 /* sample.json */,
+				FEA7537F1B89087300533B89 /* SMAttributiesModel.h */,
+				FEA753801B89087300533B89 /* SMAttributiesModel.m */,
+				FEA753811B89087300533B89 /* UIView+SMAttributies.h */,
+				FEA753821B89087300533B89 /* UIView+SMAttributies.m */,
+			);
+			path = SMAttributies;
+			sourceTree = "<group>";
+		};
+		FEA753871B8908C300533B89 /* Frames */ = {
+			isa = PBXGroup;
+			children = (
+				FEA7538A1B89095000533B89 /* MainViewController.json */,
+				FEA7538C1B890C5000533B89 /* JokesViewController.json */,
+				FEA7538E1B890C7700533B89 /* JokeDetailViewController.json */,
+				FEA753901B890F9300533B89 /* JokeView.json */,
+			);
+			path = Frames;
+			sourceTree = "<group>";
+		};
 		FEAFBE591B808C6B007D4143 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -883,8 +924,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEA7538F1B890C7700533B89 /* JokeDetailViewController.json in Resources */,
+				FEA753911B890F9300533B89 /* JokeView.json in Resources */,
+				FEA753861B89089000533B89 /* sample.json in Resources */,
+				FEA7538D1B890C5000533B89 /* JokesViewController.json in Resources */,
 				FE8CF9C01B7D6F46002A1A92 /* Info.plist in Resources */,
 				FE0ECE501B7FCE1000B3B37D /* Images.xcassets in Resources */,
+				FEA7538B1B89095000533B89 /* MainViewController.json in Resources */,
 				FE8CF9731B7D6AF7002A1A92 /* kRequestLocalTestData.dat in Resources */,
 				FE8CF9A41B7D6AF7002A1A92 /* MJRefresh.bundle in Resources */,
 			);
@@ -902,6 +948,7 @@
 				FE8CF9881B7D6AF7002A1A92 /* SMNetManager.m in Sources */,
 				FE8CF96B1B7D6AF7002A1A92 /* SMLabel.m in Sources */,
 				FEA6CCF21B8043750087F9DA /* AFURLConnectionOperation.m in Sources */,
+				FEA753841B89087300533B89 /* UIView+SMAttributies.m in Sources */,
 				FE8CF9821B7D6AF7002A1A92 /* UIView+SMFrame.m in Sources */,
 				FE8CF9CD1B7D73F1002A1A92 /* JokeAPI.m in Sources */,
 				FEAFBE841B808C6B007D4143 /* UIButton+WebCache.m in Sources */,
@@ -961,6 +1008,7 @@
 				FE8CF9A51B7D6AF7002A1A92 /* MJRefreshComponent.m in Sources */,
 				FEAFBE7F1B808C6B007D4143 /* SDWebImageDecoder.m in Sources */,
 				FE8CF9A61B7D6AF7002A1A92 /* MJRefreshConst.m in Sources */,
+				FEA753831B89087300533B89 /* SMAttributiesModel.m in Sources */,
 				FE8CF97C1B7D6AF7002A1A92 /* SMDBManager.m in Sources */,
 				FE8CF9811B7D6AF7002A1A92 /* UIView+SM.m in Sources */,
 				FE8CF9771B7D6AF7002A1A92 /* SMJoke.m in Sources */,

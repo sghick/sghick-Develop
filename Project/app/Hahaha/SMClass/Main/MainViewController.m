@@ -27,35 +27,14 @@ static NSString *identifier = @"identifier";
     SMButton *jokesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
     [jokesBtn setTitle:@"笑话" forState:UIControlStateNormal];
     [jokesBtn addTarget:self action:@selector(jokesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:jokesBtn];
+    [self.view addSubview:jokesBtn attributePathKey:@"MainViewController.btn1"];
     self.jokesBtn = jokesBtn;
     
     SMButton *movesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
     [movesBtn setTitle:@"电影" forState:UIControlStateNormal];
     [movesBtn addTarget:self action:@selector(movesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:movesBtn];
+    [self.view addSubview:movesBtn attributePathKey:@"MainViewController.btn2"];
     self.movesBtn = movesBtn;
-    
-    [self updateViewConstraints];
-}
-
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
-    // 自动布局
-    NSDictionary * views = NSDictionaryOfVariableBindings(_jokesBtn, _movesBtn);
-    [UIView setTranslatesAutoresizingMaskIntoConstraintsWithViews:views flag:NO];
-    NSDictionary * metrics = @{@"width":[NSNumber numberWithFloat:(SMScreenWidth - 20*SMWidthScale)/2], @"margin":@"10"};
-    
-    // 横向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_jokesBtn(width)][_movesBtn(width)]"
-                                                                      options:NSLayoutFormatAlignAllCenterY
-                                                                      metrics:metrics
-                                                                        views:views]];
-    // 纵向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[_jokesBtn]"
-                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                      metrics:metrics
-                                                                        views:views]];
 }
 
 #pragma mark - action

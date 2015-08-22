@@ -38,50 +38,18 @@ static NSString *identifier = @"identifier";
     bll.delegate = self;
     self.bll = bll;
     
-    [self.view addSubview:self.tableView];
-    [self.view addSubview:self.segment];
-    [self updateViewConstraints];
+    [self.view addSubview:self.tableView attributePathKey:@"JokesViewController.tableView"];
+    [self.view addSubview:self.segment attributePathKey:@"JokesViewController.segment"];
     
     [self.tableView mj_addMJRefreshOperationBlock:^(int page) {
         [self requestJokesWithCurPage:page];
     } operationType:SMMjOperationTypeDefault refresh:YES];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadDataFromDBIsRead:self.segment.selectedSegmentIndex];
-}
-
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
-    // 自动布局
-    NSDictionary * views = NSDictionaryOfVariableBindings(_segment, _tableView);
-    [UIView setTranslatesAutoresizingMaskIntoConstraintsWithViews:views flag:NO];
-    NSDictionary *metrics = @{
-                              @"top":SMToString(@"%f", 64.0f),
-                              @"segHeight":SMToString(@"%f", 30.0f)
-                              };
-    
-    // tableView横向
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|"
-                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                      metrics:metrics
-                                                                        views:views]];
-    // tableView纵向
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-segHeight-[_tableView]|"
-                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                      metrics:metrics
-                                                                        views:views]];
-    // 横向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_segment]|"
-                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                      metrics:metrics
-                                                                        views:views]];
-    // 纵向1
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-top-[_segment(segHeight)]"
-                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                      metrics:metrics
-                                                                        views:views]];
 }
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
