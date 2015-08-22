@@ -10,23 +10,23 @@
     },
     "frame1" : {
         "percentageFrame" : {
-            "userFrame" : "0",
-            "screenScale" : "5,5",
-            "insets" : "1,1,1,1"
+            "screenScale" : "10,16",
+            "size" : "2,4",
+            "insets" : "6,1,-,-"
         }
     },
     "frame2" : {
         "percentageFrame" : {
-            "userFrame" : "0",
-            "screenScale" : "5,5",
-            "insets" : "1,1,1,1"
+            "screenScale" : "10,16",
+            "size" : "2,4",
+            "insets" : "6,4,-,-"
         }
     },
     "frame3" : {
         "percentageFrame" : {
-            "userFrame" : "0",
-            "screenScale" : "5,5",
-            "insets" : "1,1,1,1"
+            "screenScale" : "10,16",
+            "size" : "2,4",
+            "insets" : "6,7,-,-"
         }
     }
 }
