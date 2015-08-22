@@ -29,6 +29,40 @@
     }
 }
 
+- (void)showNetLineWithRowAndColoum:(CGPoint)rowAndColoum lineColor:(UIColor *)lineColor showNumber:(BOOL)showNumber alpha:(CGFloat)alpha {
+    // 线条颜色
+    UIColor *color = (lineColor?lineColor:[UIColor blackColor]);
+    // 线条精细
+    CGFloat lineWitdh = 1;
+    // 每列的宽
+    CGFloat perWidth = CGRectGetWidth(self.frame)/rowAndColoum.x;
+    // 每行的高
+    CGFloat perHeight = CGRectGetHeight(self.frame)/rowAndColoum.y;
+    // 画列
+    for (int i = 0; i < rowAndColoum.x; i++) {
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(i*perWidth, 0, lineWitdh, CGRectGetHeight(self.frame))];
+        line.backgroundColor = color;
+        [self addSubview:line];
+    }
+    // 画行
+    for (int i = 0; i < rowAndColoum.y; i++) {
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*perHeight, CGRectGetWidth(self.frame), lineWitdh)];
+        line.backgroundColor = color;
+        [self addSubview:line];
+    }
+    if (showNumber) {
+        for (int i = 0; i < rowAndColoum.y; i++) {
+            for (int j = 0; j < rowAndColoum.x; j++) {
+                UILabel *num = [[UILabel alloc] initWithFrame:CGRectMake(j*perWidth + 1, i*perHeight + 1, perWidth - 1, perHeight - 1)];
+                num.backgroundColor = [UIColor colorWithRed:0/255.0 green:255/255.0 blue:0/255.0 alpha:alpha];
+                num.text = [NSString stringWithFormat:@"%d,%d", j, i];
+                num.textAlignment = NSTextAlignmentCenter;
+                [self addSubview:num];
+            }
+        }
+    }
+}
+
 - (CGSize)sizeWithConstraints {
     if (self.superview) {
         CGRect frame = self.superview.bounds;
@@ -100,14 +134,6 @@
     return subDict;
 }
 
-- (void)fillView:(nonnull UIView *)view withPropertiesWithDictionary:(nonnull NSDictionary *)dict {
-    // 设置view的属性
-    NSDictionary *attributies = dict[@"attributies"];
-    if (attributies) {
-        [view setValuesForKeysWithDictionary:attributies];
-    }
-}
-
 - (void)fillView:(nonnull UIView *)view withPercentageWithDictionary:(nonnull NSDictionary *)dict pathKey:(nonnull NSString *)pathKey {
     // 约束
     SMPercentageFrame *percentageFrame = [[SMPercentageFrame alloc] init];
@@ -118,106 +144,171 @@
         NSLog(@"%@", error);
     }
     NSAssert(!trans.errors.count, @"布局错误");
-    // frame初始化，默认为父视图bounds
-    CGRect bounds = self.bounds;
-    CGRect frame = self.bounds;
-    if (CGRectIsEmpty(frame)) {
-        frame.size = [self sizeWithConstraints];
-        NSLog(@"superframe:%@", NSStringFromCGRect(frame));
-    }
     if (!trans.userFrame) {
-        // 关闭系统约束,使用自动布局
-        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
-        NSDictionary *views = NSDictionaryOfVariableBindings(view);
-        NSMutableDictionary *metrics = [NSMutableDictionary dictionary];
-        NSString *formatHs = @"H:|[view]|";
-        NSString *formatVs = @"V:|[view]|";
-        NSLayoutFormatOptions optionsHs = NSLayoutFormatAlignAllTrailing;
-        NSLayoutFormatOptions optionsVs = NSLayoutFormatAlignAllTrailing;
-        // 横向
-        if (!trans.isAutoWidth) {
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(frame)*trans.width/trans.screenScaleX] forKey:@"width"];
-            if (!trans.isAutoInsetsLeft) {
-                [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(frame)*trans.insetsLeft/trans.screenScaleX] forKey:@"left"];
-                formatHs = @"H:|-left-[view(width)]";
-            } else if (!trans.isAutoInsetsRight) {
-                [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(frame)*trans.insetsRight/trans.screenScaleX] forKey:@"right"];
-                formatHs = @"H:[view(width)]-right-|";
-            } else {
-                NSLayoutConstraint *constraintHs = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
-                [self addConstraint:constraintHs];
-                formatHs = @"H:[view(width)]";
-                NSLog(@"H:user center");
-            }
+        if (trans.useNetFrame) {
+            [self addNetConstraintsWithTrans:trans forView:view];
         } else {
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(frame)*trans.insetsLeft/trans.screenScaleX] forKey:@"left"];
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(frame)*trans.insetsRight/trans.screenScaleX] forKey:@"right"];
-            formatHs = @"H:|-left-[view]-right-|";
+            [self addConstraintsWithTrans:trans forView:view];
         }
-        // 纵向
-        if (!trans.isAutoHeight) {
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(frame)*trans.height/trans.screenScaleY] forKey:@"height"];
-            if (!trans.isAutoInsetsTop) {
-                [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(frame)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];;
-                formatVs = @"V:|-top-[view(height)]";
-            } else if (!trans.isAutoInsetsBottom) {
-                [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(frame)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
-                formatVs = @"V:[view(height)]-bottom-|";
-            } else {
-                NSLayoutConstraint *constraintVs = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
-                [self addConstraint:constraintVs];
-                formatVs = @"V:[view(height)]";
-                NSLog(@"V:user center");
-            }
-        } else {
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(frame)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(frame)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
-            formatVs = @"V:|-top-[view]-bottom-|";
-        }
-        // 增加约束
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatHs options:optionsHs metrics:metrics views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatVs options:optionsVs metrics:metrics views:views]];
-        NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
-        NSLog(@"frame:%@", NSStringFromCGSize([view sizeWithConstraints]));
     } else {
-        // 横向
-        if (!trans.isAutoWidth) {
-            // 实际大小
-            frame.size.width = CGRectGetWidth(bounds)*trans.width*trans.width/trans.screenScaleX;
-            if (!trans.isAutoInsetsLeft) {
-                frame.origin.x = CGRectGetWidth(bounds)*trans.insetsLeft/trans.screenScaleX;
-            } else if (!trans.isAutoInsetsRight) {
-                frame.origin.x = CGRectGetWidth(bounds) - CGRectGetWidth(bounds) - trans.insetsRight;
-            } else {
-                // 左右都为自动值 居中
-                frame.origin.x = (CGRectGetWidth(bounds) - CGRectGetWidth(bounds))/2;
-            }
+        if (trans.useNetFrame) {
+            [self addNetFramesWithTrans:trans forView:view];
         } else {
-            frame.origin.x = CGRectGetWidth(bounds)*trans.insetsLeft/trans.screenScaleX;
-            frame.size.width = CGRectGetWidth(bounds) - CGRectGetWidth(bounds)*(trans.insetsLeft + trans.insetsRight)/trans.screenScaleX;
+            [self addFramesWithTrans:trans forView:view];
         }
-        
-        // 纵向
-        if (!trans.isAutoHeight) {
-            // 实际大小
-            frame.size.height = CGRectGetHeight(bounds)*trans.height/trans.screenScaleY;
-            if (!trans.isAutoInsetsTop) {
-                frame.origin.y = CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
-            } else if (!trans.isAutoInsetsBottom) {
-                frame.origin.y = CGRectGetHeight(bounds) - CGRectGetHeight(bounds) - CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY;
-            } else {
-                // 左右都为自动值 居中
-                frame.origin.y = (CGRectGetHeight(bounds) - CGRectGetHeight(bounds))/2;
-            }
-        } else {
-            frame.origin.y = CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
-            frame.size.height = CGRectGetHeight(bounds) - CGRectGetHeight(bounds)*(trans.insetsTop + trans.insetsBottom)/trans.screenScaleY;
-        }
-        // 设置子视图的frame
-        view.frame = frame;
-        NSLog(@"frame:%@", NSStringFromCGRect(frame));
     }
     
+}
+
+// 添加约束
+- (void)addConstraintsWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
+    // frame初始化，默认为父视图bounds
+    CGRect bounds = self.bounds;
+    if (CGRectIsEmpty(bounds)) {
+        bounds.size = [self sizeWithConstraints];
+        NSLog(@"superBounds:%@", NSStringFromCGRect(bounds));
+    }
+    // 关闭系统约束,使用自动布局
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSDictionary *views = NSDictionaryOfVariableBindings(view);
+    NSMutableDictionary *metrics = [NSMutableDictionary dictionary];
+    NSString *formatHs = @"H:|[view]|";
+    NSString *formatVs = @"V:|[view]|";
+    NSLayoutFormatOptions optionsHs = NSLayoutFormatAlignAllTrailing;
+    NSLayoutFormatOptions optionsVs = NSLayoutFormatAlignAllTrailing;
+    // 横向
+    if (!trans.isAutoWidth) {
+        [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(bounds)*trans.width/trans.screenScaleX] forKey:@"width"];
+        if (!trans.isAutoInsetsLeft) {
+            [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(bounds)*trans.insetsLeft/trans.screenScaleX] forKey:@"left"];
+            formatHs = @"H:|-left-[view(width)]";
+        } else if (!trans.isAutoInsetsRight) {
+            [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(bounds)*trans.insetsRight/trans.screenScaleX] forKey:@"right"];
+            formatHs = @"H:[view(width)]-right-|";
+        } else {
+            NSLayoutConstraint *constraintHs = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+            [self addConstraint:constraintHs];
+            formatHs = @"H:[view(width)]";
+            NSLog(@"H:user center");
+        }
+    } else {
+        [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(bounds)*trans.insetsLeft/trans.screenScaleX] forKey:@"left"];
+        [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(bounds)*trans.insetsRight/trans.screenScaleX] forKey:@"right"];
+        formatHs = @"H:|-left-[view]-right-|";
+    }
+    // 纵向
+    if (!trans.isAutoHeight) {
+        [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.height/trans.screenScaleY] forKey:@"height"];
+        if (!trans.isAutoInsetsTop) {
+            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];;
+            formatVs = @"V:|-top-[view(height)]";
+        } else if (!trans.isAutoInsetsBottom) {
+            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
+            formatVs = @"V:[view(height)]-bottom-|";
+        } else {
+            NSLayoutConstraint *constraintVs = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+            [self addConstraint:constraintVs];
+            formatVs = @"V:[view(height)]";
+            NSLog(@"V:user center");
+        }
+    } else {
+        [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];
+        [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
+        formatVs = @"V:|-top-[view]-bottom-|";
+    }
+    // 增加约束
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatHs options:optionsHs metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatVs options:optionsVs metrics:metrics views:views]];
+    NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
+    NSLog(@"frame:%@", NSStringFromCGSize([view sizeWithConstraints]));
+}
+
+- (void)addNetConstraintsWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
+    // frame初始化，默认为父视图bounds
+    CGRect bounds = self.bounds;
+    if (CGRectIsEmpty(bounds)) {
+        bounds.size = [self sizeWithConstraints];
+        NSLog(@"superBounds:%@", NSStringFromCGRect(bounds));
+    }
+    // 关闭系统约束,使用自动布局
+    [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSDictionary *views = NSDictionaryOfVariableBindings(view);
+    NSMutableDictionary *metrics = [NSMutableDictionary dictionary];
+    NSLayoutFormatOptions optionsHs = NSLayoutFormatAlignAllTrailing;
+    NSLayoutFormatOptions optionsVs = NSLayoutFormatAlignAllTrailing;
+    // 设置约束
+    CGFloat left = CGRectGetWidth(bounds)*trans.netFrameLeft/trans.screenScaleX;
+    CGFloat top = CGRectGetHeight(bounds)*trans.netFrameTop/trans.screenScaleY;
+    CGFloat width = CGRectGetWidth(bounds)*trans.netFrameWidth/trans.screenScaleX;
+    CGFloat height = CGRectGetHeight(bounds)*trans.netFrameHeight/trans.screenScaleY;
+    [metrics setObject:[NSNumber numberWithFloat:left] forKey:@"left"];
+    [metrics setObject:[NSNumber numberWithFloat:top] forKey:@"top"];
+    [metrics setObject:[NSNumber numberWithFloat:width] forKey:@"width"];
+    [metrics setObject:[NSNumber numberWithFloat:height] forKey:@"height"];
+    NSString *formatHs = @"H:|-left-[view(width)]";
+    NSString *formatVs = @"V:|-top-[view(height)]";
+    // 增加约束
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatHs options:optionsHs metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatVs options:optionsVs metrics:metrics views:views]];
+    NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
+    NSLog(@"frame:%@", NSStringFromCGSize([view sizeWithConstraints]));
+}
+
+- (void)addNetFramesWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
+    CGRect bounds = self.bounds;
+    CGRect frame = self.bounds;
+    frame.origin.x = CGRectGetWidth(bounds)*trans.netFrameLeft/trans.screenScaleX;
+    frame.origin.y = CGRectGetHeight(bounds)*trans.netFrameTop/trans.screenScaleY;
+    frame.size.width = CGRectGetWidth(bounds)*trans.netFrameWidth/trans.screenScaleX;
+    frame.size.height = CGRectGetHeight(bounds)*trans.netFrameHeight/trans.screenScaleY;
+    view.frame = frame;
+    NSLog(@"frame:%@", NSStringFromCGRect(frame));
+}
+
+- (void)addFramesWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
+    // frame初始化，默认为父视图bounds
+    CGRect bounds = self.bounds;
+    if (CGRectIsEmpty(bounds)) {
+        bounds.size = [self sizeWithConstraints];
+        NSLog(@"superBounds:%@", NSStringFromCGRect(bounds));
+    }
+    CGRect frame = bounds;
+    // 横向
+    if (!trans.isAutoWidth) {
+        // 实际大小
+        frame.size.width = CGRectGetWidth(bounds)*trans.width*trans.width/trans.screenScaleX;
+        if (!trans.isAutoInsetsLeft) {
+            frame.origin.x = CGRectGetWidth(bounds)*trans.insetsLeft/trans.screenScaleX;
+        } else if (!trans.isAutoInsetsRight) {
+            frame.origin.x = CGRectGetWidth(bounds) - CGRectGetWidth(bounds) - trans.insetsRight;
+        } else {
+            // 左右都为自动值 居中
+            frame.origin.x = (CGRectGetWidth(bounds) - CGRectGetWidth(bounds))/2;
+        }
+    } else {
+        frame.origin.x = CGRectGetWidth(bounds)*trans.insetsLeft/trans.screenScaleX;
+        frame.size.width = CGRectGetWidth(bounds) - CGRectGetWidth(bounds)*(trans.insetsLeft + trans.insetsRight)/trans.screenScaleX;
+    }
+    
+    // 纵向
+    if (!trans.isAutoHeight) {
+        // 实际大小
+        frame.size.height = CGRectGetHeight(bounds)*trans.height/trans.screenScaleY;
+        if (!trans.isAutoInsetsTop) {
+            frame.origin.y = CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
+        } else if (!trans.isAutoInsetsBottom) {
+            frame.origin.y = CGRectGetHeight(bounds) - CGRectGetHeight(bounds) - CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY;
+        } else {
+            // 左右都为自动值 居中
+            frame.origin.y = (CGRectGetHeight(bounds) - CGRectGetHeight(bounds))/2;
+        }
+    } else {
+        frame.origin.y = CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
+        frame.size.height = CGRectGetHeight(bounds) - CGRectGetHeight(bounds)*(trans.insetsTop + trans.insetsBottom)/trans.screenScaleY;
+    }
+    // 设置子视图的frame
+    view.frame = frame;
+    NSLog(@"frame:%@", NSStringFromCGRect(frame));
 }
 
 @end

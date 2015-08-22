@@ -12,5 +12,6 @@
 
 - (void)addSubview:(nonnull UIView *)view attributePathKey:(nonnull NSString *)pathKey;
 - (CGSize)sizeWithConstraints;
+- (void)showNetLineWithRowAndColoum:(CGPoint)rowAndColoum lineColor:(nonnull UIColor *)lineColor showNumber:(BOOL)showNumber alpha:(CGFloat)alpha;
 
 @end

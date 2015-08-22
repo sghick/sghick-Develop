@@ -71,6 +71,18 @@
         trans.screenScaleY = cScreenHeight;
         trans.isAutoScreenScaleY = YES;
     }
+    // netFrame 如果些项不为空，以下的属性失效
+    NSArray *partNetFrame = [percentageFrame.netFrame componentsSeparatedByString:cPartComma];
+    if (partNetFrame && partNetFrame.count != 4) {
+        [errors addObject:cToString(@"pathKey:%@ percentageFrame.netFrame格式错误,正确格式:\"?,?,?,?\"", pathKey)];
+    } else if (partNetFrame) {
+        trans.useNetFrame = YES;
+        trans.netFrameLeft = cToFloat(partNetFrame[0]);
+        trans.netFrameTop = cToFloat(partNetFrame[1]);
+        trans.netFrameWidth = cToFloat(partNetFrame[2]);
+        trans.netFrameHeight = cToFloat(partNetFrame[3]);
+        return trans;
+    }
     // scale
     NSArray *partScale = [percentageFrame.scale componentsSeparatedByString:cPartComma];
     if (partScale && partScale.count != 2) {
