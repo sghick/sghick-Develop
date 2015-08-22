@@ -34,9 +34,9 @@
     view3.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:220/255.0 alpha:0.5];
     self.view3 = view3;
     
-    [self.view addSubview:self.view1 attributePathKey:@"ViewController.frame2_1"];
-    [self.view addSubview:self.view2 attributePathKey:@"ViewController.frame2_2"];
-    [self.view addSubview:self.view3 attributePathKey:@"ViewController.frame2_3"];
+    [self.view addSubview:self.view1 attributePathKey:@"sample.frame2_1"];
+    [self.view addSubview:self.view2 attributePathKey:@"sample.frame2_2"];
+    [self.view addSubview:self.view3 attributePathKey:@"sample.frame2_3"];
     
     [self.view showNetLineWithRowAndColoum:CGPointMake(10, 16) lineColor:[UIColor redColor] showNumber:YES alpha:0];
 }
