@@ -44,13 +44,13 @@
                     NSString *subStr = [str substringWithRange:NSMakeRange(vlocation + 2, str.length - vlocation - 2)];
                     while ((vlocation = [subStr rangeOfString:@"-("].location) != NSNotFound) {
                         subStr = [subStr substringWithRange:NSMakeRange(vlocation + 2, subStr.length - vlocation - 2)];
-                        frame.size.width -= subStr.floatValue;
+                        frame.size.height -= subStr.floatValue;
                     }
                 } else {
                     NSString *subStr = str;
                     while ((vlocation = [subStr rangeOfString:@"-("].location) != NSNotFound) {
                         subStr = [subStr substringWithRange:NSMakeRange(vlocation + 2, subStr.length - vlocation - 2)];
-                        frame.size.height -= subStr.floatValue;
+                        frame.size.width -= subStr.floatValue;
                     }
                 }
             }
@@ -103,6 +103,7 @@
     CGRect frame = self.bounds;
     if (CGRectIsEmpty(frame)) {
         frame.size = [self sizeWithConstraints];
+        NSLog(@"superframe:%@", NSStringFromCGRect(frame));
     }
     if (!trans.userFrame) {
         // 关闭系统约束,使用自动布局
@@ -149,14 +150,15 @@
                 NSLog(@"V:user center");
             }
         } else {
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(frame)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetWidth(frame)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
+            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(frame)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];
+            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(frame)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
             formatVs = @"V:|-top-[view]-bottom-|";
         }
         // 增加约束
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatHs options:optionsHs metrics:metrics views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatVs options:optionsVs metrics:metrics views:views]];
-//        NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
+        NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
+        NSLog(@"frame:%@", NSStringFromCGSize([view sizeWithConstraints]));
     } else {
         // 横向
         if (!trans.isAutoWidth) {
@@ -165,14 +167,14 @@
             if (!trans.isAutoInsetsLeft) {
                 frame.origin.x = CGRectGetWidth(frame)*trans.insetsLeft/trans.screenScaleX;
             } else if (!trans.isAutoInsetsRight) {
-                frame.origin.x = CGRectGetWidth(self.bounds) - CGRectGetWidth(frame) - trans.insetsRight;
+                frame.origin.x = CGRectGetWidth(frame) - CGRectGetWidth(frame) - trans.insetsRight;
             } else {
                 // 左右都为自动值 居中
-                frame.origin.x = (CGRectGetWidth(self.bounds) - CGRectGetWidth(frame))/2;
+                frame.origin.x = (CGRectGetWidth(frame) - CGRectGetWidth(frame))/2;
             }
         } else {
             frame.origin.x = CGRectGetWidth(frame)*trans.insetsLeft/trans.screenScaleX;
-            frame.size.width = CGRectGetWidth(self.bounds) - CGRectGetWidth(frame)*(trans.insetsLeft + trans.insetsRight)/trans.screenScaleX;
+            frame.size.width = CGRectGetWidth(frame) - CGRectGetWidth(frame)*(trans.insetsLeft + trans.insetsRight)/trans.screenScaleX;
         }
         
         // 纵向
@@ -182,18 +184,18 @@
             if (!trans.isAutoInsetsTop) {
                 frame.origin.y = CGRectGetHeight(frame)*trans.insetsTop/trans.screenScaleY;
             } else if (!trans.isAutoInsetsBottom) {
-                frame.origin.y = CGRectGetHeight(self.bounds) - CGRectGetHeight(frame) - CGRectGetHeight(frame)*trans.insetsBottom/trans.screenScaleY;
+                frame.origin.y = CGRectGetHeight(frame) - CGRectGetHeight(frame) - CGRectGetHeight(frame)*trans.insetsBottom/trans.screenScaleY;
             } else {
                 // 左右都为自动值 居中
-                frame.origin.y = (CGRectGetHeight(self.bounds) - CGRectGetHeight(frame))/2;
+                frame.origin.y = (CGRectGetHeight(frame) - CGRectGetHeight(frame))/2;
             }
         } else {
             frame.origin.y = CGRectGetHeight(frame)*trans.insetsTop/trans.screenScaleY;
-            frame.size.height = CGRectGetHeight(self.bounds) - CGRectGetHeight(frame)*(trans.insetsTop + trans.insetsBottom)/trans.screenScaleY;
+            frame.size.height = CGRectGetHeight(frame) - CGRectGetHeight(frame)*(trans.insetsTop + trans.insetsBottom)/trans.screenScaleY;
         }
         // 设置子视图的frame
         view.frame = frame;
-//        NSLog(@"%@:", view);
+        NSLog(@"frame:%@", NSStringFromCGRect(frame));
     }
     
 }
