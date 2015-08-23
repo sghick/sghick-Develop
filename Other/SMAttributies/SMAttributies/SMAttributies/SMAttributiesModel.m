@@ -36,15 +36,15 @@
 + (SMTransPercentageFrame *)transWithPercentageFrame:(SMPercentageFrame *)percentageFrame pathKey:(NSString *)pathKey {
     NSMutableArray *errors = [NSMutableArray array];
     SMTransPercentageFrame *trans = [[SMTransPercentageFrame alloc] init];
-    // userFrame
-    if (percentageFrame.userFrame) {
-        if ([percentageFrame.userFrame isEqualToString:cAuto]) {
-            trans.userFrame = YES;
+    // useFrame
+    if (percentageFrame.useFrame) {
+        if ([percentageFrame.useFrame isEqualToString:cAuto]) {
+            trans.useFrame = YES;
         } else {
-            trans.userFrame = percentageFrame.userFrame.boolValue;
+            trans.useFrame = percentageFrame.useFrame.boolValue;
         }
     } else {
-        trans.userFrame = NO;
+        trans.useFrame = NO;
     }
     // screenScale
     NSArray *partScreenScale = [percentageFrame.screenScale componentsSeparatedByString:cPartComma];
@@ -70,6 +70,12 @@
         trans.isAutoScreenScaleX = YES;
         trans.screenScaleY = cScreenHeight;
         trans.isAutoScreenScaleY = YES;
+    }
+    // netType
+    if (percentageFrame.netType) {
+        trans.netType = percentageFrame.netType.intValue;
+    } else {
+        trans.netType = 0;
     }
     // netFrame 如果些项不为空，以下的属性失效
     NSArray *partNetFrame = [percentageFrame.netFrame componentsSeparatedByString:cPartComma];
