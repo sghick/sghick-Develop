@@ -71,15 +71,16 @@
     // 用于计算的高
     if (SMSystemVersion > 6) {
         if (netType&SMNetLineTypeUseStatusBar) {
-            frame.origin.y += [UIApplication sharedApplication].statusBarFrame.size.height;
-            frame.size.height -= [UIApplication sharedApplication].statusBarFrame.size.height;
+            CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+            frame.origin.y += statusBarHeight;
+            frame.size.height -= statusBarHeight;
         }
         if (netType&SMNetLineTypeUseNavBar) {
-            frame.origin.y += [UINavigationBar appearance].frame.size.height;
-            frame.size.height -= [UINavigationBar appearance].frame.size.height;
+            frame.origin.y += 44;
+            frame.size.height -= 44;
         }
         if (netType&SMNetLineTypeUseTabBar) {
-            frame.size.height -= [UITabBar appearance].frame.size.height;
+            frame.size.height -= 49;
         }
     }
     return frame;

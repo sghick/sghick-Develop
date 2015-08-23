@@ -40,7 +40,7 @@
 //    [self.view addSubview:self.view2 attributePathKey:@"sample.frame2_2"];
 //    [self.view addSubview:self.view3 attributePathKey:@"sample.frame2_3"];
     
-    [self.view showNetLineWithRowAndColoum:CGPointMake(3, 3) lineColor:[UIColor redColor] netType:SMNetLineTypeDefault alpha:0];
+    [self.view showNetLineWithRowAndColoum:CGPointMake(3, 20) lineColor:[UIColor redColor] netType:35 alpha:0];
 }
 
 @end

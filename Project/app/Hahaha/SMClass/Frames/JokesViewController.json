@@ -1,16 +1,16 @@
 {
     "tableView" : {
         "percentageFrame" : {
-            "screenScale" : "1,-",
-            "size" : "1,-",
-            "insets" : "30,-,-,-"
+            "netType" : "0",
+            "screenScale" : "1,30",
+            "insets" : "1,0,0,0"
         }
     },
     "segment" : {
         "percentageFrame" : {
-            "screenScale" : "1,-",
-            "size" : "1,30",
-            "insets" : "64,-,-,-"
+            "netType" : "3",
+            "screenScale" : "1,30",
+            "insets" : "0,0,29,0"
         }
     }
 }

@@ -15,8 +15,8 @@
 		FEA530D31B83AB2A00A742B0 /* SMAttributiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA530D21B83AB2A00A742B0 /* SMAttributiesTests.m */; };
 		FEA530DE1B83AB2A00A742B0 /* SMAttributiesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA530DD1B83AB2A00A742B0 /* SMAttributiesUITests.m */; };
 		FEA530F11B83ABC000A742B0 /* UIView+SMAttributies.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA530F01B83ABC000A742B0 /* UIView+SMAttributies.m */; };
-		FEA530F31B83B0A600A742B0 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA530F21B83B0A600A742B0 /* sample.json */; };
 		FEA530F61B83B20F00A742B0 /* SMAttributiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA530F51B83B20F00A742B0 /* SMAttributiesModel.m */; };
+		FEA753931B8996FC00533B89 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA753921B8996FC00533B89 /* sample.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,9 +54,9 @@
 		FEA530DF1B83AB2A00A742B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FEA530EF1B83ABC000A742B0 /* UIView+SMAttributies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SMAttributies.h"; sourceTree = "<group>"; };
 		FEA530F01B83ABC000A742B0 /* UIView+SMAttributies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SMAttributies.m"; sourceTree = "<group>"; };
-		FEA530F21B83B0A600A742B0 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		FEA530F41B83B20F00A742B0 /* SMAttributiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttributiesModel.h; sourceTree = "<group>"; };
 		FEA530F51B83B20F00A742B0 /* SMAttributiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttributiesModel.m; sourceTree = "<group>"; };
+		FEA753921B8996FC00533B89 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,6 @@
 		FEA530B71B83AB2A00A742B0 /* SMAttributies */ = {
 			isa = PBXGroup;
 			children = (
-				FEA530EC1B83AB8700A742B0 /* Attributies */,
 				FEA530EB1B83AB7C00A742B0 /* SMAttributies */,
 				FEA530BB1B83AB2A00A742B0 /* AppDelegate.h */,
 				FEA530BC1B83AB2A00A742B0 /* AppDelegate.m */,
@@ -150,20 +149,13 @@
 		FEA530EB1B83AB7C00A742B0 /* SMAttributies */ = {
 			isa = PBXGroup;
 			children = (
+				FEA753921B8996FC00533B89 /* sample.json */,
 				FEA530EF1B83ABC000A742B0 /* UIView+SMAttributies.h */,
 				FEA530F01B83ABC000A742B0 /* UIView+SMAttributies.m */,
 				FEA530F41B83B20F00A742B0 /* SMAttributiesModel.h */,
 				FEA530F51B83B20F00A742B0 /* SMAttributiesModel.m */,
 			);
 			path = SMAttributies;
-			sourceTree = "<group>";
-		};
-		FEA530EC1B83AB8700A742B0 /* Attributies */ = {
-			isa = PBXGroup;
-			children = (
-				FEA530F21B83B0A600A742B0 /* sample.json */,
-			);
-			path = Attributies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,7 +266,7 @@
 			files = (
 				FEA530C81B83AB2A00A742B0 /* LaunchScreen.storyboard in Resources */,
 				FEA530C51B83AB2A00A742B0 /* Assets.xcassets in Resources */,
-				FEA530F31B83B0A600A742B0 /* sample.json in Resources */,
+				FEA753931B8996FC00533B89 /* sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

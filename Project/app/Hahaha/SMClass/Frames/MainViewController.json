@@ -1,16 +1,16 @@
 {
     "btn1" : {
         "percentageFrame" : {
-            "screenScale" : "6,-",
-            "size" : "1,30",
-            "insets" : "64,2,-,3"
+            "netType" : "3",
+            "screenScale" : "6,30",
+            "insets" : "0,2,29,3"
         }
     },
     "btn2" : {
         "percentageFrame" : {
-            "screenScale" : "6,-",
-            "size" : "1,30",
-            "insets" : "64,3,-,2"
+            "netType" : "3",
+            "screenScale" : "6,30",
+            "insets" : "0,3,29,2"
         }
     }
 }

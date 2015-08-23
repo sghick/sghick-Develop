@@ -6,6 +6,8 @@
 //  Copyright © 2015年 sumrise.com. All rights reserved.
 //
 
+// 系统版本
+#define SMSystemVersion ([[[UIDevice currentDevice] systemVersion] floatValue])
 // 分隔符
 #define cPartPoint      @"."
 
@@ -29,31 +31,32 @@
     }
 }
 
-- (void)showNetLineWithRowAndColoum:(CGPoint)rowAndColoum lineColor:(UIColor *)lineColor showNumber:(BOOL)showNumber alpha:(CGFloat)alpha {
+- (void)showNetLineWithRowAndColoum:(CGPoint)rowAndColoum lineColor:(UIColor *)lineColor netType:(SMNetLineType)netType alpha:(CGFloat)alpha {
     // 线条颜色
     UIColor *color = (lineColor?lineColor:[UIColor blackColor]);
     // 线条精细
     CGFloat lineWitdh = 1;
+    CGRect frame = [self frameWithNetType:netType];
     // 每列的宽
-    CGFloat perWidth = CGRectGetWidth(self.frame)/rowAndColoum.x;
+    CGFloat perWidth = CGRectGetWidth(frame)/rowAndColoum.x;
     // 每行的高
-    CGFloat perHeight = CGRectGetHeight(self.frame)/rowAndColoum.y;
+    CGFloat perHeight = CGRectGetHeight(frame)/rowAndColoum.y;
     // 画列
     for (int i = 0; i < rowAndColoum.x; i++) {
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(i*perWidth, 0, lineWitdh, CGRectGetHeight(self.frame))];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(i*perWidth, frame.origin.y, lineWitdh, CGRectGetHeight(frame))];
         line.backgroundColor = color;
         [self addSubview:line];
     }
     // 画行
     for (int i = 0; i < rowAndColoum.y; i++) {
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*perHeight, CGRectGetWidth(self.frame), lineWitdh)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, frame.origin.y + i*perHeight, CGRectGetWidth(frame), lineWitdh)];
         line.backgroundColor = color;
         [self addSubview:line];
     }
-    if (showNumber) {
+    if (netType&SMNetLineTypeShowNumber) {
         for (int i = 0; i < rowAndColoum.y; i++) {
             for (int j = 0; j < rowAndColoum.x; j++) {
-                UILabel *num = [[UILabel alloc] initWithFrame:CGRectMake(j*perWidth + 1, i*perHeight + 1, perWidth - 1, perHeight - 1)];
+                UILabel *num = [[UILabel alloc] initWithFrame:CGRectMake(j*perWidth + 1, frame.origin.y + i*perHeight + 1, perWidth - 1, perHeight - 1)];
                 num.backgroundColor = [UIColor colorWithRed:0/255.0 green:255/255.0 blue:0/255.0 alpha:alpha];
                 num.text = [NSString stringWithFormat:@"%d,%d", j, i];
                 num.textAlignment = NSTextAlignmentCenter;
@@ -61,6 +64,26 @@
             }
         }
     }
+}
+
+- (CGRect)frameWithNetType:(SMNetLineType)netType {
+    CGRect frame = self.bounds;
+    // 用于计算的高
+    if (SMSystemVersion > 6) {
+        if (netType&SMNetLineTypeUseStatusBar) {
+            CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+            frame.origin.y += statusBarHeight;
+            frame.size.height -= statusBarHeight;
+        }
+        if (netType&SMNetLineTypeUseNavBar) {
+            frame.origin.y += 44;
+            frame.size.height -= 44;
+        }
+        if (netType&SMNetLineTypeUseTabBar) {
+            frame.size.height -= 49;
+        }
+    }
+    return frame;
 }
 
 - (CGSize)sizeWithConstraints {
@@ -144,7 +167,7 @@
         NSLog(@"%@", error);
     }
     NSAssert(!trans.errors.count, @"布局错误");
-    if (!trans.userFrame) {
+    if (!trans.useFrame) {
         if (trans.useNetFrame) {
             [self addNetConstraintsWithTrans:trans forView:view];
         } else {
@@ -163,7 +186,7 @@
 // 添加约束
 - (void)addConstraintsWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
     // frame初始化，默认为父视图bounds
-    CGRect bounds = self.bounds;
+    CGRect bounds = [self frameWithNetType:trans.netType];
     if (CGRectIsEmpty(bounds)) {
         bounds.size = [self sizeWithConstraints];
         NSLog(@"superBounds:%@", NSStringFromCGRect(bounds));
@@ -200,10 +223,11 @@
     if (!trans.isAutoHeight) {
         [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.height/trans.screenScaleY] forKey:@"height"];
         if (!trans.isAutoInsetsTop) {
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];;
+            [metrics setObject:[NSNumber numberWithFloat:(bounds.origin.y + CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY)] forKey:@"top"];;
             formatVs = @"V:|-top-[view(height)]";
         } else if (!trans.isAutoInsetsBottom) {
-            [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
+            CGFloat bottom = CGRectGetHeight(self.bounds) - (bounds.origin.y + CGRectGetHeight(bounds));
+            [metrics setObject:[NSNumber numberWithFloat:(bottom + CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY)] forKey:@"bottom"];
             formatVs = @"V:[view(height)]-bottom-|";
         } else {
             NSLayoutConstraint *constraintVs = [NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
@@ -212,8 +236,9 @@
             NSLog(@"V:user center");
         }
     } else {
-        [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY] forKey:@"top"];
-        [metrics setObject:[NSNumber numberWithFloat:CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY] forKey:@"bottom"];
+        CGFloat bottom = CGRectGetHeight(self.bounds) - (bounds.origin.y + CGRectGetHeight(bounds));
+        [metrics setObject:[NSNumber numberWithFloat:(bounds.origin.y + CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY)] forKey:@"top"];
+        [metrics setObject:[NSNumber numberWithFloat:(bottom + CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY)] forKey:@"bottom"];
         formatVs = @"V:|-top-[view]-bottom-|";
     }
     // 增加约束
@@ -225,7 +250,7 @@
 
 - (void)addNetConstraintsWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
     // frame初始化，默认为父视图bounds
-    CGRect bounds = self.bounds;
+    CGRect bounds = [self frameWithNetType:trans.netType];
     if (CGRectIsEmpty(bounds)) {
         bounds.size = [self sizeWithConstraints];
         NSLog(@"superBounds:%@", NSStringFromCGRect(bounds));
@@ -238,7 +263,7 @@
     NSLayoutFormatOptions optionsVs = NSLayoutFormatAlignAllTrailing;
     // 设置约束
     CGFloat left = CGRectGetWidth(bounds)*trans.netFrameLeft/trans.screenScaleX;
-    CGFloat top = CGRectGetHeight(bounds)*trans.netFrameTop/trans.screenScaleY;
+    CGFloat top = bounds.origin.y + CGRectGetHeight(bounds)*trans.netFrameTop/trans.screenScaleY;
     CGFloat width = CGRectGetWidth(bounds)*trans.netFrameWidth/trans.screenScaleX;
     CGFloat height = CGRectGetHeight(bounds)*trans.netFrameHeight/trans.screenScaleY;
     [metrics setObject:[NSNumber numberWithFloat:left] forKey:@"left"];
@@ -255,10 +280,11 @@
 }
 
 - (void)addNetFramesWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
-    CGRect bounds = self.bounds;
-    CGRect frame = self.bounds;
+    CGRect bounds = [self frameWithNetType:trans.netType];
+    CGRect frame = bounds;
+    frame.origin = CGPointZero;
     frame.origin.x = CGRectGetWidth(bounds)*trans.netFrameLeft/trans.screenScaleX;
-    frame.origin.y = CGRectGetHeight(bounds)*trans.netFrameTop/trans.screenScaleY;
+    frame.origin.y = bounds.origin.y + CGRectGetHeight(bounds)*trans.netFrameTop/trans.screenScaleY;
     frame.size.width = CGRectGetWidth(bounds)*trans.netFrameWidth/trans.screenScaleX;
     frame.size.height = CGRectGetHeight(bounds)*trans.netFrameHeight/trans.screenScaleY;
     view.frame = frame;
@@ -267,12 +293,13 @@
 
 - (void)addFramesWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
     // frame初始化，默认为父视图bounds
-    CGRect bounds = self.bounds;
+    CGRect bounds = [self frameWithNetType:trans.netType];
     if (CGRectIsEmpty(bounds)) {
         bounds.size = [self sizeWithConstraints];
         NSLog(@"superBounds:%@", NSStringFromCGRect(bounds));
     }
     CGRect frame = bounds;
+    frame.origin = CGPointZero;
     // 横向
     if (!trans.isAutoWidth) {
         // 实际大小
@@ -295,15 +322,15 @@
         // 实际大小
         frame.size.height = CGRectGetHeight(bounds)*trans.height/trans.screenScaleY;
         if (!trans.isAutoInsetsTop) {
-            frame.origin.y = CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
+            frame.origin.y = bounds.origin.y + CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
         } else if (!trans.isAutoInsetsBottom) {
-            frame.origin.y = CGRectGetHeight(bounds) - CGRectGetHeight(bounds) - CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY;
+            frame.origin.y = bounds.origin.y + CGRectGetHeight(bounds) - CGRectGetHeight(bounds) - CGRectGetHeight(bounds)*trans.insetsBottom/trans.screenScaleY;
         } else {
             // 左右都为自动值 居中
-            frame.origin.y = (CGRectGetHeight(bounds) - CGRectGetHeight(bounds))/2;
+            frame.origin.y = bounds.origin.y + (CGRectGetHeight(bounds) - CGRectGetHeight(bounds))/2;
         }
     } else {
-        frame.origin.y = CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
+        frame.origin.y = bounds.origin.y + CGRectGetHeight(bounds)*trans.insetsTop/trans.screenScaleY;
         frame.size.height = CGRectGetHeight(bounds) - CGRectGetHeight(bounds)*(trans.insetsTop + trans.insetsBottom)/trans.screenScaleY;
     }
     // 设置子视图的frame

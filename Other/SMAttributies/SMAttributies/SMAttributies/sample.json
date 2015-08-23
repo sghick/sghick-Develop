@@ -61,8 +61,8 @@
     },
     "frame3" : {
         "percentageFrame" : {
-            "netType" : "7",
-            "screenScale" : "3,3",
+            "netType" : "3",
+            "screenScale" : "3,20",
             "insets" : "1,1,1,1"
         }
     }

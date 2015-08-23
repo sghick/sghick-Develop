@@ -1,11 +1,20 @@
 {
-    "formatSample" : {
+    "formatSample1" : {
         "percentageFrame" : {
-            "userFrame" : "-",
             "screenScale" : "-,-",
+            "useFrame" : "-",
+            "netType" : "7",
             "scale" : "-,-",
             "size" : "-,-",
             "insets" : "1,1,1,1"
+        }
+    },
+    "formatSample2" : {
+        "percentageFrame" : {
+            "screenScale" : "-,-",
+            "useFrame" : "-",
+            "netType" : "7",
+            "netFrame" : "1,1,2,2",
         }
     },
     "frame1_1" : {
@@ -31,23 +40,30 @@
     },
     "frame2_1" : {
         "percentageFrame" : {
-            "userFrame" : "0",
+            "useFrame" : "0",
             "screenScale" : "10,16",
             "netFrame" : "1,6,2,4"
         }
     },
     "frame2_2" : {
         "percentageFrame" : {
-            "userFrame" : "0",
+            "useFrame" : "0",
             "screenScale" : "10,16",
             "netFrame" : "4,6,2,4"
         }
     },
     "frame2_3" : {
         "percentageFrame" : {
-            "userFrame" : "0",
+            "useFrame" : "0",
             "screenScale" : "10,16",
             "netFrame" : "7,6,2,4"
+        }
+    },
+    "frame3" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "screenScale" : "3,20",
+            "insets" : "1,1,1,1"
         }
     }
 }
