@@ -17,6 +17,9 @@
 		FEA530F11B83ABC000A742B0 /* UIView+SMAttributies.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA530F01B83ABC000A742B0 /* UIView+SMAttributies.m */; };
 		FEA530F61B83B20F00A742B0 /* SMAttributiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA530F51B83B20F00A742B0 /* SMAttributiesModel.m */; };
 		FEA753931B8996FC00533B89 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = FEA753921B8996FC00533B89 /* sample.json */; };
+		FEEFC8571B91F0C80068CB72 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEFC84F1B91F0C80068CB72 /* ALView+PureLayout.m */; };
+		FEEFC8581B91F0C80068CB72 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEFC8511B91F0C80068CB72 /* NSArray+PureLayout.m */; };
+		FEEFC8591B91F0C80068CB72 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEFC8531B91F0C80068CB72 /* NSLayoutConstraint+PureLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,15 @@
 		FEA530F41B83B20F00A742B0 /* SMAttributiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAttributiesModel.h; sourceTree = "<group>"; };
 		FEA530F51B83B20F00A742B0 /* SMAttributiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAttributiesModel.m; sourceTree = "<group>"; };
 		FEA753921B8996FC00533B89 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
+		FEEFC84E1B91F0C80068CB72 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
+		FEEFC84F1B91F0C80068CB72 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
+		FEEFC8501B91F0C80068CB72 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		FEEFC8511B91F0C80068CB72 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
+		FEEFC8521B91F0C80068CB72 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		FEEFC8531B91F0C80068CB72 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		FEEFC8541B91F0C80068CB72 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
+		FEEFC8551B91F0C80068CB72 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
+		FEEFC8561B91F0C80068CB72 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +119,7 @@
 		FEA530B71B83AB2A00A742B0 /* SMAttributies */ = {
 			isa = PBXGroup;
 			children = (
+				FEEFC84D1B91F0C80068CB72 /* PureLayout */,
 				FEA530EB1B83AB7C00A742B0 /* SMAttributies */,
 				FEA530BB1B83AB2A00A742B0 /* AppDelegate.h */,
 				FEA530BC1B83AB2A00A742B0 /* AppDelegate.m */,
@@ -156,6 +169,22 @@
 				FEA530F51B83B20F00A742B0 /* SMAttributiesModel.m */,
 			);
 			path = SMAttributies;
+			sourceTree = "<group>";
+		};
+		FEEFC84D1B91F0C80068CB72 /* PureLayout */ = {
+			isa = PBXGroup;
+			children = (
+				FEEFC84E1B91F0C80068CB72 /* ALView+PureLayout.h */,
+				FEEFC84F1B91F0C80068CB72 /* ALView+PureLayout.m */,
+				FEEFC8501B91F0C80068CB72 /* NSArray+PureLayout.h */,
+				FEEFC8511B91F0C80068CB72 /* NSArray+PureLayout.m */,
+				FEEFC8521B91F0C80068CB72 /* NSLayoutConstraint+PureLayout.h */,
+				FEEFC8531B91F0C80068CB72 /* NSLayoutConstraint+PureLayout.m */,
+				FEEFC8541B91F0C80068CB72 /* PureLayout+Internal.h */,
+				FEEFC8551B91F0C80068CB72 /* PureLayout.h */,
+				FEEFC8561B91F0C80068CB72 /* PureLayoutDefines.h */,
+			);
+			path = PureLayout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,7 +321,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEA530C01B83AB2A00A742B0 /* ViewController.m in Sources */,
+				FEEFC8571B91F0C80068CB72 /* ALView+PureLayout.m in Sources */,
 				FEA530F11B83ABC000A742B0 /* UIView+SMAttributies.m in Sources */,
+				FEEFC8591B91F0C80068CB72 /* NSLayoutConstraint+PureLayout.m in Sources */,
+				FEEFC8581B91F0C80068CB72 /* NSArray+PureLayout.m in Sources */,
 				FEA530BD1B83AB2A00A742B0 /* AppDelegate.m in Sources */,
 				FEA530BA1B83AB2A00A742B0 /* main.m in Sources */,
 				FEA530F61B83B20F00A742B0 /* SMAttributiesModel.m in Sources */,
