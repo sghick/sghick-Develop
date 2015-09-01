@@ -184,9 +184,9 @@
     NSAssert(!trans.errors.count, @"布局错误");
     if (!trans.useFrame) {
         if (trans.useNetFrame) {
-            [self addNetConstraintsWithTrans:trans forView:view];
+            [self addNetConstraints2WithTrans:trans forView:view];
         } else {
-            [self addConstraintsWithTrans:trans forView:view];
+            [self addConstraints2WithTrans:trans forView:view];
         }
     } else {
         if (trans.useNetFrame) {
@@ -269,7 +269,7 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatHs options:optionsHs metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:formatVs options:optionsVs metrics:metrics views:views]];
     NSLog(@"%@:%@  %@  %@", view, formatHs, formatVs, metrics);
-    NSLog(@"frame:%@", NSStringFromCGSize([view sizeWithConstraints]));
+    NSLog(@"frame:%@", [view constraints]);
 }
 
 - (void)addConstraints2WithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
@@ -348,8 +348,7 @@
             [view addConstraintWithAttribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:((transTop + (trans.screenScaleY - trans.insetsTop - trans.insetsBottom)/2)/(transscreenScaleY/2)) constant:0];
         }
     }
-    
-    NSLog(@"frame:%@", NSStringFromCGSize([view sizeWithConstraints]));
+    NSLog(@"frame:%@", [view constraints]);
 }
 
 - (void)addNetConstraintsWithTrans:(SMTransPercentageFrame *)trans forView:(UIView *)view {
@@ -407,7 +406,7 @@
     CGFloat transscreenScaleY = trans.screenScaleY + transEt + transEb;
     [view addConstraintWithAttribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:((transTop + trans.netFrameHeight/2)/(transscreenScaleY/2)) constant:0];
     
-    NSLog(@"frame:%@", NSStringFromCGSize([view sizeWithConstraints]));
+    NSLog(@"frame:%@", [view constraints]);
 
 }
 
