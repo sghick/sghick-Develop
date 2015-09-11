@@ -10,7 +10,6 @@
 #import "FMDB.h"
 
 @class FMDatabase;
-@class SMModel;
 @interface SMDBManager : NSObject
 
 @property (strong, nonatomic) FMDatabase *db;
@@ -19,21 +18,26 @@
 - (instancetype)initWithDBPath:(NSString *)DBPath;
 - (instancetype)initWithDBName:(NSString *)DBName;
 
-- (BOOL)existTable:(NSString *)tableName;
++ (NSString *)sqlFromTable:(NSString *)tableName inDataBase:(FMDatabase *)db;
 + (BOOL)existTable:(NSString *)tableName inDataBase:(FMDatabase *)db;
++ (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDataBase:(FMDatabase *)db;
+- (BOOL)existTable:(NSString *)tableName;
+- (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass;
 - (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
+- (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass;
+- (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
 
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
-- (int)insertTable:(NSString *)tableName model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys;
+- (int)insertTable:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys;
 - (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
-- (int)insertTableWithSql:(NSString *)sql model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys;
+- (int)insertTableWithSql:(NSString *)sql model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys;
 
 - (int)deleteTable:(NSString *)tableName;
 - (int)deleteTableWithSql:(NSString*)sql, ...;
 
 - (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
-- (int)updateTable:(NSString *)tableName model:(SMModel *)model primaryKeys:(NSArray *)primaryKeys;
-- (int)updateTableWithSql:(NSString *)sql model:(SMModel *)model;
+- (int)updateTable:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys;
+- (int)updateTableWithSql:(NSString *)sql model:(NSObject *)model;
 - (int)updateTableWithSql:(NSString *)sql, ...;
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass;

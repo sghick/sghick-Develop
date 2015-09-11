@@ -17,6 +17,9 @@
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSString *picUrl;
 @property (strong, nonatomic) NSString *status;
+@property (strong, nonatomic) NSString *str;
+@property (strong, nonatomic) NSArray  *array;
+@property (strong, nonatomic) NSDictionary *dict;
 
 // DB
 @property (assign, nonatomic) BOOL isRead;

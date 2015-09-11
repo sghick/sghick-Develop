@@ -48,23 +48,28 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
 - (void)finishedAction:(SMUrlRequest *)request {
     if ([kRequestJokeList1 isEqualToString:request.key]) {
         SMResult *result = request.responseParserObject;
+        for (SMJoke *joke in result.detail) {
+            joke.str = @"呵呵频道";
+            joke.array = @[@"arr1", @"arr2", @"arr3"];
+            joke.dict = @{@"key1":@"value1", @"key2":@"value2"};
+        }
         int count = [self.dao insertJokes:result.detail];
         SMLog(@"请求到%zi条, 新增数据%d条",result.detail.count, count);
         if ([self.delegate respondsToSelector:@selector(respondsJokesCount:curPage:)]) {
             [self.delegate respondsJokesCount:count curPage:request.page];
         }
     }
-    if ([kRequestJokeList2 isEqualToString:request.key]) {
-        NSArray *results = request.responseParserObject;
-        for (SMJoke *joke in results) {
-            joke.xhid = [@"0" stringByAppendingString:[joke.title stringInitial]];
-        }
-        int count = [self.dao insertJokes:results];
-        SMLog(@"请求到%zi条, 新增数据%d条",results.count, count);
-        if ([self.delegate respondsToSelector:@selector(respondsJokesCount:curPage:)]) {
-            [self.delegate respondsJokesCount:count curPage:request.page];
-        }
-    }
+//    if ([kRequestJokeList2 isEqualToString:request.key]) {
+//        NSArray *results = request.responseParserObject;
+//        for (SMJoke *joke in results) {
+//            joke.xhid = [@"0" stringByAppendingString:[joke.title stringInitial]];
+//        }
+//        int count = [self.dao insertJokes:results];
+//        SMLog(@"请求到%zi条, 新增数据%d条",results.count, count);
+//        if ([self.delegate respondsToSelector:@selector(respondsJokesCount:curPage:)]) {
+//            [self.delegate respondsJokesCount:count curPage:request.page];
+//        }
+//    }
 }
 
 - (void)faildAtion:(SMUrlRequest *)request {
@@ -83,10 +88,10 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
     [request1.paramsDict setObject:[NSString stringWithFormat:@"%d", curPage] forKey:@"page"];
     [self addRequest:request1 useQueue:YES];
     
-    SMUrlRequest *request2 = [self.api requestJokeList2];
-    request2.key = kRequestJokeList2;
-    request2.page = curPage;
-    [self addRequest:request2 useQueue:YES];
+//    SMUrlRequest *request2 = [self.api requestJokeList2];
+//    request2.key = kRequestJokeList2;
+//    request2.page = curPage;
+//    [self addRequest:request2 useQueue:YES];
 }
 
 - (void)makeJokeReadWithId:(NSString *)xhid {

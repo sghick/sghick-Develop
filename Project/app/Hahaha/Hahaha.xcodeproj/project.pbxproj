@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		570F087C1B81A4130068AC99 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 570F087B1B81A4130068AC99 /* libsqlite3.dylib */; };
 		570F08801B81A5480068AC99 /* JokeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 570F087F1B81A5480068AC99 /* JokeView.m */; };
-		FE0ECE4E1B7FCDFA00B3B37D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */; };
 		FE0ECE501B7FCE1000B3B37D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */; };
 		FE35E17A1B839201000BBF68 /* SMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FE35E1791B839201000BBF68 /* SMTest.m */; };
 		FE35E17D1B8397D3000BBF68 /* NSUserDefaults+SMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE35E17C1B8397D3000BBF68 /* NSUserDefaults+SMModel.m */; };
@@ -105,7 +104,6 @@
 		570F087B1B81A4130068AC99 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		570F087E1B81A5480068AC99 /* JokeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JokeView.h; sourceTree = "<group>"; };
 		570F087F1B81A5480068AC99 /* JokeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JokeView.m; sourceTree = "<group>"; };
-		FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Hahaha/Images.xcassets; sourceTree = "<group>"; };
 		FE35E1781B839201000BBF68 /* SMTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTest.h; sourceTree = "<group>"; };
 		FE35E1791B839201000BBF68 /* SMTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTest.m; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				570F087C1B81A4130068AC99 /* libsqlite3.dylib in Frameworks */,
-				FE0ECE4E1B7FCDFA00B3B37D /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +332,6 @@
 				FE8CF8A71B7D6AF7002A1A92 /* SMClass */,
 				FE8CF87B1B7CCFC2002A1A92 /* Products */,
 				FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */,
-				FE0ECE4D1B7FCDFA00B3B37D /* libsqlite3.tbd */,
 				570F087B1B81A4130068AC99 /* libsqlite3.dylib */,
 			);
 			sourceTree = "<group>";
