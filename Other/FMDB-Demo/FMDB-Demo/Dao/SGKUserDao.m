@@ -8,12 +8,12 @@
 
 #import "SGKUserDao.h"
 #import "SGKUser.h"
-#import "SMDBManager.h"
+#import "SMDBHelper.h"
 #import "DAOHeader.h"
 
 @interface SGKUserDao ()
 
-@property (strong, nonatomic) SMDBManager *dbm;
+@property (strong, nonatomic) SMDBHelper *dbHelper;
 
 @end
 
@@ -22,40 +22,40 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        SMDBManager *dbm = [[SMDBManager alloc] initWithDBName:@"testA.db"];
-        [dbm createAndAlterTable:@"SGKUser" modelClass:[SGKUser class] primaryKeys:@[@"uid"]];
-        self.dbm = dbm;
+        SMDBHelper *dbHelper = [[SMDBHelper alloc] initWithDBName:@"testA.db"];
+        [dbHelper createAndAlterTable:@"SGKUser" modelClass:[SGKUser class] primaryKeys:@[@"uid"]];
+        self.dbHelper = dbHelper;
     }
     return self;
 }
 
 - (int)insertUsers:(NSArray *)users {
-    int count = [self.dbm insertOrReplaceTable:@"SGKUser" models:users];
+    int count = [self.dbHelper insertOrReplaceTable:@"SGKUser" models:users];
     return count;
 }
 
 - (int)deleteUsers {
-    int count = [self.dbm deleteTable:@"SGKUser"];
+    int count = [self.dbHelper deleteTable:@"SGKUser"];
     return count;
 }
 
 - (int)deleteUsersWithUid:(NSInteger)uid {
-    int count = [self.dbm deleteTableWithSql:sql_delete_user_with_uid, uid];
+    int count = [self.dbHelper deleteTableWithSql:sql_delete_user_with_uid params:@[[NSNumber numberWithBool:uid]]];
     return count;
 }
 
 - (int)updateUsers:(NSArray *)users {
-    int count = [self.dbm updateTable:@"SGKUser" models:users primaryKeys:@[@"uid"]];
+    int count = [self.dbHelper updateTable:@"SGKUser" models:users primaryKeys:@[@"uid"]];
     return count;
 }
 
 - (NSArray *)searchUsers {
-    NSArray *rtns = [self.dbm searchTable:@"SGKUser" modelClass:[SGKUser class]];
+    NSArray *rtns = [self.dbHelper searchTable:@"SGKUser" modelClass:[SGKUser class]];
     return rtns;
 }
 
 - (NSArray *)searchUsersWithUserId:(NSInteger)uid {
-    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql_search_user_with_uid, [NSNumber numberWithInteger:uid], nil];
+    NSArray *rtns = [self.dbHelper searchTableWithSql:sql_search_user_with_uid params:@[[NSNumber numberWithBool:uid]] modelClass:[SGKUser class]];
     return rtns;
 }
 

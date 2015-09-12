@@ -27,12 +27,12 @@
 		FE8DA7CA1B770F36002A296E /* SGKUserDao.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7C91B770F36002A296E /* SGKUserDao.m */; };
 		FE8DA7CE1B770F62002A296E /* SGKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7CD1B770F62002A296E /* SGKUser.m */; };
 		FE8DA7DB1B773956002A296E /* SMLogSys.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA7DA1B773956002A296E /* SMLogSys.m */; };
-		FE8DA8351B77D05F002A296E /* SMDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA8341B77D05F002A296E /* SMDBManager.m */; };
 		FE8DA8421B77D0D4002A296E /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA8381B77D0D4002A296E /* FMDatabase.m */; };
 		FE8DA8431B77D0D4002A296E /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA83A1B77D0D4002A296E /* FMDatabaseAdditions.m */; };
 		FE8DA8441B77D0D4002A296E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA83C1B77D0D4002A296E /* FMDatabasePool.m */; };
 		FE8DA8451B77D0D4002A296E /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA83E1B77D0D4002A296E /* FMDatabaseQueue.m */; };
 		FE8DA8461B77D0D4002A296E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8DA8411B77D0D4002A296E /* FMResultSet.m */; };
+		FEF813A91BA47FF500BA83D3 /* SMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF813A81BA47FF500BA83D3 /* SMDBHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +80,6 @@
 		FE8DA7D81B773956002A296E /* SMLogKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLogKey.h; sourceTree = "<group>"; };
 		FE8DA7D91B773956002A296E /* SMLogSys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMLogSys.h; sourceTree = "<group>"; };
 		FE8DA7DA1B773956002A296E /* SMLogSys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMLogSys.m; sourceTree = "<group>"; };
-		FE8DA8331B77D05F002A296E /* SMDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDBManager.h; sourceTree = "<group>"; };
-		FE8DA8341B77D05F002A296E /* SMDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDBManager.m; sourceTree = "<group>"; };
 		FE8DA8371B77D0D4002A296E /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		FE8DA8381B77D0D4002A296E /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		FE8DA8391B77D0D4002A296E /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -93,6 +91,8 @@
 		FE8DA83F1B77D0D4002A296E /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		FE8DA8401B77D0D4002A296E /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		FE8DA8411B77D0D4002A296E /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		FEF813A71BA47FF500BA83D3 /* SMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMDBHelper.h; sourceTree = "<group>"; };
+		FEF813A81BA47FF500BA83D3 /* SMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMDBHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,10 +200,10 @@
 		B0AD0BBA1A0330A9004E81C6 /* 第三方 */ = {
 			isa = PBXGroup;
 			children = (
+				FEF813A61BA47FF500BA83D3 /* DataBase */,
 				FE8DA8361B77D0D4002A296E /* fmdb */,
 				FE8DA7D51B773956002A296E /* SMLog */,
 				FE8DA7C01B7705C0002A296E /* SMModel */,
-				FE8DA8321B77D05F002A296E /* DataBase */,
 			);
 			name = "第三方";
 			sourceTree = "<group>";
@@ -250,15 +250,6 @@
 			path = SMLog;
 			sourceTree = "<group>";
 		};
-		FE8DA8321B77D05F002A296E /* DataBase */ = {
-			isa = PBXGroup;
-			children = (
-				FE8DA8331B77D05F002A296E /* SMDBManager.h */,
-				FE8DA8341B77D05F002A296E /* SMDBManager.m */,
-			);
-			path = DataBase;
-			sourceTree = "<group>";
-		};
 		FE8DA8361B77D0D4002A296E /* fmdb */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +266,15 @@
 				FE8DA8411B77D0D4002A296E /* FMResultSet.m */,
 			);
 			path = fmdb;
+			sourceTree = "<group>";
+		};
+		FEF813A61BA47FF500BA83D3 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				FEF813A71BA47FF500BA83D3 /* SMDBHelper.h */,
+				FEF813A81BA47FF500BA83D3 /* SMDBHelper.m */,
+			);
+			path = DataBase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE8DA7CE1B770F62002A296E /* SGKUser.m in Sources */,
+				FEF813A91BA47FF500BA83D3 /* SMDBHelper.m in Sources */,
 				FE8DA8441B77D0D4002A296E /* FMDatabasePool.m in Sources */,
 				FE8DA8461B77D0D4002A296E /* FMResultSet.m in Sources */,
 				FE8DA7C71B770F1F002A296E /* SGKBaseDao.m in Sources */,
@@ -385,7 +386,6 @@
 				B0AD0BD01A03356C004E81C6 /* SGKRootViewController.m in Sources */,
 				FE8DA7C31B7705C0002A296E /* SMModel.m in Sources */,
 				FE8DA8431B77D0D4002A296E /* FMDatabaseAdditions.m in Sources */,
-				FE8DA8351B77D05F002A296E /* SMDBManager.m in Sources */,
 				FE8DA7CA1B770F36002A296E /* SGKUserDao.m in Sources */,
 				B0AD0B981A033094004E81C6 /* main.m in Sources */,
 			);

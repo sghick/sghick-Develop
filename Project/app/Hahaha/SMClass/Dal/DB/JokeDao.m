@@ -41,7 +41,7 @@
 }
 
 - (int)deleteJokesWithId:(NSString *)xhid {
-    int count = [self.dbHelper deleteTableWithSql:sql_delete_jokes_with_id, xhid];
+    int count = [self.dbHelper deleteTableWithSql:sql_delete_jokes_with_id params:@[xhid]];
     return count;
 }
 
@@ -56,28 +56,28 @@
 }
 
 - (NSArray *)searchJokes {
-    NSArray *rtns = [self.dbHelper searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes, nil];
+    NSArray *rtns = [self.dbHelper searchTable:@"tb_joke" modelClass:[SMJoke class]];
     return rtns;
 }
 
 - (NSArray *)searchJokesIsRead:(BOOL)isRead {
-    NSArray *rtns = [self.dbHelper searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_isRead, SMToString(@"%d", isRead), nil];
+    NSArray *rtns = [self.dbHelper searchTableWithSql:sql_search_jokes_isRead params:@[[NSNumber numberWithBool:isRead]] modelClass:[SMJoke class]];
     return rtns;
 }
 
 - (NSArray *)searchJokesWithId:(NSString *)xhid {
-    NSArray *rtns = [self.dbHelper searchTableWithSqlFillModelClass:[SMJoke class] sql:sql_search_jokes_with_id, xhid, nil];
+    NSArray *rtns = [self.dbHelper searchTableWithSql:sql_search_jokes_with_id params:@[xhid] modelClass:[SMJoke class]];
     return rtns;
 }
 
 - (NSString *)searchJokesMaxid {
-    NSArray *rtn = [self.dbHelper searchTableWithSqlFillModelClass:nil sql:sql_search_jokes_max_id, nil];
+    NSArray *rtn = [self.dbHelper searchTableWithSql:sql_search_jokes_max_id params:nil modelClass:nil];
     NSDictionary *dict = [rtn firstObject];
     return dict[@"xhid"];
 }
 
 - (NSString *)searchJokesMinid {
-    NSArray *rtn = [self.dbHelper searchTableWithSqlFillModelClass:nil sql:sql_search_jokes_min_id, nil];
+    NSArray *rtn = [self.dbHelper searchTableWithSql:sql_search_jokes_min_id params:nil modelClass:nil];
     NSDictionary *dict = [rtn firstObject];
     return dict[@"xhid"];
 }

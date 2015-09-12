@@ -1,22 +1,22 @@
 //
-//  SMDBManager.m
-//  Demo-SMFrameWork
+//  SMDBHelper.m
+//  Hahaha
 //
-//  Created by 丁治文 on 15/8/9.
-//  Copyright (c) 2015年 buding. All rights reserved.
+//  Created by 丁治文 on 15/9/12.
+//  Copyright (c) 2015年 sumrise.com. All rights reserved.
 //
 
-#import "SMDBManager.h"
+#import "SMDBHelper.h"
 #import "FMDB.h"
 #import <objc/runtime.h>
 
 #define dbTypeMapper @{                 \
 @"T@\"NSString\"":@"TEXT",              \
 @"T@\"NSMutableString\"":@"TEXT",       \
-@"T@\"NSDictionary\"":@"BLOB",          \
-@"T@\"NSMutableDictionary\"":@"BLOB",   \
-@"T@\"NSMutableArray\"":@"BLOB",        \
-@"T@\"NSArray\"":@"BLOB",               \
+@"T@\"NSDictionary\"":@"TEXT",          \
+@"T@\"NSMutableDictionary\"":@"TEXT",   \
+@"T@\"NSMutableArray\"":@"TEXT",        \
+@"T@\"NSArray\"":@"TEXT",               \
 @"T@\"NSData\"":@"BLOB",                \
 @"T@\"NSDate\"":@"DATE",                \
 @"T@\"NSNumber\"":@"REAL",              \
@@ -27,17 +27,17 @@
 @"Td":@"DOUBLE",                        \
 @"TB":@"BOOLEAN",                       \
 @"Tb":@"BOOLEAN",                       \
-@"Other":@"BLOB"                        \
+@"Other":@"TEXT"                        \
 }
 
-@implementation SMDBManager
+@implementation SMDBHelper
 
 - (instancetype)initWithDBPath:(NSString *)DBPath {
     self = [super init];
     if (self) {
-        FMDatabase *db = [[FMDatabase alloc] initWithPath:DBPath];
         NSLog(@"dbPath:%@", DBPath);
-        self.db = db;
+        FMDatabaseQueue *dbQueue = [[FMDatabaseQueue alloc] initWithPath:DBPath];
+        _dbQueue = dbQueue;
     }
     return self;
 }
@@ -52,75 +52,205 @@
     return self;
 }
 
-+ (NSString *)sqlFromTable:(NSString *)tableName inDataBase:(FMDatabase *)db {
+#pragma mark - Object Methods ExcuteInQueue
+- (NSString *)sqlFromTable:(NSString *)tableName {
+    __block NSString *rtn = nil;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper sqlFromTable:tableName inDB:db];
+    }];
+    return rtn;
+}
+
+- (BOOL)existTable:(NSString *)tableName {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper existTable:tableName inDB:db];
+    }];
+    return NO;
+}
+
+
+- (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper existTable:tableName modelClass:modelClass inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper recreateTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper createTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)dropTable:(NSString *)tableName {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper dropTable:tableName inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper renameTable:tableName newTableName:newTableName inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper alterTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper createAndAlterTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
+- (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper insertTable:tableName anotherTable:anotherTable inDB:db];
+    }];
+    return count;
+}
+
+- (int)insertTable:(NSString *)tableName models:(NSArray *)models {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper insertTable:tableName models:models inDB:db];
+    }];
+    return count;
+}
+
+- (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper insertOrReplaceTable:tableName models:models inDB:db];
+    }];
+    return count;
+}
+
+- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper insertTableWithSql:sql models:models inDB:db];
+    }];
+    return count;
+}
+
+- (int)deleteTable:(NSString *)tableName {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper deleteTable:tableName inDB:db];
+    }];
+    return count;
+}
+
+- (int)deleteTableWithSql:(NSString*)sql params:(NSArray *)params {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper deleteTableWithSql:sql params:params inDB:db];
+    }];
+    return count;
+}
+
+- (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper updateTable:tableName models:models primaryKeys:primaryKeys inDB:db];
+    }];
+    return count;
+}
+
+- (int)updateTableWithSql:(NSString *)sql params:(NSArray *)params {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper updateTableWithSql:sql params:params inDB:db];
+    }];
+    return count;
+}
+
+- (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass {
+    __block NSArray *rtns = nil;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtns = [SMDBHelper searchTable:tableName modelClass:modelClass inDB:db];
+    }];
+    return rtns;
+}
+
+- (NSArray *)searchTableWithSql:(NSString *)sql params:(NSArray *)params modelClass:(id)modelClass {
+    __block NSArray *rtns = nil;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtns = [SMDBHelper searchTableWithSql:sql params:params modelClass:modelClass inDB:db];
+    }];
+    return rtns;
+}
+
+#pragma mark - Static Methods
++ (NSString *)sqlFromTable:(NSString *)tableName inDB:(FMDatabase *)db {
     NSString *rtn = nil;
-    BOOL isSet = [db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", db.lastErrorMessage);
     FMResultSet *rs = [db executeQuery:@"select * from sqlite_master where type ='table' and name = ?", tableName];
     while ([rs next]) {
         rtn = [rs stringForColumn:@"sql"];
         break;
     }
-    [db close];
     return rtn;
 }
 
-+ (BOOL)existTable:(NSString *)tableName inDataBase:(FMDatabase *)db {
-    BOOL isSet = [db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", db.lastErrorMessage);
++ (BOOL)existTable:(NSString *)tableName inDB:(FMDatabase *)db {
     FMResultSet *rs = [db executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
     while ([rs next]) {
         NSInteger count = [rs intForColumn:@"count"];
-        [db close];
         return count;
     }
-    [db close];
     return NO;
 }
 
-+ (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDataBase:(FMDatabase *)db {
-    NSString *sql = [self sqlFromTable:tableName inDataBase:db];
-    if (!sql || (sql.length == 0)) {
-        return NO;
+
++ (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db {
+    FMResultSet *rs = [db executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
+    while ([rs next]) {
+        NSInteger count = [rs intForColumn:@"count"];
+        return count;
     }
-    NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
-    NSDictionary *sqlColumns = [self sqlColumnsFromCreateSql:sql];
-    return [sqlColumns isEqualToDictionary:columns];
+    return NO;
 }
 
-- (BOOL)existTable:(NSString *)tableName {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    BOOL rtn = [SMDBManager existTable:tableName inDataBase:self.db];
-    [self.db close];
-    return rtn; 
-}
-
-- (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    BOOL rtn = [SMDBManager existTable:tableName modelClass:modelClass inDataBase:self.db];
-    [self.db close];
-    return rtn;
-}
-
-- (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
++ (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
     int count = 0;
     NSString *newTableName = [NSString stringWithFormat:@"__sm_just_auto_recreate_%@_", tableName];
-    if ([self createTable:newTableName modelClass:modelClass primaryKeys:primaryKeys]) {
-        [self insertTable:newTableName anotherTable:tableName];
-        [self dropTable:tableName];
-        count = [self renameTable:newTableName newTableName:tableName];
+    if ([self createTable:newTableName modelClass:modelClass primaryKeys:primaryKeys inDB:db]) {
+        [self insertTable:newTableName anotherTable:tableName inDB:db];
+        [self dropTable:tableName inDB:db];
+        count = [self renameTable:newTableName newTableName:tableName inDB:db];
     }
     return count;
 }
 
-- (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
++ (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
     NSString *className = NSStringFromClass([modelClass class]);
     NSString *name = (tableName&&tableName.length ? tableName : className);
-    NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
+    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
     NSMutableString *sqlColumns = [NSMutableString string];
     for (NSString *key in columns.allKeys) {
         NSString *type = columns[key];
@@ -133,42 +263,33 @@
     }
     [sqlColumns replaceCharactersInRange:NSMakeRange(sqlColumns.length - 2, 2) withString:@""];
     NSString *sqlQuery = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@)", name, sqlColumns];
-    BOOL isSuccess = [self.db executeUpdate:sqlQuery];
-    NSAssert2(isSuccess, @"创建数据库失败! %@ %@", self.db.lastErrorMessage, sqlQuery);
-    [self.db close];
+    BOOL isSuccess = [db executeUpdate:sqlQuery];
+    NSAssert2(isSuccess, @"创建数据库失败! %@ %@", db.lastErrorMessage, sqlQuery);
     return isSuccess;
 }
 
-- (BOOL)dropTable:(NSString *)tableName {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
++ (BOOL)dropTable:(NSString *)tableName inDB:(FMDatabase *)db {
     NSString *sql = [NSString stringWithFormat:@"DROP TABLE %@", tableName];
-    BOOL rtn = [self.db executeUpdate:sql];
-    [self.db close];
+    BOOL rtn = [db executeUpdate:sql];
     return rtn;
 }
 
-- (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
++ (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName inDB:(FMDatabase *)db {
     NSString *sql = [NSString stringWithFormat:@"ALTER TABLE %@ RENAME TO %@", tableName, newTableName];
-    BOOL rtn = [self.db executeUpdate:sql];
-    [self.db close];
+    BOOL rtn = [db executeUpdate:sql];
     return rtn;
 }
 
-- (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
-    NSString *sql = [SMDBManager sqlFromTable:tableName inDataBase:self.db];
++ (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
+    NSString *sql = [self sqlFromTable:tableName inDB:db];
     if (!sql || (sql.length == 0)) {
         return NO;
     }
-    NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
-    NSDictionary *sqlColumns = [SMDBManager sqlColumnsFromCreateSql:sql];
+    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    NSDictionary *sqlColumns = [SMDBHelper sqlColumnsFromCreateSql:sql];
     if ([sqlColumns isEqualToDictionary:columns]) {
         return NO;
     }
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     BOOL shouldDropTable = NO;
     int count = 0;
     if (sqlColumns.count > columns.count) {
@@ -179,7 +300,7 @@
             NSString *sqlType = [sqlColumns objectForKey:key];
             if (![type isEqualToString:sqlType]) {
                 if (!sqlType) {
-                    count += [self.db executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ ADD %@ %@", tableName, key, type]];
+                    count += [db executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ ADD %@ %@", tableName, key, type]];
                 } else {
                     shouldDropTable = YES;
                     break;
@@ -187,51 +308,47 @@
             }
         }
     }
-    [self.db close];
     count = 0;
     if (shouldDropTable) {
-        count = [self recreateTable:tableName modelClass:modelClass primaryKeys:primaryKeys];
+        count = [self recreateTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
     }
     return count;
 }
 
-- (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
-    if (![self existTable:tableName]) { // 创建新表
-        return [self createTable:tableName modelClass:modelClass primaryKeys:primaryKeys];
-    } else if (![self existTable:tableName modelClass:modelClass]) { // 更新字段
-        return [self alterTable:tableName  modelClass:modelClass primaryKeys:primaryKeys];
++ (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
+    if (![self existTable:tableName inDB:db]) { // 创建新表
+        return [self createTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    } else if (![self existTable:tableName modelClass:modelClass inDB:db]) { // 更新字段
+        return [self alterTable:tableName  modelClass:modelClass primaryKeys:primaryKeys inDB:db];
     }
     return NO;
 }
 
-- (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
++ (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable inDB:(FMDatabase *)db {
     NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ SELECT * FROM %@", tableName, anotherTable];
-    int count = [self.db executeUpdate:sql];
-    [self.db close];
+    int count = [db executeUpdate:sql];
     return count;
 }
 
-- (int)insertTable:(NSString *)tableName models:(NSArray *)models {
++ (int)insertTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db {
     if (!models || !models.count) {
         return 0;
     }
-    NSString *sql = [SMDBManager sqlForInsertWithTableName:tableName model:[models firstObject]];
-    int count = [self insertTableWithSql:sql models:models];
+    NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName model:[models firstObject]];
+    int count = [self insertTableWithSql:sql models:models inDB:db];
     return count;
 }
 
-- (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models {
++ (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db {
     if (!models || !models.count) {
         return 0;
     }
-    NSString *sql = [SMDBManager sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
-    int count = [self insertTableWithSql:sql models:models];
+    NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
+    int count = [self insertTableWithSql:sql models:models inDB:db];
     return count;
 }
 
-- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models {
++ (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models inDB:(FMDatabase *)db {
     if (!sql || !sql.length) {
         return 0;
     }
@@ -254,96 +371,58 @@
     if (!models || !models.count) {
         return 0;
     }
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
             count += isSuccess;
         }
     }
-    [self.db close];
     return count;
 }
 
-- (int)deleteTable:(NSString *)tableName {
-    NSString *sql = [SMDBManager sqlForDeleteWithTableName:tableName];
-    int count = [self deleteTableWithSql:sql];
++ (int)deleteTable:(NSString *)tableName inDB:(FMDatabase *)db {
+    NSString *sql = [SMDBHelper sqlForDeleteWithTableName:tableName];
+    int count = [self deleteTableWithSql:sql params:nil inDB:db];
     return count;
 }
 
-- (int)deleteTableWithSql:(NSString*)sql, ... {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    BOOL isSuccess = [self.db executeUpdate:sql];
-    [self.db close];
++ (int)deleteTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db {
+    BOOL isSuccess = [db executeUpdate:sql withArgumentsInArray:params];
     return isSuccess;
 }
 
-- (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
++ (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
     if (!models || !models.count) {
         return 0;
     }
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSString *sql = [SMDBManager sqlForUpdateWithTableName:tableName model:[models firstObject] primaryKeys:primaryKeys];
-            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
+            NSString *sql = [SMDBHelper sqlForUpdateWithTableName:tableName model:[models firstObject] primaryKeys:primaryKeys];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
             count += isSuccess;
         }
     }
-    [self.db close];
     return count;
 }
 
-- (int)updateTableWithSql:(NSString *)sql models:(NSArray *)models {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    int count = 0;
-    for (id model in models) {
-        if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
-            count += isSuccess;
-        }
-    }
-    [self.db close];
-    return count;
-}
-
-- (int)updateTableWithSql:(NSString *)sql, ... {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    BOOL isSuccess = [self.db executeUpdate:sql];
-    [self.db close];
++ (int)updateTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db {
+    BOOL isSuccess = [db executeUpdate:sql withArgumentsInArray:params];
     return isSuccess;
 }
 
-- (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass {
-    NSString *sql = [SMDBManager sqlForSearchWithTableName:tableName];
-    NSArray *rtns = [self searchTableWithSqlFillModelClass:modelClass sql:sql, nil];
++ (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db {
+    NSString *sql = [SMDBHelper sqlForSearchWithTableName:tableName];
+    NSArray *rtns = [self searchTableWithSql:sql params:nil modelClass:modelClass inDB:db];
     return rtns;
 }
 
-- (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ... NS_REQUIRES_NIL_TERMINATION {
++ (NSArray *)searchTableWithSql:(NSString *)sql params:(NSArray *)params modelClass:(id)modelClass inDB:(FMDatabase *)db {
     if (!sql || !sql.length) {
         return 0;
     }
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    NSMutableArray* arrays = [NSMutableArray array];
-    va_list argList;
-    if (sql) {
-        va_start(argList, sql);
-        id arg;
-        // 如果程序在此处crash, 请检查传入的参数是否为非对象
-        while ((arg = va_arg(argList, id))) {
-            [arrays addObject:arg];
-        }
-    }
-    FMResultSet * set = [self.db executeQuery:sql withArgumentsInArray:arrays];
+    FMResultSet * set = [db executeQuery:sql withArgumentsInArray:params];
     NSMutableArray * rtns = [NSMutableArray array];
     if (modelClass) {
         while ([set next]) {
@@ -359,11 +438,10 @@
             [rtns addObject:dict];
         }
     }
-    [self.db close];
     return rtns;
 }
 
-#pragma mark - ()
+#pragma mark - Utils
 + (NSString *)sqlForInsertOrReplaceWithTableName:(NSString *)tableName model:(NSObject *)model {
     NSMutableString *properties = [NSMutableString string];
     NSMutableString *values = [NSMutableString string];
@@ -493,3 +571,4 @@
 }
 
 @end
+
