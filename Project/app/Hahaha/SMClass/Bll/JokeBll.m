@@ -48,11 +48,6 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
 - (void)finishedAction:(SMUrlRequest *)request {
     if ([kRequestJokeList1 isEqualToString:request.key]) {
         SMResult *result = request.responseParserObject;
-        for (SMJoke *joke in result.detail) {
-            joke.str = @"呵呵频道";
-            joke.array = @[@"arr1", @"arr2", @"arr3"];
-            joke.dict = @{@"key1":@"value1", @"key2":@"value2"};
-        }
         int count = [self.dao insertJokes:result.detail];
         SMLog(@"请求到%zi条, 新增数据%d条",result.detail.count, count);
         if ([self.delegate respondsToSelector:@selector(respondsJokesCount:curPage:)]) {

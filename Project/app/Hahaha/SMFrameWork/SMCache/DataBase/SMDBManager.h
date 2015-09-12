@@ -23,10 +23,15 @@
 + (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDataBase:(FMDatabase *)db;
 - (BOOL)existTable:(NSString *)tableName;
 - (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass;
+- (BOOL)dropTable:(NSString *)tableName;
+- (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName;
+- (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
 - (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
-- (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass;
-- (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
+- (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
 
+- (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys; /* 自动创建/更新(推荐每个版本只做一次) */
+
+- (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable;
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
 - (int)insertTable:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys;
 - (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;

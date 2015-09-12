@@ -86,14 +86,6 @@
     NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
     NSDictionary *sqlColumns = [self sqlColumnsFromCreateSql:sql];
     return [sqlColumns isEqualToDictionary:columns];
-//    for (NSString *key in columns.allKeys) {
-//        NSString *type = [columns objectForKey:key];
-//        NSString *sqlType = [sqlColumns objectForKey:key];
-//        if (![type isEqualToString:sqlType]) {
-//            return NO;
-//        }
-//    }
-//    return YES;
 }
 
 - (BOOL)existTable:(NSString *)tableName {
@@ -110,6 +102,17 @@
     BOOL rtn = [SMDBManager existTable:tableName modelClass:modelClass inDataBase:self.db];
     [self.db close];
     return rtn;
+}
+
+- (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
+    int count = 0;
+    NSString *newTableName = [NSString stringWithFormat:@"__sm_just_auto_recreate_%@_", tableName];
+    if ([self createTable:newTableName modelClass:modelClass primaryKeys:primaryKeys]) {
+        [self insertTable:newTableName anotherTable:tableName];
+        [self dropTable:tableName];
+        count = [self renameTable:newTableName newTableName:tableName];
+    }
+    return count;
 }
 
 - (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
@@ -136,30 +139,59 @@
     return isSuccess;
 }
 
-- (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass {
+- (BOOL)dropTable:(NSString *)tableName {
+    BOOL isSet = [self.db open];
+    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
+    NSString *sql = [NSString stringWithFormat:@"DROP TABLE %@", tableName];
+    BOOL rtn = [self.db executeUpdate:sql];
+    [self.db close];
+    return rtn;
+}
+
+- (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName {
+    BOOL isSet = [self.db open];
+    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
+    NSString *sql = [NSString stringWithFormat:@"ALTER TABLE %@ RENAME TO %@", tableName, newTableName];
+    BOOL rtn = [self.db executeUpdate:sql];
+    [self.db close];
+    return rtn;
+}
+
+- (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
     NSString *sql = [SMDBManager sqlFromTable:tableName inDataBase:self.db];
     if (!sql || (sql.length == 0)) {
         return NO;
     }
     NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
     NSDictionary *sqlColumns = [SMDBManager sqlColumnsFromCreateSql:sql];
+    if ([sqlColumns isEqualToDictionary:columns]) {
+        return NO;
+    }
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    NSString *sqlAddQuery = @"ALTER TABLE %@ ADD %@ %@";
-    NSString *sqlUpdQuery = @"ALTER TABLE %@ ALTER COLUMN %@ %@";
+    BOOL shouldDropTable = NO;
     int count = 0;
-    for (NSString *key in columns.allKeys) {
-        NSString *type = [columns objectForKey:key];
-        NSString *sqlType = [sqlColumns objectForKey:key];
-        if (![type isEqualToString:sqlType]) {
-            if (!sqlType) {
-                count += [self.db executeUpdate:[NSString stringWithFormat:sqlAddQuery, tableName, key, type]];
-            } else {
-                count += [self.db executeUpdate:[NSString stringWithFormat:sqlUpdQuery, tableName, key, type]];
+    if (sqlColumns.count > columns.count) {
+        shouldDropTable = YES;
+    } else {
+        for (NSString *key in columns.allKeys) {
+            NSString *type = [columns objectForKey:key];
+            NSString *sqlType = [sqlColumns objectForKey:key];
+            if (![type isEqualToString:sqlType]) {
+                if (!sqlType) {
+                    count += [self.db executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ ADD %@ %@", tableName, key, type]];
+                } else {
+                    shouldDropTable = YES;
+                    break;
+                }
             }
         }
     }
     [self.db close];
+    count = 0;
+    if (shouldDropTable) {
+        count = [self recreateTable:tableName modelClass:modelClass primaryKeys:primaryKeys];
+    }
     return count;
 }
 
@@ -167,9 +199,18 @@
     if (![self existTable:tableName]) { // 创建新表
         return [self createTable:tableName modelClass:modelClass primaryKeys:primaryKeys];
     } else if (![self existTable:tableName modelClass:modelClass]) { // 更新字段
-        return [self alterTable:tableName  modelClass:modelClass];
+        return [self alterTable:tableName  modelClass:modelClass primaryKeys:primaryKeys];
     }
     return NO;
+}
+
+- (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable {
+    BOOL isSet = [self.db open];
+    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
+    NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ SELECT * FROM %@", tableName, anotherTable];
+    int count = [self.db executeUpdate:sql];
+    [self.db close];
+    return count;
 }
 
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {

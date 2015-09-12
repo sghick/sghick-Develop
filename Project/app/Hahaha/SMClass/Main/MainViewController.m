@@ -23,18 +23,27 @@ static NSString *identifier = @"identifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"文子娱乐圈";
-    
+    [self strokeSubviews];
+}
+
+- (void)strokeSubviews {
     SMButton *jokesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
     [jokesBtn setTitle:@"笑话" forState:UIControlStateNormal];
     [jokesBtn addTarget:self action:@selector(jokesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:jokesBtn attributePathKey:@"MainViewController.btn1"];
     self.jokesBtn = jokesBtn;
     
     SMButton *movesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
     [movesBtn setTitle:@"电影" forState:UIControlStateNormal];
     [movesBtn addTarget:self action:@selector(movesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:movesBtn attributePathKey:@"MainViewController.btn2"];
     self.movesBtn = movesBtn;
+    
+    [self updateViewConstraints];
+}
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+    [self.view addSubview:self.jokesBtn attributePathKey:@"MainViewController.btn1"];
+    [self.view addSubview:self.movesBtn attributePathKey:@"MainViewController.btn2"];
 }
 
 #pragma mark - action

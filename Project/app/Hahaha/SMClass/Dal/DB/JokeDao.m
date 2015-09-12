@@ -23,7 +23,7 @@
     self = [super init];
     if (self) {
         SMDBManager *dbm = [[SMDBManager alloc] initWithDBName:@"jokes.db"];
-        // 有多少个表需要自动更新的都要写上
+        // 有多少个表需要自动更新的都要写上(最好每个版本只做一次)
         [dbm createAndAlterTable:@"tb_joke" modelClass:[SMJoke class] primaryKeys:@[@"xhid"]];
         self.dbm = dbm;
     }
