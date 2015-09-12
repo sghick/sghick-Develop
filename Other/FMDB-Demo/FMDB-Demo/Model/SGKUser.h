@@ -19,8 +19,6 @@
 @property (strong, nonatomic) NSMutableDictionary *mdict;
 @property (strong, nonatomic) NSData *data;
 @property (strong, nonatomic) NSDate *date;
-@property (assign, nonatomic) BOOL BL;
-@property (assign, nonatomic) bool bbl;
 @property (assign, nonatomic) NSNumber *num;
 
 @end

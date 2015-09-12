@@ -213,25 +213,25 @@
     return count;
 }
 
-- (int)insertTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
+- (int)insertTable:(NSString *)tableName models:(NSArray *)models {
     if (!models || !models.count) {
         return 0;
     }
     NSString *sql = [SMDBManager sqlForInsertWithTableName:tableName model:[models firstObject]];
-    int count = [self insertTableWithSql:sql models:models primaryKeys:primaryKeys];
+    int count = [self insertTableWithSql:sql models:models];
     return count;
 }
 
-- (int)insertTable:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys {
-    if (!model) {
+- (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models {
+    if (!models || !models.count) {
         return 0;
     }
-    NSString *sql = [SMDBManager sqlForInsertWithTableName:tableName model:model];
-    int count = [self insertTableWithSql:sql model:model primaryKeys:primaryKeys];
+    NSString *sql = [SMDBManager sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
+    int count = [self insertTableWithSql:sql models:models];
     return count;
 }
 
-- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
+- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models {
     if (!sql || !sql.length) {
         return 0;
     }
@@ -259,45 +259,9 @@
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSString *sql = [SMDBManager sqlForInsertWithTableName:tableName model:model];
             BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
             count += isSuccess;
         }
-    }
-    [self.db close];
-    return count;
-}
-
-- (int)insertTableWithSql:(NSString *)sql model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys {
-    if (!sql || !sql.length) {
-        return 0;
-    }
-    
-    NSString *sql1 = [sql stringByReplacingOccurrencesOfString:@"(" withString:@" "];
-    sql1 = [sql1 stringByReplacingOccurrencesOfString:@")" withString:@" "];
-    NSArray *sqlComponents = [sql1 componentsSeparatedByString:@" "];
-    NSString *tableName = nil;
-    BOOL canBreak = NO;
-    for (NSString *str in sqlComponents) {
-        if (str.length && canBreak) {
-            tableName = str;
-            break;
-        }
-        if ([[str uppercaseString] rangeOfString:@"INTO"].length) {
-            canBreak = YES;
-        }
-    }
-    NSAssert(tableName, @"sql语句错误!");
-    if (!model) {
-        return 0;
-    }
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    int count = 0;
-    if ([model isKindOfClass:[NSObject class]]) {
-        NSString *sql = [SMDBManager sqlForInsertWithTableName:tableName model:model];
-        BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
-        count += isSuccess;
     }
     [self.db close];
     return count;
@@ -335,28 +299,18 @@
     return count;
 }
 
-- (int)updateTable:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys {
-    if (!model) {
-        return 0;
-    }
+- (int)updateTableWithSql:(NSString *)sql models:(NSArray *)models {
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     int count = 0;
-    if ([model isKindOfClass:[NSObject class]]) {
-        NSString *sql = [SMDBManager sqlForUpdateWithTableName:tableName model:model primaryKeys:primaryKeys];
-        BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
-        count += isSuccess;
+    for (id model in models) {
+        if ([model isKindOfClass:[NSObject class]]) {
+            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
+            count += isSuccess;
+        }
     }
     [self.db close];
     return count;
-}
-
-- (int)updateTableWithSql:(NSString *)sql model:(NSObject *)model {
-    BOOL isSet = [self.db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
-    [self.db close];
-    return isSuccess;
 }
 
 - (int)updateTableWithSql:(NSString *)sql, ... {
@@ -384,6 +338,7 @@
     if (sql) {
         va_start(argList, sql);
         id arg;
+        // 如果程序在此处crash, 请检查传入的参数是否为非对象
         while ((arg = va_arg(argList, id))) {
             [arrays addObject:arg];
         }
@@ -409,6 +364,19 @@
 }
 
 #pragma mark - ()
++ (NSString *)sqlForInsertOrReplaceWithTableName:(NSString *)tableName model:(NSObject *)model {
+    NSMutableString *properties = [NSMutableString string];
+    NSMutableString *values = [NSMutableString string];
+    for (NSString *key in [self dictionaryFromObject:model].allKeys) {
+        [properties appendFormat:@"%@,", key];
+        [values appendFormat:@":%@,", key];
+    }
+    [properties replaceCharactersInRange:NSMakeRange(properties.length - 1, 1) withString:@""];
+    [values replaceCharactersInRange:NSMakeRange(values.length - 1, 1) withString:@""];
+    NSMutableString *sql = [NSMutableString stringWithFormat:@"INSERT OR REPLACE INTO %@ (%@) VALUES(%@)", tableName, properties, values];
+    return sql;
+}
+
 + (NSString *)sqlForInsertWithTableName:(NSString *)tableName model:(NSObject *)model {
     NSMutableString *properties = [NSMutableString string];
     NSMutableString *values = [NSMutableString string];

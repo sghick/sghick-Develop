@@ -31,7 +31,7 @@
 }
 
 - (int)insertJokes:(NSArray *)jokes {
-    int count = [self.dbm insertTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
+    int count = [self.dbm insertOrReplaceTable:@"tb_joke" models:jokes];
     return count;
 }
 
@@ -51,7 +51,7 @@
 }
 
 - (int)updateJoke:(SMJoke *)joke {
-    int count = [self.dbm updateTable:@"tb_joke" model:joke primaryKeys:@[@"xhid"]];
+    int count = [self.dbm updateTable:@"tb_joke" models:@[joke] primaryKeys:@[@"xhid"]];
     return count;
 }
 

@@ -32,17 +32,15 @@
 - (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys; /* 自动创建/更新(推荐每个版本只做一次) */
 
 - (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable;
-- (int)insertTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
-- (int)insertTable:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys;
-- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
-- (int)insertTableWithSql:(NSString *)sql model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys;
+- (int)insertTable:(NSString *)tableName models:(NSArray *)models;
+- (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models;
+- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models;
 
 - (int)deleteTable:(NSString *)tableName;
 - (int)deleteTableWithSql:(NSString*)sql, ...;
 
 - (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
-- (int)updateTable:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys;
-- (int)updateTableWithSql:(NSString *)sql model:(NSObject *)model;
+- (int)updateTableWithSql:(NSString *)sql models:(NSArray *)models;
 - (int)updateTableWithSql:(NSString *)sql, ...;
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass;

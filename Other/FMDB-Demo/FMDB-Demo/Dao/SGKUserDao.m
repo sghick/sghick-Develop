@@ -23,13 +23,14 @@
     self = [super init];
     if (self) {
         SMDBManager *dbm = [[SMDBManager alloc] initWithDBName:@"testA.db"];
+        [dbm createAndAlterTable:@"SGKUser" modelClass:[SGKUser class] primaryKeys:@[@"uid"]];
         self.dbm = dbm;
     }
     return self;
 }
 
 - (int)insertUsers:(NSArray *)users {
-    int count = [self.dbm insertTable:@"SGKUser" models:users];
+    int count = [self.dbm insertOrReplaceTable:@"SGKUser" models:users];
     return count;
 }
 
@@ -54,9 +55,7 @@
 }
 
 - (NSArray *)searchUsersWithUserId:(NSInteger)uid {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM SGKUser WHERE uid=%zi", uid];
-    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql];
-//    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql_search_user_with_uid, uid, nil];
+    NSArray *rtns = [self.dbm searchTableWithSqlFillModelClass:[SGKUser class] sql:sql_search_user_with_uid, [NSNumber numberWithInteger:uid], nil];
     return rtns;
 }
 
