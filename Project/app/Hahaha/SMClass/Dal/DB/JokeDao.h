@@ -12,14 +12,14 @@
 @interface JokeDao : SMDAO
 
 - (int)insertJokes:(NSArray *)jokes;
-//- (int)deleteJokes;
-//- (int)deleteJokesWithId:(NSString *)xhid;
-//- (int)updateJokes:(NSArray *)jokes;
+- (int)deleteJokes;
+- (int)deleteJokesWithId:(NSString *)xhid;
+- (int)updateJokes:(NSArray *)jokes;
 - (int)updateJoke:(SMJoke *)joke;
-//- (NSArray *)searchJokes;
+- (NSArray *)searchJokes;
 - (NSArray *)searchJokesIsRead:(BOOL)isRead;
 - (NSArray *)searchJokesWithId:(NSString *)xhid;
-//- (NSString *)searchJokesMaxid;
-//- (NSString *)searchJokesMinid;
+- (NSString *)searchJokesMaxid;
+- (NSString *)searchJokesMinid;
 
 @end

@@ -31,7 +31,7 @@
 }
 
 - (int)insertJokes:(NSArray *)jokes {
-    int count = [self.dbHelper insertOrReplaceTable:@"tb_joke" models:jokes];
+    int count = [self.dbHelper insertIfNotExistPrimaryKeysTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
     return count;
 }
 

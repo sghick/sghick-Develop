@@ -150,10 +150,18 @@
     return count;
 }
 
-- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models {
+- (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
     __block int count = 0;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        count = [SMDBHelper insertTableWithSql:sql models:models inDB:db];
+        count = [SMDBHelper insertIfNotExistPrimaryKeysTable:tableName models:models primaryKeys:primaryKeys inDB:db];
+    }];
+    return count;
+}
+
+- (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper insertTableWithSql:sql params:params inDB:db];
     }];
     return count;
 }
@@ -334,8 +342,14 @@
     if (!models || !models.count) {
         return 0;
     }
+    int count = 0;
     NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName model:[models firstObject]];
-    int count = [self insertTableWithSql:sql models:models inDB:db];
+    for (id model in models) {
+        if ([model isKindOfClass:[NSObject class]]) {
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
+            count += isSuccess;
+        }
+    }
     return count;
 }
 
@@ -343,41 +357,37 @@
     if (!models || !models.count) {
         return 0;
     }
-    NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
-    int count = [self insertTableWithSql:sql models:models inDB:db];
-    return count;
-}
-
-+ (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models inDB:(FMDatabase *)db {
-    if (!sql || !sql.length) {
-        return 0;
-    }
-    
-    NSString *sql1 = [sql stringByReplacingOccurrencesOfString:@"(" withString:@" "];
-    sql1 = [sql1 stringByReplacingOccurrencesOfString:@")" withString:@" "];
-    NSArray *sqlComponents = [sql1 componentsSeparatedByString:@" "];
-    NSString *tableName = nil;
-    BOOL canBreak = NO;
-    for (NSString *str in sqlComponents) {
-        if (str.length && canBreak) {
-            tableName = str;
-            break;
-        }
-        if ([[str uppercaseString] rangeOfString:@"INTO"].length) {
-            canBreak = YES;
-        }
-    }
-    NSAssert(tableName, @"sql语句错误!");
-    if (!models || !models.count) {
-        return 0;
-    }
     int count = 0;
+    NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
             BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
             count += isSuccess;
         }
     }
+    return count;
+}
+
++ (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
+    if (!models || !models.count) {
+        return 0;
+    }
+    int count = 0;
+    NSString *existSql = [SMDBHelper sqlForSearchWithPrimaryKeysTableName:tableName primaryKeys:primaryKeys];
+    NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName model:[models firstObject]];
+    for (id model in models) {
+        if ([model isKindOfClass:[NSObject class]]) {
+            NSArray *arr = [self searchTableWithSql:existSql params:@[model] modelClass:nil inDB:db];
+            if (arr.count == 0) {
+                count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
+            }
+        }
+    }
+    return count;
+}
+
++ (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db {
+    int count = [db executeUpdate:sql withArgumentsInArray:params];
     return count;
 }
 
@@ -491,6 +501,16 @@
 
 + (NSString *)sqlForSearchWithTableName:(NSString *)tableName {
     NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ ", tableName];
+    return sql;
+}
+
++ (NSString *)sqlForSearchWithPrimaryKeysTableName:(NSString *)tableName primaryKeys:(NSArray *)primaryKeys {
+    NSMutableString *condition = [NSMutableString string];
+    for (NSString *key in primaryKeys) {
+        [condition appendFormat:@"%@=:%@ and ", key, key];
+    }
+    [condition replaceCharactersInRange:NSMakeRange(condition.length - 5, 5) withString:@""];
+    NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT COUNT(*) as 'count' FROM %@ WHERE %@", tableName, condition];
     return sql;
 }
 

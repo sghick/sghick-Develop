@@ -32,7 +32,8 @@
 - (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable;
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models;
 - (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models;
-- (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models;
+- (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
+- (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params;
 
 - (int)deleteTable:(NSString *)tableName;
 - (int)deleteTableWithSql:(NSString*)sql params:(NSArray *)params;
@@ -53,12 +54,14 @@
 + (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
 + (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
 
-+ (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; /* 自动创建/更新(推荐每个版本只做一次) */
+/** 自动创建/更新(推荐每个版本只做一次) */
++ (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
 
 + (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable inDB:(FMDatabase *)db;
 + (int)insertTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db;
 + (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db;
-+ (int)insertTableWithSql:(NSString *)sql models:(NSArray *)models inDB:(FMDatabase *)db;
++ (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
++ (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db;
 
 + (int)deleteTable:(NSString *)tableName inDB:(FMDatabase *)db;
 + (int)deleteTableWithSql:(NSString*)sql params:(NSArray *)params inDB:(FMDatabase *)db;
