@@ -1,16 +1,16 @@
 //
-//  SMDBManager.h
-//  Demo-SMFrameWork
+//  SMDBHelper.h
+//  Hahaha
 //
-//  Created by 丁治文 on 15/8/9.
-//  Copyright (c) 2015年 buding. All rights reserved.
+//  Created by 丁治文 on 15/9/12.
+//  Copyright (c) 2015年 sumrise.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 
 @class FMDatabase;
-@interface SMDBManager : NSObject
+@interface SMDBHelper : NSObject
 
 @property (strong, nonatomic) FMDatabase *db;
 @property (strong, nonatomic) NSString *DBName;
@@ -45,3 +45,4 @@
 - (NSArray *)searchTableWithSqlFillModelClass:(id)modelClass sql:(NSString *)sql, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end
+

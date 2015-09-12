@@ -1,12 +1,12 @@
 //
-//  SMDBManager.m
-//  Demo-SMFrameWork
+//  SMDBHelper.m
+//  Hahaha
 //
-//  Created by 丁治文 on 15/8/9.
-//  Copyright (c) 2015年 buding. All rights reserved.
+//  Created by 丁治文 on 15/9/12.
+//  Copyright (c) 2015年 sumrise.com. All rights reserved.
 //
 
-#import "SMDBManager.h"
+#import "SMDBHelper.h"
 #import "FMDB.h"
 #import <objc/runtime.h>
 
@@ -30,7 +30,7 @@
 @"Other":@"TEXT"                        \
 }
 
-@implementation SMDBManager
+@implementation SMDBHelper
 
 - (instancetype)initWithDBPath:(NSString *)DBPath {
     self = [super init];
@@ -108,7 +108,7 @@
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
     NSString *className = NSStringFromClass([modelClass class]);
     NSString *name = (tableName&&tableName.length ? tableName : className);
-    NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
+    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
     NSMutableString *sqlColumns = [NSMutableString string];
     for (NSString *key in columns.allKeys) {
         NSString *type = columns[key];
@@ -150,8 +150,8 @@
     if (!sql || (sql.length == 0)) {
         return NO;
     }
-    NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
-    NSDictionary *sqlColumns = [SMDBManager sqlColumnsFromCreateSql:sql];
+    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    NSDictionary *sqlColumns = [SMDBHelper sqlColumnsFromCreateSql:sql];
     if ([sqlColumns isEqualToDictionary:columns]) {
         return NO;
     }
@@ -205,7 +205,7 @@
     if (!models || !models.count) {
         return 0;
     }
-    NSString *sql = [SMDBManager sqlForInsertWithTableName:tableName model:[models firstObject]];
+    NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName model:[models firstObject]];
     int count = [self insertTableWithSql:sql models:models];
     return count;
 }
@@ -214,7 +214,7 @@
     if (!models || !models.count) {
         return 0;
     }
-    NSString *sql = [SMDBManager sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
+    NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
     int count = [self insertTableWithSql:sql models:models];
     return count;
 }
@@ -247,7 +247,7 @@
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
+            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
             count += isSuccess;
         }
     }
@@ -256,7 +256,7 @@
 }
 
 - (int)deleteTable:(NSString *)tableName {
-    NSString *sql = [SMDBManager sqlForDeleteWithTableName:tableName];
+    NSString *sql = [SMDBHelper sqlForDeleteWithTableName:tableName];
     int count = [self deleteTableWithSql:sql];
     return count;
 }
@@ -278,8 +278,8 @@
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSString *sql = [SMDBManager sqlForUpdateWithTableName:tableName model:[models firstObject] primaryKeys:primaryKeys];
-            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
+            NSString *sql = [SMDBHelper sqlForUpdateWithTableName:tableName model:[models firstObject] primaryKeys:primaryKeys];
+            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
             count += isSuccess;
         }
     }
@@ -293,7 +293,7 @@
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBManager dictionaryFromObject:model]];
+            BOOL isSuccess = [self.db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
             count += isSuccess;
         }
     }
@@ -310,7 +310,7 @@
 }
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass {
-    NSString *sql = [SMDBManager sqlForSearchWithTableName:tableName];
+    NSString *sql = [SMDBHelper sqlForSearchWithTableName:tableName];
     NSArray *rtns = [self searchTableWithSqlFillModelClass:modelClass sql:sql, nil];
     return rtns;
 }
@@ -481,3 +481,4 @@
 }
 
 @end
+

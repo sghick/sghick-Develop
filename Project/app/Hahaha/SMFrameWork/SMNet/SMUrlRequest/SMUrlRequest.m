@@ -7,7 +7,6 @@
 //
 
 #import "SMUrlRequest.h"
-#import "SMDBManager.h"
 
 @implementation SMUrlRequestParamFile
 
