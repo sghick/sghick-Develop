@@ -18,9 +18,7 @@
 - (instancetype)initWithDBPath:(NSString *)DBPath;
 - (instancetype)initWithDBName:(NSString *)DBName;
 
-+ (NSString *)sqlFromTable:(NSString *)tableName inDataBase:(FMDatabase *)db;
-+ (BOOL)existTable:(NSString *)tableName inDataBase:(FMDatabase *)db;
-+ (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDataBase:(FMDatabase *)db;
+- (NSString *)sqlFromTable:(NSString *)tableName;
 - (BOOL)existTable:(NSString *)tableName;
 - (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass;
 - (BOOL)dropTable:(NSString *)tableName;

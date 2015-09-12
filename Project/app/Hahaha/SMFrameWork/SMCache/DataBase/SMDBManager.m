@@ -13,10 +13,10 @@
 #define dbTypeMapper @{                 \
 @"T@\"NSString\"":@"TEXT",              \
 @"T@\"NSMutableString\"":@"TEXT",       \
-@"T@\"NSDictionary\"":@"BLOB",          \
-@"T@\"NSMutableDictionary\"":@"BLOB",   \
-@"T@\"NSMutableArray\"":@"BLOB",        \
-@"T@\"NSArray\"":@"BLOB",               \
+@"T@\"NSDictionary\"":@"TEXT",          \
+@"T@\"NSMutableDictionary\"":@"TEXT",   \
+@"T@\"NSMutableArray\"":@"TEXT",        \
+@"T@\"NSArray\"":@"TEXT",               \
 @"T@\"NSData\"":@"BLOB",                \
 @"T@\"NSDate\"":@"DATE",                \
 @"T@\"NSNumber\"":@"REAL",              \
@@ -27,7 +27,7 @@
 @"Td":@"DOUBLE",                        \
 @"TB":@"BOOLEAN",                       \
 @"Tb":@"BOOLEAN",                       \
-@"Other":@"BLOB"                        \
+@"Other":@"TEXT"                        \
 }
 
 @implementation SMDBManager
@@ -52,56 +52,44 @@
     return self;
 }
 
-+ (NSString *)sqlFromTable:(NSString *)tableName inDataBase:(FMDatabase *)db {
+- (NSString *)sqlFromTable:(NSString *)tableName {
     NSString *rtn = nil;
-    BOOL isSet = [db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", db.lastErrorMessage);
-    FMResultSet *rs = [db executeQuery:@"select * from sqlite_master where type ='table' and name = ?", tableName];
+    BOOL isSet = [self.db open];
+    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
+    FMResultSet *rs = [self.db executeQuery:@"select * from sqlite_master where type ='table' and name = ?", tableName];
     while ([rs next]) {
         rtn = [rs stringForColumn:@"sql"];
         break;
     }
-    [db close];
+    [self.db close];
     return rtn;
-}
-
-+ (BOOL)existTable:(NSString *)tableName inDataBase:(FMDatabase *)db {
-    BOOL isSet = [db open];
-    NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", db.lastErrorMessage);
-    FMResultSet *rs = [db executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
-    while ([rs next]) {
-        NSInteger count = [rs intForColumn:@"count"];
-        [db close];
-        return count;
-    }
-    [db close];
-    return NO;
-}
-
-+ (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDataBase:(FMDatabase *)db {
-    NSString *sql = [self sqlFromTable:tableName inDataBase:db];
-    if (!sql || (sql.length == 0)) {
-        return NO;
-    }
-    NSDictionary *columns = [SMDBManager dictionaryDbPropertiesFromModelClass:modelClass];
-    NSDictionary *sqlColumns = [self sqlColumnsFromCreateSql:sql];
-    return [sqlColumns isEqualToDictionary:columns];
 }
 
 - (BOOL)existTable:(NSString *)tableName {
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    BOOL rtn = [SMDBManager existTable:tableName inDataBase:self.db];
+    FMResultSet *rs = [self.db executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
+    while ([rs next]) {
+        NSInteger count = [rs intForColumn:@"count"];
+        [self.db close];
+        return count;
+    }
     [self.db close];
-    return rtn; 
+    return NO;
 }
+
 
 - (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass {
     BOOL isSet = [self.db open];
     NSAssert1(isSet, @"打开数据库失败! %@\n请先创建!", self.db.lastErrorMessage);
-    BOOL rtn = [SMDBManager existTable:tableName modelClass:modelClass inDataBase:self.db];
+    FMResultSet *rs = [self.db executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
+    while ([rs next]) {
+        NSInteger count = [rs intForColumn:@"count"];
+        [self.db close];
+        return count;
+    }
     [self.db close];
-    return rtn;
+    return NO;
 }
 
 - (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
@@ -158,7 +146,7 @@
 }
 
 - (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
-    NSString *sql = [SMDBManager sqlFromTable:tableName inDataBase:self.db];
+    NSString *sql = [self sqlFromTable:tableName];
     if (!sql || (sql.length == 0)) {
         return NO;
     }
