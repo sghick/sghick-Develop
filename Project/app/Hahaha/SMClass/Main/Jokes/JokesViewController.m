@@ -12,18 +12,27 @@
 #import "SMJoke.h"
 #import "UITableView+SM.h"
 #import "JokeDetailViewController.h"
+#import "SMNetManager.h"
+
+typedef NS_ENUM(int, kTagForJokesViewControllerView) {
+    kTagForJokesViewControllerViewAlertInWifi = 10001,
+    kTagForJokesViewControllerViewAlertInOther
+};
 
 @interface JokesViewController ()<
-JokeBllDelegate,
-UITableViewDataSource,
-UITableViewDelegate,
-JokeDetailViewControllerDelegate
->
+    JokeBllDelegate,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    JokeDetailViewControllerDelegate,
+    UIAlertViewDelegate >
 
 @property (strong, nonatomic) JokeBll *bll;
 
 @property (strong, nonatomic) SMTableView *tableView;
 @property (strong, nonatomic) UISegmentedControl *segment;
+
+@property (assign, nonatomic) int backPage;
+
 @property (strong, nonatomic) NSArray * dataSource;
 
 @end
@@ -38,13 +47,13 @@ static NSString *identifier = @"identifier";
     bll.delegate = self;
     self.bll = bll;
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAutoItem:)];
     [self.view addSubview:self.tableView attributePathKey:@"JokesViewController.tableView"];
     [self.view addSubview:self.segment attributePathKey:@"JokesViewController.segment"];
     
     [self.tableView mj_addMJRefreshOperationBlock:^(int page) {
         [self requestJokesWithCurPage:page];
     } operationType:SMMjOperationTypeDefault refresh:YES];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -143,6 +152,33 @@ static NSString *identifier = @"identifier";
 #pragma mark - action
 - (void)segmentAction:(UISegmentedControl *)sender {
     [self loadDataFromDBIsRead:sender.selectedSegmentIndex];
+}
+
+- (void)addAutoItem:(UIBarButtonItem *)sender {
+    SMNetStatus status = [SMNetManager netStatus];
+    if (status == SMNetStatusReachableViaWiFi) {
+        NSString *message = [NSString stringWithFormat:@"当前为wifi环境\n是否要下载之后\n第 %d-%d 页", self.backPage, (self.backPage + 20)];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"不，我摁错了" otherButtonTitles:@"是的", nil];
+        alert.tag = kTagForJokesViewControllerViewAlertInWifi;
+        alert.delegate = self;
+        [alert show];
+    } else {
+        NSString *message = [NSString stringWithFormat:@"当前为非wifi环境，为保护您的流量，请切换至wifi环境下再下载"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+        alert.tag = kTagForJokesViewControllerViewAlertInOther;
+        alert.delegate = self;
+        [alert show];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == kTagForJokesViewControllerViewAlertInWifi) {
+        if (buttonIndex == 1) {
+            [self.bll requestJokeListInBackgroundWithPage:self.backPage toPage:(self.backPage + 20)];
+            self.backPage += 20;
+        }
+    }
 }
 
 #pragma mark - request/loadData

@@ -165,8 +165,8 @@
     [[[SMAFNClient sharedClient] operationQueue] cancelAllOperations];
 }
 
-+ (SMNetStatus *)netStatus{
-    return (SMNetStatus *)[[SMAFNClient sharedClient] status];
++ (SMNetStatus)netStatus{
+    return (SMNetStatus)[[SMAFNClient sharedClient] status];
 }
 
 @end

@@ -12,6 +12,7 @@
 		FE0ECE501B7FCE1000B3B37D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0ECE4F1B7FCE1000B3B37D /* Images.xcassets */; };
 		FE35E17A1B839201000BBF68 /* SMTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FE35E1791B839201000BBF68 /* SMTest.m */; };
 		FE35E17D1B8397D3000BBF68 /* NSUserDefaults+SMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE35E17C1B8397D3000BBF68 /* NSUserDefaults+SMModel.m */; };
+		FE664C011BA531F80074B3FF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FE664C001BA531F80074B3FF /* MBProgressHUD.m */; };
 		FE7D332C1B7E358400CE6284 /* JokesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7D332B1B7E358400CE6284 /* JokesViewController.m */; };
 		FE8CF96A1B7D6AF7002A1A92 /* SMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8AB1B7D6AF7002A1A92 /* SMButton.m */; };
 		FE8CF96B1B7D6AF7002A1A92 /* SMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8CF8AD1B7D6AF7002A1A92 /* SMLabel.m */; };
@@ -109,6 +110,8 @@
 		FE35E1791B839201000BBF68 /* SMTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTest.m; sourceTree = "<group>"; };
 		FE35E17B1B8397D3000BBF68 /* NSUserDefaults+SMModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SMModel.h"; sourceTree = "<group>"; };
 		FE35E17C1B8397D3000BBF68 /* NSUserDefaults+SMModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SMModel.m"; sourceTree = "<group>"; };
+		FE664BFF1BA531F80074B3FF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		FE664C001BA531F80074B3FF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		FE7D332A1B7E358400CE6284 /* JokesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JokesViewController.h; sourceTree = "<group>"; };
 		FE7D332B1B7E358400CE6284 /* JokesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JokesViewController.m; sourceTree = "<group>"; };
 		FE8CF87A1B7CCFC2002A1A92 /* Hahaha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hahaha.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -318,6 +321,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		FE664BFE1BA531F80074B3FF /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				FE664BFF1BA531F80074B3FF /* MBProgressHUD.h */,
+				FE664C001BA531F80074B3FF /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		FE7D33291B7E356200CE6284 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
@@ -497,6 +509,7 @@
 		FE8CF8D41B7D6AF7002A1A92 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				FE664BFE1BA531F80074B3FF /* MBProgressHUD */,
 				FEAFBE591B808C6B007D4143 /* SDWebImage */,
 				FE8CF8D51B7D6AF7002A1A92 /* CellAutoSize */,
 			);
@@ -1016,6 +1029,7 @@
 				FE8CF9D41B7D785F002A1A92 /* JokeDetailViewController.m in Sources */,
 				FE8CF9A31B7D6AF7002A1A92 /* FMResultSet.m in Sources */,
 				FE8CF98B1B7D6AF7002A1A92 /* SMUrlRequest.m in Sources */,
+				FE664C011BA531F80074B3FF /* MBProgressHUD.m in Sources */,
 				FE8CF9A01B7D6AF7002A1A92 /* FMDatabaseAdditions.m in Sources */,
 				FEA6CCF41B8043750087F9DA /* AFURLResponseSerialization.m in Sources */,
 				FE8CF9D01B7D73FE002A1A92 /* JokeDao.m in Sources */,

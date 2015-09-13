@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MBProgressHUD.h"
 #import "SMAFNClient.h"
 #import "MainViewController.h"
 

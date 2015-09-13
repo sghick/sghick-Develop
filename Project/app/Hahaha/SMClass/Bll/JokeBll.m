@@ -18,6 +18,7 @@
 static NSString *kRequestJokeList1 = @"kRequestJokeList1";
 static NSString *kRequestJokeList2 = @"kRequestJokeList2";
 static NSString *kRequestJokeList3 = @"kRequestJokeList3";
+static NSString *kRequestJokeListInBackground1 = @"kRequestJokeListInBackground1";
 
 @interface JokeBll ()
 
@@ -54,6 +55,11 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
             [self.delegate respondsJokesCount:count curPage:request.page];
         }
     }
+    if ([kRequestJokeListInBackground1 isEqualToString:request.key]) {
+        SMResult *result = request.responseParserObject;
+        int count = [self.dao insertJokes:result.detail];
+        SMLog(@"请求到%zi条, 新增数据%d条",result.detail.count, count);
+    }
 //    if ([kRequestJokeList2 isEqualToString:request.key]) {
 //        NSArray *results = request.responseParserObject;
 //        for (SMJoke *joke in results) {
@@ -87,6 +93,16 @@ static NSString *kRequestJokeList3 = @"kRequestJokeList3";
 //    request2.key = kRequestJokeList2;
 //    request2.page = curPage;
 //    [self addRequest:request2 useQueue:YES];
+}
+
+- (void)requestJokeListInBackgroundWithPage:(int)page toPage:(int)toPage {
+    for (int i = page; i < toPage; i++) {
+        SMUrlRequest *request1 = [self.api requestJokeList1];
+        request1.key = kRequestJokeListInBackground1;
+        request1.page = i;
+        [request1.paramsDict setObject:[NSString stringWithFormat:@"%d", i] forKey:@"page"];
+        [self addRequest:request1 useQueue:NO];
+    }
 }
 
 - (void)makeJokeReadWithId:(NSString *)xhid {
