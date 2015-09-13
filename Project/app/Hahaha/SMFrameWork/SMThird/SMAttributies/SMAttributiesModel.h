@@ -12,10 +12,10 @@
 @interface SMPercentageFrame : NSObject
 @property (strong, nonatomic) NSString *useFrame;      /*< 可空,默认为"-" */
 @property (strong, nonatomic) NSString *screenScale;    /*< 可空,父视图宽高比例划分,默认为"-,-" */
-@property (strong, nonatomic) NSString *netType;        /*< 可空,填写之后scale以下属性无效,默认为"0",0-7 */
-
-@property (strong, nonatomic) NSString *netFrame;       /*< 必填,可不写,view占父视图的网络区域,填写之后scale以下属性无效,默认为"?,?,?,?" */
-
+@property (strong, nonatomic) NSString *netType;        /*< 可空,默认为"0",0-7,16 */
+// function1
+@property (strong, nonatomic) NSString *netFrame;       /*< 必填,可不写,view占父视图的网格区域,填写之后function2属性无效,默认为"?,?,?,?" */
+// function2
 @property (strong, nonatomic) NSString *scale;          /*< 可空,宽高系数的比例,"-"表示自动,默认为"-,-" */
 @property (strong, nonatomic) NSString *size;           /*< 可空,view的size,默认为"-,-" */
 @property (strong, nonatomic) NSString *insets;         /*< 可空,view四个方向的空白区,默认为"-,-,-,-" */

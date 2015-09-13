@@ -30,7 +30,9 @@ typedef NS_ENUM(int, kTagForJokesViewControllerView) {
 
 @property (strong, nonatomic) SMTableView *tableView;
 @property (strong, nonatomic) UISegmentedControl *segment;
+@property (strong, nonatomic) UILabel *unreadNumLabel;
 
+@property (assign, nonatomic) int backCount;
 @property (assign, nonatomic) int backPage;
 
 @property (strong, nonatomic) NSArray * dataSource;
@@ -50,6 +52,9 @@ static NSString *identifier = @"identifier";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAutoItem:)];
     [self.view addSubview:self.tableView attributePathKey:@"JokesViewController.tableView"];
     [self.view addSubview:self.segment attributePathKey:@"JokesViewController.segment"];
+    [self.view addSubview:self.unreadNumLabel attributePathKey:@"JokesViewController.unreadNumLabel"];
+    
+//    [self.view showNetLineWithRowAndColoum:CGPointMake(1, 30) lineColor:[UIColor redColor] netType:35 alpha:0.5];
     
     [self.tableView mj_addMJRefreshOperationBlock:^(int page) {
         [self requestJokesWithCurPage:page];
@@ -157,8 +162,9 @@ static NSString *identifier = @"identifier";
 - (void)addAutoItem:(UIBarButtonItem *)sender {
     SMNetStatus status = [SMNetManager netStatus];
     if (status == SMNetStatusReachableViaWiFi) {
+        self.backPage = (int)[SMUserDefaults integerForKey:kPagesRequest];
         NSString *message = [NSString stringWithFormat:@"当前为wifi环境\n是否要下载之后\n第 %d-%d 页", self.backPage, (self.backPage + 20)];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"不，我摁错了" otherButtonTitles:@"是的", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"不，我摁错了" otherButtonTitles:@"我要重第0页开始", @"是的", nil];
         alert.tag = kTagForJokesViewControllerViewAlertInWifi;
         alert.delegate = self;
         [alert show];
@@ -174,9 +180,21 @@ static NSString *identifier = @"identifier";
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == kTagForJokesViewControllerViewAlertInWifi) {
-        if (buttonIndex == 1) {
-            [self.bll requestJokeListInBackgroundWithPage:self.backPage toPage:(self.backPage + 20)];
-            self.backPage += 20;
+        switch (buttonIndex) {
+            case 0:
+                break;
+            case 1:{
+                self.backPage = 0;
+                [SMUserDefaults setInteger:0 forKey:kPagesRequest];
+            } break;
+            case 2:{
+                [self requestJokeListInBackgroundWithPage:self.backPage toPage:(self.backPage + 20)];
+                self.backCount = 0;
+                self.backPage += 20;
+                [SMUserDefaults setInteger:self.backPage forKey:kPagesRequest];
+            } break;
+            default:
+                break;
         }
     }
 }
@@ -186,8 +204,13 @@ static NSString *identifier = @"identifier";
     [self.bll requestJokeListWithCurPage:curPage];
 }
 
+- (void)requestJokeListInBackgroundWithPage:(int)page toPage:(int)toPage {
+    [self.bll requestJokeListInBackgroundWithPage:page toPage:toPage];
+}
+
 - (void)loadDataFromDBIsRead:(BOOL)isRead {
     self.dataSource = [self.bll searchJokesFromDBIsRead:isRead];
+    self.unreadNumLabel.text = SMToString(@"%zi", self.dataSource.count);
     [self.tableView reloadData];
 }
 
@@ -200,6 +223,14 @@ static NSString *identifier = @"identifier";
     SMLog(@"新增 %d 条", count);
     [self.tableView mj_finishedFillDataSource:nil curPage:curPage newDataSource:nil];
     [self loadDataFromDBIsRead:self.segment.selectedSegmentIndex];
+}
+
+- (void)respondsJokeListInBackgroundCount:(int)count curPage:(int)curPage {
+    self.backCount += count;
+    if (curPage == self.backPage - 1) {
+        NSLog(@"新增 %d 条", self.backCount);
+        [self loadDataFromDBIsRead:self.segment.selectedSegmentIndex];
+    }
 }
 
 #pragma mark - UI getter/setter
@@ -223,6 +254,17 @@ static NSString *identifier = @"identifier";
         [_segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     }
     return _segment;
+}
+
+- (UILabel *)unreadNumLabel {
+    if (!_unreadNumLabel) {
+        _unreadNumLabel = [[UILabel alloc] init];
+        _unreadNumLabel.backgroundColor = [UIColor clearColor];
+        _unreadNumLabel.font = [UIFont systemFontOfSize:10*SMWidthScale];
+        _unreadNumLabel.textColor = [UIColor redColor];
+        _unreadNumLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _unreadNumLabel;
 }
 
 @end

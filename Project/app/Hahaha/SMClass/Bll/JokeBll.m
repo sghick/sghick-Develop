@@ -59,6 +59,9 @@ static NSString *kRequestJokeListInBackground1 = @"kRequestJokeListInBackground1
         SMResult *result = request.responseParserObject;
         int count = [self.dao insertJokes:result.detail];
         SMLog(@"请求到%zi条, 新增数据%d条",result.detail.count, count);
+        if ([self.delegate respondsToSelector:@selector(respondsJokeListInBackgroundCount:curPage:)]) {
+            [self.delegate respondsJokeListInBackgroundCount:count curPage:request.page];
+        }
     }
 //    if ([kRequestJokeList2 isEqualToString:request.key]) {
 //        NSArray *results = request.responseParserObject;

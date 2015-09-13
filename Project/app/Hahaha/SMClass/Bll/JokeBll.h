@@ -13,6 +13,7 @@
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode;
 
 - (void)respondsJokesCount:(int)count curPage:(int)curPage;
+- (void)respondsJokeListInBackgroundCount:(int)count curPage:(int)curPage;
 
 @end
 

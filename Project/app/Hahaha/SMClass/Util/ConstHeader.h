@@ -15,7 +15,10 @@
 #define appKeyUmeng     @"55cf64cfe0f55a20cd003847"
 
 // 重力感应的开关
-#define kOpenMotionSwitch  @"openMotionSwitch"
+#define kOpenMotionSwitch   @"openMotionSwitch"
+
+// 最近批量请求页数
+#define kPagesRequest       @"pagesRequest"
 
 #endif
 

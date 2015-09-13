@@ -377,8 +377,17 @@
     NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName model:[models firstObject]];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSArray *arr = [self searchTableWithSql:existSql params:@[model] modelClass:nil inDB:db];
-            if (arr.count == 0) {
+            NSDictionary *dict = [SMDBHelper dictionaryFromObject:model];
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            for (NSString *key in primaryKeys) {
+                [params setObject:dict[key] forKey:key];
+            }
+            FMResultSet *set = [db executeQuery:existSql withParameterDictionary:params];
+            BOOL isExist = NO;
+            while ([set next]) {
+                isExist = [set intForColumn:@"count"];
+            }
+            if (!isExist) {
                 count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
             }
         }
