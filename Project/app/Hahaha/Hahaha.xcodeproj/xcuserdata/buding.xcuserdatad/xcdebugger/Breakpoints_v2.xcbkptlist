@@ -10,13 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMFrameWork/SMCache/DataBase/SMDBManager.m"
-            timestampString = "463663415.857155"
+            timestampString = "464154505.39352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "-createAndAlterTable:modelClass:primaryKeys:"
-            landmarkType = "5">
+            startingLineNumber = "168"
+            endingLineNumber = "168">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,13 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMFrameWork/SMCache/DataBase/SMDBManager.m"
-            timestampString = "463663569.318026"
+            timestampString = "464154505.39352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-alterTable:modelClass:"
-            landmarkType = "5">
+            startingLineNumber = "152"
+            endingLineNumber = "152">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
