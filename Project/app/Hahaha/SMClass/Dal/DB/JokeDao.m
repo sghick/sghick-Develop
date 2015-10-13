@@ -7,77 +7,86 @@
 //
 
 #import "JokeDao.h"
+#import "SMDBManager.h"
 #import "SMDBHelper.h"
 #import "SqlHeader.h"
 #import "SMJoke.h"
-
-@interface JokeDao ()
-
-@property (strong, nonatomic) SMDBHelper *dbHelper;
-
-@end
 
 @implementation JokeDao
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        SMDBHelper *dbHelper = [[SMDBHelper alloc] initWithDBName:@"jokes.db"];
+        SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
         // 有多少个表需要自动更新的都要写上(最好每个版本只做一次)
         [dbHelper createAndAlterTable:@"tb_joke" modelClass:[SMJoke class] primaryKeys:@[@"xhid"]];
-        self.dbHelper = dbHelper;
     }
     return self;
 }
 
+- (NSString *)dbPath {
+    NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"jokes.db"];
+    return dbPath;
+}
+
 - (int)insertJokes:(NSArray *)jokes {
-    int count = [self.dbHelper insertIfNotExistPrimaryKeysTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    int count = [dbHelper insertIfNotExistPrimaryKeysTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
     return count;
 }
 
 - (int)deleteJokes {
-    int count = [self.dbHelper deleteTable:@"tb_joke"];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    int count = [dbHelper deleteTable:@"tb_joke"];
     return count;
 }
 
 - (int)deleteJokesWithId:(NSString *)xhid {
-    int count = [self.dbHelper deleteTableWithSql:sql_delete_jokes_with_id params:@[xhid]];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    int count = [dbHelper deleteTableWithSql:sql_delete_jokes_with_id params:@[xhid]];
     return count;
 }
 
 - (int)updateJokes:(NSArray *)jokes {
-    int count = [self.dbHelper updateTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    int count = [dbHelper updateTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
     return count;
 }
 
 - (int)updateJoke:(SMJoke *)joke {
-    int count = [self.dbHelper updateTable:@"tb_joke" models:@[joke] primaryKeys:@[@"xhid"]];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    int count = [dbHelper updateTable:@"tb_joke" models:@[joke] primaryKeys:@[@"xhid"]];
     return count;
 }
 
 - (NSArray *)searchJokes {
-    NSArray *rtns = [self.dbHelper searchTable:@"tb_joke" modelClass:[SMJoke class]];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    NSArray *rtns = [dbHelper searchTable:@"tb_joke" modelClass:[SMJoke class]];
     return rtns;
 }
 
 - (NSArray *)searchJokesIsRead:(BOOL)isRead {
-    NSArray *rtns = [self.dbHelper searchTableWithSql:sql_search_jokes_isRead params:@[[NSNumber numberWithBool:isRead]] modelClass:[SMJoke class]];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    NSArray *rtns = [dbHelper searchTableWithSql:sql_search_jokes_isRead params:@[[NSNumber numberWithBool:isRead]] modelClass:[SMJoke class]];
     return rtns;
 }
 
 - (NSArray *)searchJokesWithId:(NSString *)xhid {
-    NSArray *rtns = [self.dbHelper searchTableWithSql:sql_search_jokes_with_id params:@[xhid] modelClass:[SMJoke class]];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    NSArray *rtns = [dbHelper searchTableWithSql:sql_search_jokes_with_id params:@[xhid] modelClass:[SMJoke class]];
     return rtns;
 }
 
 - (NSString *)searchJokesMaxid {
-    NSArray *rtn = [self.dbHelper searchTableWithSql:sql_search_jokes_max_id params:nil modelClass:nil];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    NSArray *rtn = [dbHelper searchTableWithSql:sql_search_jokes_max_id params:nil modelClass:nil];
     NSDictionary *dict = [rtn firstObject];
     return dict[@"xhid"];
 }
 
 - (NSString *)searchJokesMinid {
-    NSArray *rtn = [self.dbHelper searchTableWithSql:sql_search_jokes_min_id params:nil modelClass:nil];
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    NSArray *rtn = [dbHelper searchTableWithSql:sql_search_jokes_min_id params:nil modelClass:nil];
     NSDictionary *dict = [rtn firstObject];
     return dict[@"xhid"];
 }

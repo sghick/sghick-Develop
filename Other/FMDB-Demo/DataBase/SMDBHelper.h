@@ -21,13 +21,18 @@
 - (NSString *)sqlFromTable:(NSString *)tableName;
 - (BOOL)existTable:(NSString *)tableName;
 - (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass;
+- (BOOL)existTable:(NSString *)tableName columns:(NSDictionary *)columns;
 - (BOOL)dropTable:(NSString *)tableName;
 - (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName;
 - (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
+- (BOOL)recreateTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys;
 - (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
+- (BOOL)createTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys;
 - (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys;
+- (BOOL)alterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys;
 
 - (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys; /* 自动创建/更新(推荐每个版本只做一次) */
+- (BOOL)createAndAlterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys;
 
 - (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable;
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models;
@@ -48,14 +53,19 @@
 + (NSString *)sqlFromTable:(NSString *)tableName inDB:(FMDatabase *)db;
 + (BOOL)existTable:(NSString *)tableName inDB:(FMDatabase *)db;
 + (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db;
++ (BOOL)existTable:(NSString *)tableName columns:(NSDictionary *)columns inDB:(FMDatabase *)db;
 + (BOOL)dropTable:(NSString *)tableName inDB:(FMDatabase *)db;
 + (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName inDB:(FMDatabase *)db;
 + (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
++ (BOOL)recreateTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
 + (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
++ (BOOL)createTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
 + (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
++ (BOOL)alterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
 
 /** 自动创建/更新(推荐每个版本只做一次) */
 + (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
++ (BOOL)createAndAlterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
 
 + (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable inDB:(FMDatabase *)db;
 + (int)insertTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db;

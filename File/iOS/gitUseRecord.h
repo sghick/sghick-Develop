@@ -11,8 +11,8 @@
  git log -1 可以显示最近一次的提交
  
  3.git修改提交的用户名和Email
- git config --global user.name "Your Name"
- git config --global user.email you@example.com
+ git config --global user.name "dingzhiwen"
+ git config --global user.email dingzhiwen@buding.cn
  全局的通过vim ~/.gitconfig来查看
  git config user.name "Your Name"
  git config user.email you@example.com
@@ -126,8 +126,11 @@
  3)配置文件在.git/config文件中,别名也在里面哦，[alias]后面，删除对应行即可删除别名
  4)配置别名也可以直接修改这个文件，如果改错了，可以删掉文件重新通过命令配置
  
- 
- 
+ 21.ssh key
+ 1)查看是否已经有了ssh密钥：cd ~/.ssh
+ 2)生成密钥：ssh-keygen -t rsa -C “dingzhiwen@buding.cn”
+ 3)测试：ssh git@github.com
+ 4)
 
 *********************************************************************************
 *********************************************************************************/

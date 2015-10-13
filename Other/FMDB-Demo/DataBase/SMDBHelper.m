@@ -78,6 +78,14 @@
     return NO;
 }
 
+- (BOOL)existTable:(NSString *)tableName columns:(NSDictionary *)columns {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper existTable:tableName columns:columns inDB:db];
+    }];
+    return NO;
+}
+
 - (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
     __block BOOL rtn = NO;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -86,10 +94,26 @@
     return NO;
 }
 
+- (BOOL)recreateTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper recreateTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
 - (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
     __block BOOL rtn = NO;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         rtn = [SMDBHelper createTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)createTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper createTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
     }];
     return NO;
 }
@@ -118,10 +142,26 @@
     return NO;
 }
 
+- (BOOL)alterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper alterTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
 - (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys {
     __block BOOL rtn = NO;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         rtn = [SMDBHelper createAndAlterTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    }];
+    return NO;
+}
+
+- (BOOL)createAndAlterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys {
+    __block BOOL rtn = NO;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtn = [SMDBHelper createAndAlterTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
     }];
     return NO;
 }
@@ -236,10 +276,18 @@
 
 
 + (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db {
-    FMResultSet *rs = [db executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
-    while ([rs next]) {
-        NSInteger count = [rs intForColumn:@"count"];
-        return count;
+    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    return [self existTable:tableName columns:columns inDB:db];
+}
+
++ (BOOL)existTable:(NSString *)tableName columns:(NSDictionary *)columns inDB:(FMDatabase *)db {
+    NSString *sql = [self sqlFromTable:tableName inDB:db];
+    if (!sql || (sql.length == 0)) {
+        return NO;
+    }
+    NSDictionary *sqlColumns = [SMDBHelper sqlColumnsFromCreateSql:sql];
+    if ([sqlColumns isEqualToDictionary:columns]) {
+        return YES;
     }
     return NO;
 }
@@ -255,10 +303,23 @@
     return count;
 }
 
++ (BOOL)recreateTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
+    int count = 0;
+    NSString *newTableName = [NSString stringWithFormat:@"__sm_just_auto_recreate_%@_", tableName];
+    if ([self createTable:newTableName columns:columns primaryKeys:primaryKeys inDB:db]) {
+        [self insertTable:newTableName anotherTable:tableName inDB:db];
+        [self dropTable:tableName inDB:db];
+        count = [self renameTable:newTableName newTableName:tableName inDB:db];
+    }
+    return count;
+}
+
 + (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
-    NSString *className = NSStringFromClass([modelClass class]);
-    NSString *name = (tableName&&tableName.length ? tableName : className);
     NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    return [self createAndAlterTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
+}
+
++ (BOOL)createTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
     NSMutableString *sqlColumns = [NSMutableString string];
     for (NSString *key in columns.allKeys) {
         NSString *type = columns[key];
@@ -270,7 +331,7 @@
         }
     }
     [sqlColumns replaceCharactersInRange:NSMakeRange(sqlColumns.length - 2, 2) withString:@""];
-    NSString *sqlQuery = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@)", name, sqlColumns];
+    NSString *sqlQuery = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@)", tableName, sqlColumns];
     BOOL isSuccess = [db executeUpdate:sqlQuery];
     NSAssert2(isSuccess, @"创建数据库失败! %@ %@", db.lastErrorMessage, sqlQuery);
     return isSuccess;
@@ -289,11 +350,15 @@
 }
 
 + (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
+    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    return [self alterTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
+}
+
++ (BOOL)alterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
     NSString *sql = [self sqlFromTable:tableName inDB:db];
     if (!sql || (sql.length == 0)) {
         return NO;
     }
-    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
     NSDictionary *sqlColumns = [SMDBHelper sqlColumnsFromCreateSql:sql];
     if ([sqlColumns isEqualToDictionary:columns]) {
         return NO;
@@ -318,7 +383,7 @@
     }
     count = 0;
     if (shouldDropTable) {
-        count = [self recreateTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+        count = [self recreateTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
     }
     return count;
 }
@@ -328,6 +393,15 @@
         return [self createTable:tableName modelClass:modelClass primaryKeys:primaryKeys inDB:db];
     } else if (![self existTable:tableName modelClass:modelClass inDB:db]) { // 更新字段
         return [self alterTable:tableName  modelClass:modelClass primaryKeys:primaryKeys inDB:db];
+    }
+    return NO;
+}
+
++ (BOOL)createAndAlterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
+    if (![self existTable:tableName inDB:db]) { // 创建新表
+        return [self createTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
+    } else if (![self existTable:tableName columns:columns inDB:db]) { // 更新字段
+        return [self alterTable:tableName  columns:columns primaryKeys:primaryKeys inDB:db];
     }
     return NO;
 }
