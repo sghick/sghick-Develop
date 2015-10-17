@@ -50,6 +50,12 @@ static NSString *kRequestJokeListInBackground1 = @"kRequestJokeListInBackground1
     if ([kRequestJokeList1 isEqualToString:request.key]) {
         SMResult *result = request.responseParserObject;
         int count = [self.dao insertJokes:result.detail];
+        result.date = [NSDate date];
+        SMTest *test = [[SMTest alloc] init];
+        test.age = 1;
+        test.title = @"tttsssttt";
+        result.test = test;
+        count = [self.dao insertResult:result];
         SMLog(@"请求到%zi条, 新增数据%d条",result.detail.count, count);
         if ([self.delegate respondsToSelector:@selector(respondsJokesCount:curPage:)]) {
             [self.delegate respondsJokesCount:count curPage:request.page];

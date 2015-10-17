@@ -21,6 +21,11 @@ static dispatch_once_t once_token;
 static SMDBManager *_manager = nil;
 
 + (SMDBHelper *)dbHelperWithDBPath:(NSString *)DBPath {
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSString *doc = [DBPath stringByDeletingLastPathComponent];
+    if (![fileManager fileExistsAtPath:doc]) {
+        [fileManager createDirectoryAtPath:doc withIntermediateDirectories:YES attributes:nil error:nil];
+    }
     SMDBManager *manager = [SMDBManager shareInstance];
     SMDBHelper *dbHelper = manager.dbHelpers[DBPath];
     if (!dbHelper) {

@@ -10,13 +10,19 @@
 #import "FMDB.h"
 #import <objc/runtime.h>
 
+#warning Config /*< 是否解析其它类型 */
+#define kbParserOthers 0
+
+/* 其它类型
+ @"T@\"NSDictionary\"":@"TEXT",          \
+ @"T@\"NSMutableDictionary\"":@"TEXT",   \
+ @"T@\"NSMutableArray\"":@"TEXT",        \
+ @"T@\"NSArray\"":@"TEXT",               \
+ */
+
 #define dbTypeMapper @{                 \
 @"T@\"NSString\"":@"TEXT",              \
 @"T@\"NSMutableString\"":@"TEXT",       \
-@"T@\"NSDictionary\"":@"TEXT",          \
-@"T@\"NSMutableDictionary\"":@"TEXT",   \
-@"T@\"NSMutableArray\"":@"TEXT",        \
-@"T@\"NSArray\"":@"TEXT",               \
 @"T@\"NSData\"":@"BLOB",                \
 @"T@\"NSDate\"":@"DATE",                \
 @"T@\"NSNumber\"":@"REAL",              \
@@ -635,9 +641,13 @@
         NSString *dbType = dbTypeMapper[attributeType];
         if (!dbType) {
             attributeType = @"Other";
-            NSAssert1(YES, @"未知类型:%@, 请完善", attributeType);
+            dbType = dbTypeMapper[attributeType];
+            if (kbParserOthers) {
+                [dict setObject:dbType forKey:attributeName];
+            }
+        } else {
+            [dict setObject:dbType forKey:attributeName];
         }
-        [dict setObject:dbType forKey:attributeName];
     }
     return dict;
 }
@@ -665,7 +675,19 @@
             objc_property_t property = properties[i];
             // 获得属性名称
             NSString * attributeName = [NSString stringWithUTF8String:property_getName(property)];
-            [keys addObject:attributeName];
+            NSString *attributeString = [NSString stringWithUTF8String:property_getAttributes(property)];
+            NSArray *attributes = [attributeString componentsSeparatedByString:@","];
+            NSString *attributeType = [attributes firstObject];
+            NSString *dbType = dbTypeMapper[attributeType];
+            if (!dbType) {
+                attributeType = @"Other";
+                dbType = dbTypeMapper[attributeType];
+                if (kbParserOthers) {
+                    [keys addObject:attributeName];
+                }
+            } else {
+                [keys addObject:attributeName];
+            }
         }
         free(properties);
         allKeys = keys;

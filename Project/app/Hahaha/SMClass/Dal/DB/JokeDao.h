@@ -9,6 +9,7 @@
 #import "SMDAO.h"
 
 @class SMJoke;
+@class SMResult;
 @interface JokeDao : SMDAO
 
 - (int)insertJokes:(NSArray *)jokes;
@@ -21,5 +22,7 @@
 - (NSArray *)searchJokesWithId:(NSString *)xhid;
 - (NSString *)searchJokesMaxid;
 - (NSString *)searchJokesMinid;
+
+- (int)insertResult:(SMResult *)result;
 
 @end

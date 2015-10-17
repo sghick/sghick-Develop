@@ -11,6 +11,7 @@
 #import "SMDBHelper.h"
 #import "SqlHeader.h"
 #import "SMJoke.h"
+#import "SMResult.h"
 
 @implementation JokeDao
 
@@ -20,8 +21,14 @@
         SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
         // 有多少个表需要自动更新的都要写上(最好每个版本只做一次)
         [dbHelper createAndAlterTable:@"tb_joke" modelClass:[SMJoke class] primaryKeys:@[@"xhid"]];
+        [dbHelper createAndAlterTable:@"tb_result" modelClass:[SMResult class] primaryKeys:@[@"date"]];
     }
     return self;
+}
+
+- (int)insertResult:(SMResult *)result {
+    SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
+    return [dbHelper insertOrReplaceTable:@"tb_result" models:@[result]];
 }
 
 - (NSString *)dbPath {

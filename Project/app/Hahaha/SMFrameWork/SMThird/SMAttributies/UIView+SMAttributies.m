@@ -6,6 +6,8 @@
 //  Copyright © 2015年 sumrise.com. All rights reserved.
 //
 
+#define NSLog(...)
+
 // 系统版本
 #define SMSystemVersion ([[[UIDevice currentDevice] systemVersion] floatValue])
 // 分隔符
