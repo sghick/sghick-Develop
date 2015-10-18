@@ -282,7 +282,7 @@
 
 
 + (BOOL)existTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db {
-    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    NSDictionary *columns = [SMDBHelper columnsFromModelClass:modelClass];
     return [self existTable:tableName columns:columns inDB:db];
 }
 
@@ -321,7 +321,7 @@
 }
 
 + (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
-    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    NSDictionary *columns = [SMDBHelper columnsFromModelClass:modelClass];
     return [self createAndAlterTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
 }
 
@@ -356,7 +356,7 @@
 }
 
 + (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
-    NSDictionary *columns = [SMDBHelper dictionaryDbPropertiesFromModelClass:modelClass];
+    NSDictionary *columns = [SMDBHelper columnsFromModelClass:modelClass];
     return [self alterTable:tableName columns:columns primaryKeys:primaryKeys inDB:db];
 }
 
@@ -423,10 +423,11 @@
         return 0;
     }
     int count = 0;
-    NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName model:[models firstObject]];
+    NSDictionary *columns = [self columnsFromModelClass:[models.firstObject class]];
+    NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
             count += isSuccess;
         }
     }
@@ -438,10 +439,11 @@
         return 0;
     }
     int count = 0;
-    NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName model:[models firstObject]];
+    NSDictionary *columns = [self columnsFromModelClass:[models class]];
+    NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
             count += isSuccess;
         }
     }
@@ -454,10 +456,11 @@
     }
     int count = 0;
     NSString *existSql = [SMDBHelper sqlForSearchWithPrimaryKeysTableName:tableName primaryKeys:primaryKeys];
-    NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName model:[models firstObject]];
+    NSDictionary *columns = [self columnsFromModelClass:[models.firstObject class]];
+    NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSDictionary *dict = [SMDBHelper dictionaryFromObject:model];
+            NSDictionary *dict = [SMDBHelper paramsFromObject:model];
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
             for (NSString *key in primaryKeys) {
                 [params setObject:dict[key] forKey:key];
@@ -468,7 +471,7 @@
                 isExist = [set intForColumn:@"count"];
             }
             if (!isExist) {
-                count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
+                count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
             }
         }
     }
@@ -498,8 +501,9 @@
     int count = 0;
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSString *sql = [SMDBHelper sqlForUpdateWithTableName:tableName model:[models firstObject] primaryKeys:primaryKeys];
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictionaryFromObject:model]];
+            NSDictionary *columns = [self columnsFromModelClass:[models.firstObject class]];
+            NSString *sql = [SMDBHelper sqlForUpdateWithTableName:tableName columns:columns primaryKeys:primaryKeys];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
             count += isSuccess;
         }
     }
@@ -541,10 +545,10 @@
 }
 
 #pragma mark - Utils
-+ (NSString *)sqlForInsertOrReplaceWithTableName:(NSString *)tableName model:(NSObject *)model {
++ (NSString *)sqlForInsertOrReplaceWithTableName:(NSString *)tableName columns:(NSDictionary *)columns {
     NSMutableString *properties = [NSMutableString string];
     NSMutableString *values = [NSMutableString string];
-    for (NSString *key in [self dictionaryFromObject:model].allKeys) {
+    for (NSString *key in columns.allKeys) {
         [properties appendFormat:@"%@,", key];
         [values appendFormat:@":%@,", key];
     }
@@ -554,10 +558,10 @@
     return sql;
 }
 
-+ (NSString *)sqlForInsertWithTableName:(NSString *)tableName model:(NSObject *)model {
++ (NSString *)sqlForInsertWithTableName:(NSString *)tableName columns:(NSDictionary *)columns {
     NSMutableString *properties = [NSMutableString string];
     NSMutableString *values = [NSMutableString string];
-    for (NSString *key in [self dictionaryFromObject:model].allKeys) {
+    for (NSString *key in columns.allKeys) {
         [properties appendFormat:@"%@,", key];
         [values appendFormat:@":%@,", key];
     }
@@ -572,9 +576,9 @@
     return sql;
 }
 
-+ (NSString *)sqlForUpdateWithTableName:(NSString *)tableName model:(NSObject *)model primaryKeys:(NSArray *)primaryKeys {
++ (NSString *)sqlForUpdateWithTableName:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys {
     NSMutableString *set = [NSMutableString string];
-    for (NSString *key in [self dictionaryFromObject:model].allKeys) {
+    for (NSString *key in columns.allKeys) {
         [set appendFormat:@"%@=:%@,", key, key];
     }
     [set replaceCharactersInRange:NSMakeRange(set.length - 1, 1) withString:@""];
@@ -625,7 +629,15 @@
     return nil;
 }
 
-+ (NSDictionary *)dictionaryDbPropertiesFromModelClass:(id)modelClass {
++ (NSDictionary *)columnsFromModelClasses:(NSArray *)modelClasses {
+    NSMutableDictionary *rtns = [NSMutableDictionary dictionary];
+    for (id modelClass in modelClasses) {
+        [rtns setDictionary:[self columnsFromModelClass:modelClass]];
+    }
+    return rtns;
+}
+
++ (NSDictionary *)columnsFromModelClass:(id)modelClass {
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:0];
     NSString *className = NSStringFromClass([modelClass class]);
     // 设置字段/主键
@@ -652,47 +664,21 @@
     return dict;
 }
 
-+ (NSDictionary *)dictionaryFromObject:(NSObject *)obj {
-    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:0];
-    for (NSString *key in [self dictionaryAllKeysFromObject:obj]) {
-        id value = [obj valueForKey:key];
-        [dict setValue:(value?value:[NSNull null]) forKey:key];
++ (NSDictionary *)paramsFromObjects:(NSArray *)objs {
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    for (NSObject *obj in objs) {
+        [dict setDictionary:[self paramsFromObject:obj]];
     }
     return dict;
 }
 
-+ (NSArray *)dictionaryAllKeysFromObject:(NSObject *)obj {
-    NSArray * allKeys = nil;
-    if (obj) {
-        NSMutableArray * keys = [[NSMutableArray alloc] initWithCapacity:0];
-        id classM = objc_getClass([NSStringFromClass([obj class]) UTF8String]);
-        // i 计数 、  outCount 放我们的属性个数
-        unsigned int outCount, i;
-        // 反射得到属性的个数
-        objc_property_t * properties = class_copyPropertyList(classM, &outCount);
-        // 循环 得到属性名称
-        for (i = 0; i < outCount; i++) {
-            objc_property_t property = properties[i];
-            // 获得属性名称
-            NSString * attributeName = [NSString stringWithUTF8String:property_getName(property)];
-            NSString *attributeString = [NSString stringWithUTF8String:property_getAttributes(property)];
-            NSArray *attributes = [attributeString componentsSeparatedByString:@","];
-            NSString *attributeType = [attributes firstObject];
-            NSString *dbType = dbTypeMapper[attributeType];
-            if (!dbType) {
-                attributeType = @"Other";
-                dbType = dbTypeMapper[attributeType];
-                if (kbParserOthers) {
-                    [keys addObject:attributeName];
-                }
-            } else {
-                [keys addObject:attributeName];
-            }
-        }
-        free(properties);
-        allKeys = keys;
++ (NSDictionary *)paramsFromObject:(NSObject *)obj {
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    for (NSString *key in [self columnsFromModelClass:[obj class]].allKeys) {
+        id value = [obj valueForKey:key];
+        [dict setValue:(value?value:[NSNull null]) forKey:key];
     }
-    return allKeys;
+    return dict;
 }
 
 @end

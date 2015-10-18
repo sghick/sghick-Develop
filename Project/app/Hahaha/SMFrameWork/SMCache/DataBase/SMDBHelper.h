@@ -57,15 +57,15 @@
 + (BOOL)dropTable:(NSString *)tableName inDB:(FMDatabase *)db;
 + (BOOL)renameTable:(NSString *)tableName newTableName:(NSString *)newTableName inDB:(FMDatabase *)db;
 + (BOOL)recreateTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
-+ (BOOL)recreateTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
++ (BOOL)recreateTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
 + (BOOL)createTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
-+ (BOOL)createTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
++ (BOOL)createTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
 + (BOOL)alterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
-+ (BOOL)alterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
++ (BOOL)alterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
 
 /** 自动创建/更新(推荐每个版本只做一次) */
 + (BOOL)createAndAlterTable:(NSString *)tableName modelClass:(id)modelClass primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
-+ (BOOL)createAndAlterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db; //
++ (BOOL)createAndAlterTable:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
 
 + (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable inDB:(FMDatabase *)db;
 + (int)insertTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db;
@@ -81,6 +81,19 @@
 
 + (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db;
 + (NSArray *)searchTableWithSql:(NSString *)sql params:(NSArray *)params modelClass:(id)modelClass inDB:(FMDatabase *)db;
+
+#pragma mark - Utils
++ (NSDictionary *)columnsFromModelClasses:(NSArray *)modelClasses;
++ (NSDictionary *)columnsFromModelClass:(id)modelClass;
++ (NSDictionary *)paramsFromObjects:(NSArray *)objs;
++ (NSDictionary *)paramsFromObject:(NSObject *)obj;
+
++ (NSString *)sqlForInsertOrReplaceWithTableName:(NSString *)tableName columns:(NSDictionary *)columns;
++ (NSString *)sqlForInsertWithTableName:(NSString *)tableName columns:(NSDictionary *)columns;
++ (NSString *)sqlForDeleteWithTableName:(NSString *)tableName;
++ (NSString *)sqlForUpdateWithTableName:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys;
++ (NSString *)sqlForSearchWithTableName:(NSString *)tableName;
++ (NSString *)sqlForSearchWithPrimaryKeysTableName:(NSString *)tableName primaryKeys:(NSArray *)primaryKeys;
 
 @end
 
