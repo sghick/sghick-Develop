@@ -632,7 +632,7 @@
 + (NSDictionary *)columnsFromModelClasses:(NSArray *)modelClasses {
     NSMutableDictionary *rtns = [NSMutableDictionary dictionary];
     for (id modelClass in modelClasses) {
-        [rtns setDictionary:[self columnsFromModelClass:modelClass]];
+        [rtns addEntriesFromDictionary:[self columnsFromModelClass:modelClass]];
     }
     return rtns;
 }
@@ -667,7 +667,7 @@
 + (NSDictionary *)paramsFromObjects:(NSArray *)objs {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     for (NSObject *obj in objs) {
-        [dict setDictionary:[self paramsFromObject:obj]];
+        [dict addEntriesFromDictionary:[self paramsFromObject:obj]];
     }
     return dict;
 }
