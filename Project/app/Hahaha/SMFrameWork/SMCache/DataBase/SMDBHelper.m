@@ -196,10 +196,10 @@
     return count;
 }
 
-- (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
+- (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys {
     __block int count = 0;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        count = [SMDBHelper insertIfNotExistPrimaryKeysTable:tableName models:models primaryKeys:primaryKeys inDB:db];
+        count = [SMDBHelper insertIfNotExistPrimaryKeysTable:tableName models:models conditionKeys:conditionKeys inDB:db];
     }];
     return count;
 }
@@ -228,10 +228,10 @@
     return count;
 }
 
-- (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys {
+- (int)updateTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys {
     __block int count = 0;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        count = [SMDBHelper updateTable:tableName models:models primaryKeys:primaryKeys inDB:db];
+        count = [SMDBHelper updateTable:tableName models:models conditionKeys:conditionKeys inDB:db];
     }];
     return count;
 }
@@ -427,7 +427,7 @@
     NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
             count += isSuccess;
         }
     }
@@ -443,26 +443,26 @@
     NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
             count += isSuccess;
         }
     }
     return count;
 }
 
-+ (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
++ (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys inDB:(FMDatabase *)db {
     if (!models || !models.count) {
         return 0;
     }
     int count = 0;
-    NSString *existSql = [SMDBHelper sqlForSearchWithPrimaryKeysTableName:tableName primaryKeys:primaryKeys];
+    NSString *existSql = [SMDBHelper sqlForSearchWithPrimaryKeysTableName:tableName conditionKeys:conditionKeys];
     NSDictionary *columns = [self columnsFromModelClass:[models.firstObject class]];
     NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSDictionary *dict = [SMDBHelper paramsFromObject:model];
+            NSDictionary *dict = [SMDBHelper dictFromObject:model];
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            for (NSString *key in primaryKeys) {
+            for (NSString *key in conditionKeys) {
                 [params setObject:dict[key] forKey:key];
             }
             FMResultSet *set = [db executeQuery:existSql withParameterDictionary:params];
@@ -471,7 +471,7 @@
                 isExist = [set intForColumn:@"count"];
             }
             if (!isExist) {
-                count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
+                count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
             }
         }
     }
@@ -494,7 +494,7 @@
     return isSuccess;
 }
 
-+ (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db {
++ (int)updateTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys inDB:(FMDatabase *)db {
     if (!models || !models.count) {
         return 0;
     }
@@ -502,8 +502,8 @@
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
             NSDictionary *columns = [self columnsFromModelClass:[models.firstObject class]];
-            NSString *sql = [SMDBHelper sqlForUpdateWithTableName:tableName columns:columns primaryKeys:primaryKeys];
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsFromObject:model]];
+            NSString *sql = [SMDBHelper sqlForUpdateWithTableName:tableName columns:columns conditionKeys:conditionKeys];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
             count += isSuccess;
         }
     }
@@ -576,7 +576,7 @@
     return sql;
 }
 
-+ (NSString *)sqlForUpdateWithTableName:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys {
++ (NSString *)sqlForUpdateWithTableName:(NSString *)tableName columns:(NSDictionary *)columns conditionKeys:(NSArray *)conditionKeys {
     NSMutableString *set = [NSMutableString string];
     for (NSString *key in columns.allKeys) {
         [set appendFormat:@"%@=:%@,", key, key];
@@ -584,7 +584,7 @@
     [set replaceCharactersInRange:NSMakeRange(set.length - 1, 1) withString:@""];
     
     NSMutableString *condition = [NSMutableString string];
-    for (NSString *key in primaryKeys) {
+    for (NSString *key in conditionKeys) {
         [condition appendFormat:@"%@=:%@ and ", key, key];
     }
     [condition replaceCharactersInRange:NSMakeRange(condition.length - 5, 5) withString:@""];
@@ -597,9 +597,9 @@
     return sql;
 }
 
-+ (NSString *)sqlForSearchWithPrimaryKeysTableName:(NSString *)tableName primaryKeys:(NSArray *)primaryKeys {
++ (NSString *)sqlForSearchWithPrimaryKeysTableName:(NSString *)tableName conditionKeys:(NSArray *)conditionKeys {
     NSMutableString *condition = [NSMutableString string];
-    for (NSString *key in primaryKeys) {
+    for (NSString *key in conditionKeys) {
         [condition appendFormat:@"%@=:%@ and ", key, key];
     }
     [condition replaceCharactersInRange:NSMakeRange(condition.length - 5, 5) withString:@""];
@@ -664,15 +664,15 @@
     return dict;
 }
 
-+ (NSDictionary *)paramsFromObjects:(NSArray *)objs {
++ (NSDictionary *)dictFromObjects:(NSArray *)objs {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     for (NSObject *obj in objs) {
-        [dict addEntriesFromDictionary:[self paramsFromObject:obj]];
+        [dict addEntriesFromDictionary:[self dictFromObject:obj]];
     }
     return dict;
 }
 
-+ (NSDictionary *)paramsFromObject:(NSObject *)obj {
++ (NSDictionary *)dictFromObject:(NSObject *)obj {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     for (NSString *key in [self columnsFromModelClass:[obj class]].allKeys) {
         id value = [obj valueForKey:key];

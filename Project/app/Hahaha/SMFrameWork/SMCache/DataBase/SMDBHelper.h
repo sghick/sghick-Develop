@@ -37,13 +37,13 @@
 - (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable;
 - (int)insertTable:(NSString *)tableName models:(NSArray *)models;
 - (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models;
-- (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
+- (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys;
 - (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params;
 
 - (int)deleteTable:(NSString *)tableName;
 - (int)deleteTableWithSql:(NSString*)sql params:(NSArray *)params;
 
-- (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys;
+- (int)updateTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys;
 - (int)updateTableWithSql:(NSString *)sql params:(NSArray *)params;
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass;
@@ -70,13 +70,13 @@
 + (int)insertTable:(NSString *)tableName anotherTable:(NSString *)anotherTable inDB:(FMDatabase *)db;
 + (int)insertTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db;
 + (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db;
-+ (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
++ (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys inDB:(FMDatabase *)db;
 + (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db;
 
 + (int)deleteTable:(NSString *)tableName inDB:(FMDatabase *)db;
 + (int)deleteTableWithSql:(NSString*)sql params:(NSArray *)params inDB:(FMDatabase *)db;
 
-+ (int)updateTable:(NSString *)tableName models:(NSArray *)models primaryKeys:(NSArray *)primaryKeys inDB:(FMDatabase *)db;
++ (int)updateTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys inDB:(FMDatabase *)db;
 + (int)updateTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db;
 
 + (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db;
@@ -85,15 +85,15 @@
 #pragma mark - Utils
 + (NSDictionary *)columnsFromModelClasses:(NSArray *)modelClasses;
 + (NSDictionary *)columnsFromModelClass:(id)modelClass;
-+ (NSDictionary *)paramsFromObjects:(NSArray *)objs;
-+ (NSDictionary *)paramsFromObject:(NSObject *)obj;
++ (NSDictionary *)dictFromObjects:(NSArray *)objs;
++ (NSDictionary *)dictFromObject:(NSObject *)obj;
 
 + (NSString *)sqlForInsertOrReplaceWithTableName:(NSString *)tableName columns:(NSDictionary *)columns;
 + (NSString *)sqlForInsertWithTableName:(NSString *)tableName columns:(NSDictionary *)columns;
 + (NSString *)sqlForDeleteWithTableName:(NSString *)tableName;
-+ (NSString *)sqlForUpdateWithTableName:(NSString *)tableName columns:(NSDictionary *)columns primaryKeys:(NSArray *)primaryKeys;
++ (NSString *)sqlForUpdateWithTableName:(NSString *)tableName columns:(NSDictionary *)columns conditionKeys:(NSArray *)conditionKeys;
 + (NSString *)sqlForSearchWithTableName:(NSString *)tableName;
-+ (NSString *)sqlForSearchWithPrimaryKeysTableName:(NSString *)tableName primaryKeys:(NSArray *)primaryKeys;
++ (NSString *)sqlForSearchWithPrimaryKeysTableName:(NSString *)tableName conditionKeys:(NSArray *)conditionKeys;
 
 @end
 

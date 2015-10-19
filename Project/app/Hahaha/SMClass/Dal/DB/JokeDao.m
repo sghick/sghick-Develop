@@ -38,7 +38,7 @@
 
 - (int)insertJokes:(NSArray *)jokes {
     SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
-    int count = [dbHelper insertIfNotExistPrimaryKeysTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
+    int count = [dbHelper insertIfNotExistPrimaryKeysTable:@"tb_joke" models:jokes conditionKeys:@[@"xhid"]];
     return count;
 }
 
@@ -56,13 +56,13 @@
 
 - (int)updateJokes:(NSArray *)jokes {
     SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
-    int count = [dbHelper updateTable:@"tb_joke" models:jokes primaryKeys:@[@"xhid"]];
+    int count = [dbHelper updateTable:@"tb_joke" models:jokes conditionKeys:@[@"xhid"]];
     return count;
 }
 
 - (int)updateJoke:(SMJoke *)joke {
     SMDBHelper *dbHelper = [SMDBManager dbHelperWithDBPath:[self dbPath]];
-    int count = [dbHelper updateTable:@"tb_joke" models:@[joke] primaryKeys:@[@"xhid"]];
+    int count = [dbHelper updateTable:@"tb_joke" models:@[joke] conditionKeys:@[@"xhid"]];
     return count;
 }
 
