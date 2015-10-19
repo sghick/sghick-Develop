@@ -53,7 +53,7 @@
     if (![dbName hasSuffix:@".db"]) {
         dbName = [DBName stringByAppendingPathExtension:@"db"];
     }
-    NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:DBName];
+    NSString *dbPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:dbName];
     self = [self initWithDBPath:dbPath];
     return self;
 }
