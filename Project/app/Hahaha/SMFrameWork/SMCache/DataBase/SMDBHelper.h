@@ -39,15 +39,19 @@
 - (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models;
 - (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys;
 - (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params;
+- (int)insertTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict;
 
 - (int)deleteTable:(NSString *)tableName;
-- (int)deleteTableWithSql:(NSString*)sql params:(NSArray *)params;
+- (int)deleteTableWithSql:(NSString *)sql params:(NSArray *)params;
+- (int)deleteTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict;
 
 - (int)updateTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys;
 - (int)updateTableWithSql:(NSString *)sql params:(NSArray *)params;
+- (int)updateTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict;
 
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass;
 - (NSArray *)searchTableWithSql:(NSString *)sql params:(NSArray *)params modelClass:(id)modelClass;
+- (NSArray *)searchTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict modelClass:(id)modelClass;
 
 #pragma mark - Static Methods
 + (NSString *)sqlFromTable:(NSString *)tableName inDB:(FMDatabase *)db;
@@ -72,21 +76,26 @@
 + (int)insertOrReplaceTable:(NSString *)tableName models:(NSArray *)models inDB:(FMDatabase *)db;
 + (int)insertIfNotExistPrimaryKeysTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys inDB:(FMDatabase *)db;
 + (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db;
++ (int)insertTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict inDB:(FMDatabase *)db;
 
 + (int)deleteTable:(NSString *)tableName inDB:(FMDatabase *)db;
 + (int)deleteTableWithSql:(NSString*)sql params:(NSArray *)params inDB:(FMDatabase *)db;
++ (int)deleteTableWithSql:(NSString*)sql paramsDict:(NSDictionary *)paramsDict inDB:(FMDatabase *)db;
 
 + (int)updateTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys inDB:(FMDatabase *)db;
 + (int)updateTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db;
++ (int)updateTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict inDB:(FMDatabase *)db;
 
 + (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass inDB:(FMDatabase *)db;
 + (NSArray *)searchTableWithSql:(NSString *)sql params:(NSArray *)params modelClass:(id)modelClass inDB:(FMDatabase *)db;
++ (NSArray *)searchTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict modelClass:(id)modelClass inDB:(FMDatabase *)db;
 
 #pragma mark - Utils
 + (NSDictionary *)columnsFromModelClasses:(NSArray *)modelClasses;
 + (NSDictionary *)columnsFromModelClass:(id)modelClass;
-+ (NSDictionary *)dictFromObjects:(NSArray *)objs;
-+ (NSDictionary *)dictFromObject:(NSObject *)obj;
++ (NSDictionary *)paramsDictFromObjects:(NSArray *)objs;
++ (NSDictionary *)paramsDictFromObject:(NSObject *)obj;
++ (id)modelFromDict:(NSDictionary *)dict modelClass:(id)modelClass;
 
 + (NSString *)sqlForInsertOrReplaceWithTableName:(NSString *)tableName columns:(NSDictionary *)columns;
 + (NSString *)sqlForInsertWithTableName:(NSString *)tableName columns:(NSDictionary *)columns;

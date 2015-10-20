@@ -212,6 +212,14 @@
     return count;
 }
 
+- (int)insertTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper insertTableWithSql:sql paramsDict:paramsDict inDB:db];
+    }];
+    return count;
+}
+
 - (int)deleteTable:(NSString *)tableName {
     __block int count = 0;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -224,6 +232,14 @@
     __block int count = 0;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         count = [SMDBHelper deleteTableWithSql:sql params:params inDB:db];
+    }];
+    return count;
+}
+
+- (int)deleteTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper deleteTableWithSql:sql paramsDict:paramsDict inDB:db];
     }];
     return count;
 }
@@ -244,6 +260,14 @@
     return count;
 }
 
+- (int)updateTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict {
+    __block int count = 0;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        count = [SMDBHelper updateTableWithSql:sql paramsDict:paramsDict inDB:db];
+    }];
+    return count;
+}
+
 - (NSArray *)searchTable:(NSString *)tableName modelClass:(id)modelClass {
     __block NSArray *rtns = nil;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -256,6 +280,14 @@
     __block NSArray *rtns = nil;
     [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         rtns = [SMDBHelper searchTableWithSql:sql params:params modelClass:modelClass inDB:db];
+    }];
+    return rtns;
+}
+
+- (NSArray *)searchTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict modelClass:(id)modelClass {
+    __block NSArray *rtns = nil;
+    [self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        rtns = [SMDBHelper searchTableWithSql:sql paramsDict:paramsDict modelClass:modelClass inDB:db];
     }];
     return rtns;
 }
@@ -427,7 +459,7 @@
     NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsDictFromObject:model]];
             count += isSuccess;
         }
     }
@@ -443,7 +475,7 @@
     NSString *sql = [SMDBHelper sqlForInsertOrReplaceWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsDictFromObject:model]];
             count += isSuccess;
         }
     }
@@ -460,7 +492,7 @@
     NSString *sql = [SMDBHelper sqlForInsertWithTableName:tableName columns:columns];
     for (id model in models) {
         if ([model isKindOfClass:[NSObject class]]) {
-            NSDictionary *dict = [SMDBHelper dictFromObject:model];
+            NSDictionary *dict = [SMDBHelper paramsDictFromObject:model];
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
             for (NSString *key in conditionKeys) {
                 [params setObject:dict[key] forKey:key];
@@ -471,7 +503,7 @@
                 isExist = [set intForColumn:@"count"];
             }
             if (!isExist) {
-                count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
+                count += [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsDictFromObject:model]];
             }
         }
     }
@@ -480,6 +512,11 @@
 
 + (int)insertTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db {
     int count = [db executeUpdate:sql withArgumentsInArray:params];
+    return count;
+}
+
++ (int)insertTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict inDB:(FMDatabase *)db {
+    int count = [db executeUpdate:sql withParameterDictionary:paramsDict];
     return count;
 }
 
@@ -494,6 +531,11 @@
     return isSuccess;
 }
 
++ (int)deleteTableWithSql:(NSString*)sql paramsDict:(NSDictionary *)paramsDict inDB:(FMDatabase *)db {
+    BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:paramsDict];
+    return isSuccess;
+}
+
 + (int)updateTable:(NSString *)tableName models:(NSArray *)models conditionKeys:(NSArray *)conditionKeys inDB:(FMDatabase *)db {
     if (!models || !models.count) {
         return 0;
@@ -503,7 +545,7 @@
         if ([model isKindOfClass:[NSObject class]]) {
             NSDictionary *columns = [self columnsFromModelClass:[models.firstObject class]];
             NSString *sql = [SMDBHelper sqlForUpdateWithTableName:tableName columns:columns conditionKeys:conditionKeys];
-            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper dictFromObject:model]];
+            BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:[SMDBHelper paramsDictFromObject:model]];
             count += isSuccess;
         }
     }
@@ -512,6 +554,11 @@
 
 + (int)updateTableWithSql:(NSString *)sql params:(NSArray *)params inDB:(FMDatabase *)db {
     BOOL isSuccess = [db executeUpdate:sql withArgumentsInArray:params];
+    return isSuccess;
+}
+
++ (int)updateTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict inDB:(FMDatabase *)db {
+    BOOL isSuccess = [db executeUpdate:sql withParameterDictionary:paramsDict];
     return isSuccess;
 }
 
@@ -526,6 +573,29 @@
         return 0;
     }
     FMResultSet * set = [db executeQuery:sql withArgumentsInArray:params];
+    NSMutableArray * rtns = [NSMutableArray array];
+    if (modelClass) {
+        while ([set next]) {
+            NSDictionary *dict = [set resultDictionary];
+            Class mdClass = [modelClass class];
+            NSObject *model = [[mdClass alloc] init];
+            [model setValuesForKeysWithDictionary:dict];
+            [rtns addObject:model];
+        }
+    } else {
+        while ([set next]) {
+            NSDictionary *dict = [set resultDictionary];
+            [rtns addObject:dict];
+        }
+    }
+    return rtns;
+}
+
++ (NSArray *)searchTableWithSql:(NSString *)sql paramsDict:(NSDictionary *)paramsDict modelClass:(id)modelClass inDB:(FMDatabase *)db {
+    if (!sql || !sql.length) {
+        return 0;
+    }
+    FMResultSet * set = [db executeQuery:sql withParameterDictionary:paramsDict];
     NSMutableArray * rtns = [NSMutableArray array];
     if (modelClass) {
         while ([set next]) {
@@ -653,8 +723,8 @@
         NSString *dbType = dbTypeMapper[attributeType];
         if (!dbType) {
             attributeType = @"Other";
-            dbType = dbTypeMapper[attributeType];
             if (kbParserOthers) {
+                dbType = dbTypeMapper[attributeType];
                 [dict setObject:dbType forKey:attributeName];
             }
         } else {
@@ -664,15 +734,30 @@
     return dict;
 }
 
-+ (NSDictionary *)dictFromObjects:(NSArray *)objs {
++ (id)modelFromDict:(NSDictionary *)dict modelClass:(id)modelClass {
+    NSObject *obj = [[[modelClass class] alloc] init];
+    NSDictionary *columns = [self columnsFromModelClass:modelClass];
+    for (NSString *key in columns.allKeys) {
+        id value = dict[key];
+        if (value) {
+            [obj setValue:value forKey:key];
+        }
+    }
+    return obj;
+}
+
++ (NSDictionary *)paramsDictFromObjects:(NSArray *)objs {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     for (NSObject *obj in objs) {
-        [dict addEntriesFromDictionary:[self dictFromObject:obj]];
+        NSDictionary *nDict = [self paramsDictFromObject:obj];
+        if (nDict) {
+            [dict addEntriesFromDictionary:nDict];
+        }
     }
     return dict;
 }
 
-+ (NSDictionary *)dictFromObject:(NSObject *)obj {
++ (NSDictionary *)paramsDictFromObject:(NSObject *)obj {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
     for (NSString *key in [self columnsFromModelClass:[obj class]].allKeys) {
         id value = [obj valueForKey:key];
