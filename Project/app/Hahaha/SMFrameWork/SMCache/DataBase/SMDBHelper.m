@@ -7,11 +7,19 @@
 //
 
 #import "SMDBHelper.h"
-#import "FMDB.h"
 #import <objc/runtime.h>
 
 #warning Config /*< 是否解析其它类型 */
 #define kbParserOthers 0
+
+NSString * const dbColumnTypeText = @"TEXT";
+NSString * const dbColumnTypeBlob = @"BLOB";
+NSString * const dbColumnTypeDate = @"DATE";
+NSString * const dbColumnTypeReal = @"REAL";
+NSString * const dbColumnTypeInteger = @"Integer";
+NSString * const dbColumnTypeFloat = @"FLOAT";
+NSString * const dbColumnTypeDouble = @"DOUBLE";
+NSString * const dbColumnTypeBoolean = @"BOOLEAN";
 
 /* 其它类型
  @"T@\"NSDictionary\"":@"TEXT",          \

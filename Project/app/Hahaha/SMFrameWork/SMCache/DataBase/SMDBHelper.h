@@ -9,6 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 
+
+extern NSString * const dbColumnTypeText;
+extern NSString * const dbColumnTypeBlob;
+extern NSString * const dbColumnTypeDate;
+extern NSString * const dbColumnTypeReal;
+extern NSString * const dbColumnTypeInteger;
+extern NSString * const dbColumnTypeFloat;
+extern NSString * const dbColumnTypeDouble;
+extern NSString * const dbColumnTypeBoolean;
+
 @class FMDatabaseQueue;
 @interface SMDBHelper : NSObject
 
