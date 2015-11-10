@@ -11,7 +11,10 @@
 #import "SGConfigHeader.h"
 #import "SGCommonHeader.h"
 
-@interface AppDelegate ()<NSComboBoxDataSource, NSComboBoxDelegate>
+@interface AppDelegate ()<
+    NSComboBoxDataSource,
+    NSComboBoxDelegate,
+    NSMatrixDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 
@@ -56,7 +59,10 @@
     manager.curItemName = self.dataSource[comboBox.indexOfSelectedItem];
     [manager save];
     [inputMatrix selectCellWithTag:manager.curConfig.inputType.intValue];
+    inputTextView.string = manager.curConfig.inputString;
     [outputMatrix selectCellWithTag:manager.curConfig.outputType.intValue];
+    outputTextView.string = manager.curConfig.outputString;
+    outputTextView.editable = manager.curConfig.outputType.intValue;
     
     // 设置执行工具类
     self.tool = [[SGTool alloc] initWithClassName:manager.curConfig.className];
@@ -81,6 +87,7 @@
 - (IBAction)outputMatrixClick:(id)sender {
     SGConfigManager * manager = [SGConfigManager defaultConfigManager];
     manager.curConfig.outputType = SGToString(@"%zi", outputMatrix.selectedTag);
+    outputTextView.editable = manager.curConfig.outputType.intValue;
     [manager save];
 }
 
@@ -89,15 +96,13 @@
     [self.tool setupBlock:^id{
         if (!manager.curConfig.inputType.boolValue) {
             return inputTextView.string;
-        }
-        else{
+        } else{
             return [NSString stringWithContentsOfFile:inputTextView.string encoding:NSUTF8StringEncoding error:nil];
         }
     } resultBlock:^(id result) {
         if (!manager.curConfig.outputType.boolValue) {
             outputTextView.string = result;
-        }
-        else{
+        } else{
             [result writeToFile:outputTextView.string atomically:YES encoding:NSUTF8StringEncoding error:nil];
         }
     }];

@@ -136,7 +136,9 @@
             for (NSDictionary * subDict in arr) {
                 WPBaseModel * model = [[mainClass alloc] init];
                 [model setValuesWithDictionary:subDict classNamesMapper:curDict];
-                [rtnArr addObject:model];
+                if (model) {
+                    [rtnArr addObject:model];
+                }
             }
         }
     }

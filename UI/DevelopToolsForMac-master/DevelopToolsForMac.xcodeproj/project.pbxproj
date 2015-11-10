@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5729B2761BEB28D600E71526 /* SGDevicesExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 5729B2751BEB28D600E71526 /* SGDevicesExport.m */; };
 		575D2DBE1B7C3F4E00543A14 /* Cryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DAF1B7C3F4E00543A14 /* Cryptor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		575D2DBF1B7C3F4E00543A14 /* SGDalHeaderCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DB21B7C3F4E00543A14 /* SGDalHeaderCreate.m */; };
 		575D2DC01B7C3F4E00543A14 /* SGDalSourceCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 575D2DB41B7C3F4E00543A14 /* SGDalSourceCreate.m */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5729B2741BEB28D600E71526 /* SGDevicesExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDevicesExport.h; sourceTree = "<group>"; };
+		5729B2751BEB28D600E71526 /* SGDevicesExport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDevicesExport.m; sourceTree = "<group>"; };
 		575D2DAE1B7C3F4E00543A14 /* Cryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cryptor.h; sourceTree = "<group>"; };
 		575D2DAF1B7C3F4E00543A14 /* Cryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cryptor.m; sourceTree = "<group>"; };
 		575D2DB11B7C3F4E00543A14 /* SGDalHeaderCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDalHeaderCreate.h; sourceTree = "<group>"; };
@@ -99,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5729B2731BEB285800E71526 /* T_devicesExport */ = {
+			isa = PBXGroup;
+			children = (
+				5729B2741BEB28D600E71526 /* SGDevicesExport.h */,
+				5729B2751BEB28D600E71526 /* SGDevicesExport.m */,
+			);
+			path = T_devicesExport;
+			sourceTree = "<group>";
+		};
 		575D2DAC1B7C3F4E00543A14 /* T_cryptor加密解密 */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +256,7 @@
 		FE9416841B25728A00569018 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				5729B2731BEB285800E71526 /* T_devicesExport */,
 				575D2DAC1B7C3F4E00543A14 /* T_cryptor加密解密 */,
 				575D2DB01B7C3F4E00543A14 /* T_modelCreate */,
 				575D2DB91B7C3F4E00543A14 /* T_unicode2chinese */,
@@ -392,6 +405,7 @@
 				575D2DBF1B7C3F4E00543A14 /* SGDalHeaderCreate.m in Sources */,
 				575D2DC01B7C3F4E00543A14 /* SGDalSourceCreate.m in Sources */,
 				FEFF9E811B26BCB4001E44D5 /* WPBaseModel.m in Sources */,
+				5729B2761BEB28D600E71526 /* SGDevicesExport.m in Sources */,
 				FE9416631B25721600569018 /* main.m in Sources */,
 				FE9416971B25904600569018 /* SGConfigManager.m in Sources */,
 				FEEA76B91B281F9C0095C11B /* SGTool.m in Sources */,

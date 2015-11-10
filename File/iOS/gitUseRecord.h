@@ -58,6 +58,7 @@
  把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
  由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
  e)从此，只要本地作了提交，就可以通过命令：git push origin master 把本地master分支的最新修改推送至GitHub，现在，你就拥有了真正的分布式版本库！
+ f)设置推送分支为当前分支：git config --global push.default current
  
  2)也可以自己搭建
  

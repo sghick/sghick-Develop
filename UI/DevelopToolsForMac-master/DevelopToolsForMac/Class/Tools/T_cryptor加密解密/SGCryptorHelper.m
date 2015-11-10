@@ -8,6 +8,7 @@
 
 #import "SGCryptorHelper.h"
 #import "Cryptor.h"
+#import "SGConfigManager.h"
 
 @implementation SGCryptorHelper
 
@@ -21,14 +22,18 @@
         }
         NSString *key = inputs[0];
         NSString *searl = inputs[1];
-        NSString *edes = [self encodeDESwithKey:key searl:searl];
+        NSString *edes = [SGCryptorHelper encodeDESwithKey:key searl:searl];
         NSLog(@"%@", edes);
+        SGConfigManager * manager = [SGConfigManager defaultConfigManager];
+        if (manager.curConfig.outputType.intValue == 1 && manager.curConfig.outputString && manager.curConfig.outputString.length) {
+            [edes writeToFile:manager.curConfig.outputString atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        }
         block(edes);
     }
 }
 
-- (NSString *)encodeDESwithKey:(NSString *)key searl:(NSString *)searl {
-    NSMutableString *rtn = [[NSMutableString alloc] initWithCapacity:0];
++ (NSString *)encodeDESwithKey:(NSString *)key searl:(NSString *)searl {
+    NSMutableString *rtn = [NSMutableString string];
     NSString *str = [Cryptor encodeDES:searl key:key];
     const char *chars = [str cStringUsingEncoding:NSUTF8StringEncoding];
     [rtn appendString:[NSString stringWithCString:chars encoding:NSUTF8StringEncoding]];
@@ -36,7 +41,7 @@
     for (int i = 0; i < strlen(chars); i++) {
         [rtn appendFormat:@"%d,\n", chars[i]];
     }
-    return rtn;
+    return [rtn copy];
 }
 
 @end

@@ -105,11 +105,26 @@
 			<key>inputType</key>
 			<string>0</string>
 			<key>outputType</key>
-			<string>0</string>
+			<string>1</string>
 			<key>inputString</key>
 			<string></string>
 			<key>outputString</key>
-			<string></string>
+			<string>/Users/buding/Desktop/output.txt</string>
+		</dict>
+		<key>8-DevicesExport</key>
+		<dict>
+			<key>className</key>
+			<string>SGDevicesExport</string>
+			<key>helpMsg</key>
+			<string>格式是:  静态html文件</string>
+			<key>inputType</key>
+			<string>1</string>
+			<key>outputType</key>
+			<string>1</string>
+			<key>inputString</key>
+			<string>/Users/buding/Downloads/iOS Devices - Apple Developer.html</string>
+			<key>outputString</key>
+			<string>/Users/buding/Desktop/devices.txt</string>
 		</dict>
 	</dict>
 </dict>

@@ -20,7 +20,6 @@
 
 - (NSString *)formateJsonWithInputString:(NSString *)inputString{
     static NSString * const WPFORMATE = @"{\n%@\n}";
-    NSMutableString * outputString = [[NSMutableString alloc] initWithCapacity:0];
     NSArray * rows = [inputString componentsSeparatedByString:@"\n"];
     NSString * content = nil;
     for (NSString * row in rows) {
@@ -38,7 +37,7 @@
             }
         }
     }
-    outputString = [NSMutableString stringWithFormat:WPFORMATE, content];
+    NSString *outputString = [NSString stringWithFormat:WPFORMATE, content];
     return outputString;
 }
 
