@@ -10,8 +10,6 @@
  把要加的文件放在新建的文件夹里，在terminal中执行git add <fileName1> <fileName2>后（没有反应），再用git status 查看有哪些更改，再git commit -m “注释”,再git status查看还有没有更新的。
  git log -1 可以显示最近一次的提交
  
- 
- 
  3.git修改提交的用户名和Email
  git config --global user.name "dingzhiwen"
  git config --global user.email dingzhiwen@buding.cn
