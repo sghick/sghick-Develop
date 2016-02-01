@@ -13,23 +13,18 @@
 @implementation SMModel
 
 - (id)valueForUndefinedKey:(NSString *)key{
-    SMLog(@"getUndifineKey:%@ in %@", key, NSStringFromClass([self class]));
+    NSLog(@"getUndifineKey:%@ in %@", key, NSStringFromClass([self class]));
     return nil;
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    SMLog(@"setValueForUndefinedKey:%@ in %@", key, NSStringFromClass([self class]));
+    NSLog(@"setValueForUndefinedKey:%@ in %@", key, NSStringFromClass([self class]));
 }
 
 - (NSString *)description{
-    return SMToString(@"%@", self.dictionary);
+    return [NSString stringWithFormat:@"%@", self.dictionary];
 }
 
-/**
- *  返回一个字典对象
- *
- *  @return 一个字典对象
- */
 - (NSDictionary *)dictionary{
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:0];
     id classM = objc_getClass([NSStringFromClass([self class]) UTF8String]);
@@ -48,13 +43,13 @@
     return dict;
 }
 
-/**
- *  设置model对象
- *
- *  @param dict   要设置的值
- *  @param mapper 映射
- */
-- (void)setValuesWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper{
+- (void)setValuesWithDictionary:(NSDictionary *)dict {
+    NSDictionary *mapper = [[self class] mappers];
+    [self setValuesWithDictionary:dict classNamesMapper:mapper];
+}
+
+// (private)
+- (void)setValuesWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper {
     NSDictionary * newDict = [SMModel dictionaryFormateToString:dict];
     [self setValuesForKeysWithDictionary:newDict];
     if (!mapper) {
@@ -79,39 +74,50 @@
     }
 }
 
-/**
- *  设置并返回一个数组
- *
- *  @param dict   要设置的值
- *  @param mapper 映射
- *
- *  @return 数组
- */
-+ (NSArray *)arrayWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper{
++ (NSArray *)arrayWithArrDictionary:(NSArray *)arrDict {
+    NSDictionary *mapper = [self arrayMappers];
+    return [self arrayWithDictionary:arrDict classNamesMapper:mapper];
+}
+
++ (NSArray *)arrayWithDictionary:(NSDictionary *)dict arrayKey:(NSString *)arrayKey {
+    NSDictionary *mapper = [self arrayMappers];
+    NSArray *dictArr = [dict objectForKey:arrayKey];
+    return [self arrayWithDictionary:dictArr classNamesMapper:mapper];
+}
+
+// (private)
++ (NSArray *)arrayWithDictionary:(id)dict classNamesMapper:(NSDictionary *)mapper{
     NSMutableArray * rtnArr = [[NSMutableArray alloc] initWithCapacity:0];
     Class mainClass = NSClassFromString([mapper objectForKey:parserReturnTypeMainArrayOfKey]);
     if (!mainClass) {
-        SMLog(@"%@:未设置key:parserReturnTypeMainArrayOfKey的类名映射！", kLogWarming);
+        NSLog(@"未设置key:parserReturnTypeMainArrayOfKey的类名映射！");
     }
-    for (NSString * key in mapper.allKeys) {
-        if ([NSStringFromClass(mainClass) isEqualToString:[mapper objectForKey:key]]) {
-            NSArray * arr = [dict objectForKey:key];
-            NSMutableDictionary * curDict = [[NSMutableDictionary alloc] initWithDictionary:mapper];
-            [curDict removeObjectForKey:parserReturnTypeMainArrayOfKey];
-            [curDict removeObjectForKey:key];
-            for (NSDictionary * subDict in arr) {
-                SMModel * model = [[mainClass alloc] init];
-                [model setValuesWithDictionary:subDict classNamesMapper:curDict];
-                [rtnArr addObject:model];
+    if ([dict isKindOfClass:[NSArray class]]) {
+        for (NSDictionary * subDict in dict) {
+            SMModel * model = [[mainClass alloc] init];
+            [model setValuesWithDictionary:subDict classNamesMapper:mapper];
+            [rtnArr addObject:model];
+        }
+    } else if ([dict isKindOfClass:[NSArray class]]) {
+        for (NSString * key in mapper.allKeys) {
+            if ([NSStringFromClass(mainClass) isEqualToString:[mapper objectForKey:key]]) {
+                NSArray * arr = [dict objectForKey:key];
+                NSMutableDictionary * curDict = [[NSMutableDictionary alloc] initWithDictionary:mapper];
+                [curDict removeObjectForKey:parserReturnTypeMainArrayOfKey];
+                [curDict removeObjectForKey:key];
+                for (NSDictionary * subDict in arr) {
+                    SMModel * model = [[mainClass alloc] init];
+                    [model setValuesWithDictionary:subDict classNamesMapper:curDict];
+                    [rtnArr addObject:model];
+                }
             }
         }
+    } else {
+        NSLog(@"%@类型暂时无法处理", [NSArray class]);
     }
     return rtnArr;
 }
 
-/**
- *  将字典中的value转成NSString类型
- */
 + (NSDictionary *)dictionaryFormateToString:(NSDictionary *)dict{
     NSMutableDictionary * rtn = [NSMutableDictionary dictionaryWithDictionary:dict];
     NSArray * keys = [dict allKeys];
@@ -121,10 +127,22 @@
             // 什么也不做
         }
         else{
-            [rtn setValue:SMToString(@"%@", value) forKey:key];
+            [rtn setValue:[NSString stringWithFormat:@"%@", value] forKey:key];
         }
     }
     return rtn;
+}
+
++ (NSMutableDictionary *)mappers {
+    NSMutableDictionary *mps = [NSMutableDictionary dictionary];
+    [mps setObject:NSStringFromClass([self class]) forKey:parserReturnTypeMainModelOfKey];
+    return mps;
+}
+
++ (NSMutableDictionary *)arrayMappers {
+    NSMutableDictionary *mps = [NSMutableDictionary dictionary];
+    [mps setObject:NSStringFromClass([self class]) forKey:parserReturnTypeMainArrayOfKey];
+    return mps;
 }
 
 @end
