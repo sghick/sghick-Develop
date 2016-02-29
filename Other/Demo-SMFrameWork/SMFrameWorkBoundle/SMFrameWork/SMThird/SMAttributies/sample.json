@@ -1,0 +1,87 @@
+{
+    "formatSample1" : {
+        "percentageFrame" : {
+            "screenScale" : "-,-",
+            "useFrame" : "-",
+            "netType" : "7",
+            "scale" : "-,-",
+            "size" : "-,-",
+            "insets" : "1,1,1,1"
+        }
+    },
+    "formatSample2" : {
+        "percentageFrame" : {
+            "screenScale" : "-,-",
+            "useFrame" : "-",
+            "netType" : "7",
+            "netFrame" : "1,1,2,2",
+        }
+    },
+    "frame1_1" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "screenScale" : "10,16",
+            "size" : "2,4",
+            "insets" : "6,1,-,-"
+        }
+    },
+    "frame1_2" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "screenScale" : "10,16",
+            "size" : "2,4",
+            "insets" : "6,4,-,-"
+        }
+    },
+    "frame1_3" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "screenScale" : "10,16",
+            "size" : "2,4",
+            "insets" : "6,7,-,-"
+        }
+    },
+    "frame2_1" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "useFrame" : "0",
+            "screenScale" : "10,16",
+            "netFrame" : "1,6,2,4"
+        }
+    },
+    "frame2_2" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "useFrame" : "0",
+            "screenScale" : "10,16",
+            "netFrame" : "4,6,2,4"
+        }
+    },
+    "frame2_3" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "useFrame" : "0",
+            "screenScale" : "10,16",
+            "netFrame" : "7,6,2,4"
+        }
+    },
+    "frame3" : {
+        "percentageFrame" : {
+            "netType" : "3",
+            "screenScale" : "10,16",
+            "netFrame" : "1,1,8,14"
+        }
+    },
+    "frame3_1" : {
+        "percentageFrame" : {
+            "screenScale" : "10,16",
+            "netFrame" : "1,1,8,14"
+        }
+    },
+    "frame3_2" : {
+        "percentageFrame" : {
+            "screenScale" : "10,16",
+            "netFrame" : "1,1,8,14"
+        }
+    }
+}

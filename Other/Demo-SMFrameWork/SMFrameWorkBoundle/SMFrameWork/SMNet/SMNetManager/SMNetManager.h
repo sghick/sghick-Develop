@@ -36,6 +36,6 @@ typedef enum {
  *
  *  @return 网络状态
  */
-+ (SMNetStatus *)netStatus;
++ (SMNetStatus)netStatus;
 
 @end

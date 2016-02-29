@@ -9,15 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "SMModel.h"
 
-typedef enum {
-    WPCellStateOff    = 0,
-    WPCellStateOn
-}SMCellState;
+typedef NS_ENUM(NSInteger, SMCellState) {
+    SMCellStateOff    = 0,
+    SMCellStateOn
+};
 
-typedef enum {
-    WPCellStateTypeA    = 0,
-    WPCellStateTypeB
-}SMCellStateType;
+typedef NS_ENUM(NSInteger, SMCellStateType) {
+    SMCellStateTypeA    = 0,
+    SMCellStateTypeB
+};
+
+typedef NS_OPTIONS(NSInteger, SMMjOperationType) {
+    SMMjOperationTypeDefault    = 0xFFFFFF,
+    SMMjOperationTypeHeader     = 1 << 1,
+    SMMjOperationTypeFooter     = 1 << 2
+};
 
 @interface SMCellStateModel : SMModel
 
@@ -91,22 +97,29 @@ typedef void(^MJOperationBlock)(void);
 /**
  *  初始化数据源并添加刷新加载的block
  *
- *  @param operaBlock  刷新
- *
- *  @return 初始化好的数据源
+ *  @param operaBlock   刷新(全开样式，并且加载立即刷新)
  */
-- (NSMutableArray *)mj_addMJRefreshOperationBlock:(OperationBlock)operationBlock;
+- (void)mj_addMJRefreshOperationBlock:(OperationBlock)operationBlock;
+
+/**
+ *  初始化数据源并添加刷新加载的block
+ *
+ *  @param operaBlock       刷新
+ *  @param operationType    添加样式(加footer还是header)
+ *  @param refresh          立即刷新
+ */
+- (void)mj_addMJRefreshOperationBlock:(OperationBlock)operationBlock operationType:(SMMjOperationType)operationType refresh:(BOOL)refresh;
 
 /**
  *  填充数据源
  *
  *  @param dataSource    原数据源
- *  @param request       请求
+ *  @param curPage       请求的页数
  *  @param newDataSource 新数据源
  *
  *  @return 刷新加载后应该加载的页码
  */
-- (int)mj_finishedFillDataSource:(NSMutableArray *)dataSource request:(SMUrlRequest *)request newDataSource:(NSArray *)newDataSource;
+- (int)mj_finishedFillDataSource:(NSMutableArray *)dataSource curPage:(int)curPage newDataSource:(NSArray *)newDataSource;
 
 /**
  *  结束刷新加载

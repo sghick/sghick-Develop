@@ -62,8 +62,8 @@ static int staticPage = 1;
     // 创建索引
     for (int i = 0; i < dataSource.count; i++) {
         SMCellStateModel * model = [[SMCellStateModel alloc] init];
-        model.type = WPCellStateTypeA;
-        model.state = WPCellStateOff;
+        model.type = SMCellStateTypeA;
+        model.state = SMCellStateOff;
         model.index = i;
         [rtn addObject:model];
     }
@@ -78,7 +78,7 @@ static int staticPage = 1;
     // 取得索引
     SMCellStateModel * iDataSource = [indexDataSource objectAtIndex:indexPath.row];
     // 当前cell类型B
-    if (iDataSource.type == WPCellStateTypeB) {
+    if (iDataSource.type == SMCellStateTypeB) {
         identifier = identifiers[1];
     }
     // 从复用队列中取出该类型的cell
@@ -93,7 +93,7 @@ static int staticPage = 1;
     // 操作行索引下标,默认当前选中
     NSIndexPath * curIndexPath = indexPath;
     // 如果是类型A的cell
-    if (iDataSource.type == WPCellStateTypeA) {
+    if (iDataSource.type == SMCellStateTypeA) {
         // 操作的cellA
         rtn.operateCellA = [self cellForRowAtIndexPath:indexPath];
         // 操作索引为下一个
@@ -101,14 +101,14 @@ static int staticPage = 1;
         // 操作的cellB
         rtn.operateCellB = [self cellForRowAtIndexPath:curIndexPath];
         // 如果是关闭状态,插入一个cell,做打开效果
-        if (iDataSource.state == WPCellStateOff) {
+        if (iDataSource.state == SMCellStateOff) {
             // 打开状态
             rtn.fold = YES;
             // 修改选中数据源为打开状态
-            iDataSource.state = WPCellStateOn;
+            iDataSource.state = SMCellStateOn;
             // 插入B类cell的数据源
             SMCellStateModel * model = [[SMCellStateModel alloc] init];
-            model.type = WPCellStateTypeB;
+            model.type = SMCellStateTypeB;
             model.index = iDataSource.index;
             [dataSource insertObject:model atIndex:curIndexPath.row];
             // 编辑表
@@ -121,7 +121,7 @@ static int staticPage = 1;
             // 关闭状态
             rtn.fold = NO;
             // 修改选中数据源为关闭状态
-            iDataSource.state = WPCellStateOff;
+            iDataSource.state = SMCellStateOff;
             // 删除B类cell的数据源
             [dataSource removeObjectAtIndex:curIndexPath.row];
             // 编辑表
@@ -142,7 +142,7 @@ static int staticPage = 1;
         rtn.operateCellA = [self cellForRowAtIndexPath:curIndexPath];
         // 修改操作数据源为关闭状态
         iDataSource = [dataSource objectAtIndex:curIndexPath.row];
-        iDataSource.state = WPCellStateOff;
+        iDataSource.state = SMCellStateOff;
         // 删除选中cell,做关闭效果
         [dataSource removeObjectAtIndex:indexPath.row];
         // 编辑表
@@ -202,30 +202,40 @@ static char SMMjOperationKey;
     return self.mj_operation;
 }
 
-- (NSMutableArray *)mj_addMJRefreshOperationBlock:(OperationBlock)operationBlock{
+- (void)mj_addMJRefreshOperationBlock:(OperationBlock)operationBlock{
+    [self mj_addMJRefreshOperationBlock:operationBlock operationType:SMMjOperationTypeDefault refresh:YES];
+}
+
+- (void)mj_addMJRefreshOperationBlock:(OperationBlock)operationBlock operationType:(SMMjOperationType)operationType refresh:(BOOL)refresh {
     SMMjOperation * operation = [self addOperation];
     operation.page = 1;
     operation.operationBlock = operationBlock;
-    [self addLegendHeaderWithRefreshingBlock:operation.mjHeaderOperationBlock];
-    [self addLegendFooterWithRefreshingBlock:operation.mjFooterOperationBlock];
-    if (operation.mjHeaderOperationBlock) {
-        operation.mjHeaderOperationBlock();
+    if (operationType&SMMjOperationTypeHeader) {
+        [self addLegendHeaderWithRefreshingBlock:operation.mjHeaderOperationBlock];
     }
-    return [[NSMutableArray alloc] initWithCapacity:0];
+    if (operationType&SMMjOperationTypeFooter) {
+        [self addLegendFooterWithRefreshingBlock:operation.mjFooterOperationBlock];
+    }
+    if (refresh) {
+        if (operation.mjHeaderOperationBlock) {
+            operation.mjHeaderOperationBlock();
+        }
+    }
 }
 
-- (int)mj_finishedFillDataSource:(NSMutableArray *)dataSource request:(SMUrlRequest *)request newDataSource:(NSArray *)newDataSource{
-    int pageNumber = [[request.paramsDict objectForKey:@"pageNumber"] intValue];
-    if (pageNumber == 1) {
+- (int)mj_finishedFillDataSource:(NSMutableArray *)dataSource curPage:(int)curPage newDataSource:(NSArray *)newDataSource {
+    if (curPage == 1) {
         [dataSource removeAllObjects];
         [dataSource addObjectsFromArray:newDataSource];
+        [self.footer endRefreshing];
         [self.header endRefreshing];
     }
     else{
         [dataSource addObjectsFromArray:newDataSource];
         [self.footer endRefreshing];
+        [self.header endRefreshing];
     }
-    return pageNumber;
+    return curPage;
 }
 
 - (void)mj_faildRefresh{

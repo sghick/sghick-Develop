@@ -28,16 +28,18 @@ static NSString *requestMethodLocal = @"LOCAL";
 
 @interface SMUrlRequest : NSURLRequest
 
-@property (assign, nonatomic) id delegate;                          /*< 请求完成后 要调用的委托对象 */
-@property (assign, nonatomic) SEL finishedSelector;                 /*< 请求成功时 完成时调用的方法(不使用协议的实现方式) */
-@property (assign, nonatomic) SEL faildSelector;                    /*< 请求失败时 要调用的方法 */
-@property (strong, nonatomic) NSString *key;                        /*< 唯一标识 */
-@property (strong, nonatomic) NSString *requestMethod;              /*< 请求方式,默认为requestMethodGet */
-@property (strong, nonatomic) NSString *requestLocalPathExtension;  /*< 请求方式为requestMethodLocal,文件的扩展名,默认为json */
-@property (strong, readonly, nonatomic) NSString *urlString;        /*< 设置此属性会同时给父类的URL属性赋值，包括schem */
-@property (strong, nonatomic) NSMutableArray *paramsFiles;          /*< 文件-二进制格式 WPUrlRequestParamFile */
-@property (strong, nonatomic) NSMutableDictionary *paramsDict;      /*< 请求参数-POST/FILE请求用 请求用到的参数列表 字典 */
-@property (strong, nonatomic) NSMutableDictionary *parserMapper;    /*< 解析数据映射  响应用到的字典 */
+@property (assign, nonatomic) id delegate;                              /*< 请求完成后 要调用的委托对象 */
+@property (assign, nonatomic) SEL finishedSelector;                     /*< 请求成功时 完成时调用的方法(不使用协议的实现方式) */
+@property (assign, nonatomic) SEL faildSelector;                        /*< 请求失败时 要调用的方法 */
+@property (strong, nonatomic) NSString *key;                            /*< 和page作为唯一标识 */
+@property (assign, nonatomic) int page;                                 /*< 和key作为唯一标识 */
+@property (strong, nonatomic) NSString *requestMethod;                  /*< 请求方式,默认为requestMethodGet */
+@property (strong, nonatomic) NSString *requestLocalPathExtension;      /*< 请求方式为requestMethodLocal,文件的扩展名,默认为json */
+@property (strong, readonly, nonatomic) NSString *urlString;            /*< 设置此属性会同时给父类的URL属性赋值，包括schem */
+@property (strong, nonatomic) NSMutableArray *paramsFiles;              /*< 文件-二进制格式 WPUrlRequestParamFile */
+@property (strong, nonatomic) NSMutableDictionary *paramsDict;          /*< 请求参数-POST/FILE请求用 请求用到的参数列表 字典 */
+@property (strong, nonatomic) NSMutableDictionary *parserMapper;        /*< 解析数据映射  响应用到的字典 */
+@property (strong, nonatomic) NSMutableDictionary *parserKeysMapper;    /*< 解析数据映射  响应用到的字典 */
 
 // 返回结果
 @property (strong, nonatomic) NSString *responseErrorCode;          /*< 用于保存错误信息 */

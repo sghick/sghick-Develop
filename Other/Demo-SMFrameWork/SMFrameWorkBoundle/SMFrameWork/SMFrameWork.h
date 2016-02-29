@@ -14,6 +14,7 @@
 #import "SMHeader.h"
 #import "SMLog.h"
 #import "SMConfig.h"
+#import "UIView+SMAttributies.h"
 
 // 可以使用Pod管理
 #import "AFNetworking.h"

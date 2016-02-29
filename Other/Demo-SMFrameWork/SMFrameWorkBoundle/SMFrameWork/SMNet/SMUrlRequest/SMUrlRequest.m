@@ -7,7 +7,6 @@
 //
 
 #import "SMUrlRequest.h"
-#import "SMDBManager.h"
 
 @implementation SMUrlRequestParamFile
 
@@ -63,9 +62,10 @@ static NSString *docListStr = @"";
     // 设置默认请求方法
     _requestMethod = requestMethodGet;
     // 初始化参数
-    _paramsFiles = [[NSMutableArray alloc] initWithCapacity:0];
-    _paramsDict = [[NSMutableDictionary alloc] initWithCapacity:0];
-    _parserMapper = [[NSMutableDictionary alloc] initWithCapacity:0];
+    _paramsFiles = [NSMutableArray array];
+    _paramsDict = [NSMutableDictionary dictionary];
+    _parserMapper = [NSMutableDictionary dictionary];
+    _parserKeysMapper = [NSMutableDictionary dictionary];
     if (URL) {
         _urlString = URL.absoluteString;
     }
@@ -186,10 +186,10 @@ static NSString *docListStr = @"";
         SMModel *model = [[mainModelClass alloc] init];
         NSMutableDictionary * newMapper = [NSMutableDictionary dictionaryWithDictionary:self.parserMapper];
         [newMapper removeObjectForKey:parserReturnTypeMainModelOfKey];
-        [model setValuesWithDictionary:self.responseDictionary classNamesMapper:newMapper];
+        [model setValuesWithDictionary:self.responseDictionary classNamesMapper:newMapper keysMapper:self.parserKeysMapper];
         _responseParserObject = model;
-    } else{
-        _responseParserObject = [SMModel arrayWithDictionary:self.responseDictionary classNamesMapper:self.parserMapper];
+    } else {
+        _responseParserObject = [SMModel arrayWithDictionary:self.responseDictionary classNamesMapper:self.parserMapper keysMapper:self.parserKeysMapper];
     }
     return _responseParserObject;
 }

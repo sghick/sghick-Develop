@@ -58,21 +58,19 @@
 #warning:根据需要设置
     //工程中server.php 对应php版本的服务器端
     
-    //    //发送json数据
-    //    _sharedClient.requestSerializer = [AFJSONRequestSerializer serializer];
-    //    //响应json数据
-    //    _sharedClient.responseSerializer  = [AFJSONResponseSerializer serializer];
+//    //发送json数据
+//    sharedClient.requestSerializer = [AFJSONRequestSerializer serializer];
+//    //响应json数据
+//    sharedClient.responseSerializer  = [AFJSONResponseSerializer serializer];
     
     //发送二进制数据
     sharedClient.requestSerializer = [AFHTTPRequestSerializer serializer];
     //响应二进制数据
-    //    _sharedClient.responseSerializer  = [AFHTTPResponseSerializer serializer];
+    sharedClient.responseSerializer  = [AFHTTPResponseSerializer serializer];
     
     //    设置响应内容格式
     
-    //    _sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"multipart/form-data", @"application/json", @"text/json", @"text/javascript",@"text/html", nil];
-    
-    //    _sharedClient.responseSerializer.acceptableCoqntentTypes = [NSSet setWithObjects:@"multipart/form-data", @"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+//    sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"multipart/form-data", @"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     
 #warning:测试时用
     if ( __SM_DEBUG__ ) {

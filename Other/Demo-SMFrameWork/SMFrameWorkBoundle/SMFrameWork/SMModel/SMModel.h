@@ -10,37 +10,28 @@ static NSString * parserReturnTypeMainModelOfKey = @"__parserReturnTypeMainModel
 static NSString * parserReturnTypeMainArrayOfKey = @"__parserReturnTypeMainArrayOfKey__";
 
 #import <Foundation/Foundation.h>
+#import "NSUserDefaults+SMModel.h"
 
-@interface SMModel : NSObject
+@interface SMModel : NSObject <
+NSCoding
+>
 
-/**
- *  返回一个字典对象
- *
- *  @return 一个字典对象
- */
+@property (strong, nonatomic) NSArray *allKeys;
+@property (strong, readonly, nonatomic) NSDictionary *keysMapper;
+
 - (NSDictionary *)dictionary;
 
-/**
- *  设置model对象
- *
- *  @param dict   要设置的值
- *  @param mapper 映射
- */
 - (void)setValuesWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper;
+- (void)setValuesWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper keysMapper:(NSDictionary *)keysMapper;
 
-/**
- *  设置并返回一个数组
- *
- *  @param dict   要设置的值
- *  @param mapper 映射
- *
- *  @return 数组
- */
 + (NSArray *)arrayWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper;
++ (NSArray *)arrayWithDictionary:(NSDictionary *)dict classNamesMapper:(NSDictionary *)mapper keysMapper:(NSDictionary *)keysMapper;
 
-/**
- *  将字典中的value转成NSString类型
- */
 + (NSDictionary *)dictionaryFormateToString:(NSDictionary *)dict;
+
+#pragma mark - 归档
+- (NSData *)data;
++ (NSData *)dataFromModel:(SMModel *)model;
++ (instancetype)modelFromData:(NSData *)data;
 
 @end
