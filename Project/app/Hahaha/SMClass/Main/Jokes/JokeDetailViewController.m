@@ -26,9 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    JokeBll *bll = [[JokeBll alloc] init];
-    self.bll = bll;
-    
     // 手势
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftSwipeAction:)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -46,19 +43,13 @@
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareItemAction:)];
     [self.navigationItem setRightBarButtonItems:@[gravityItem, shareItem]];
     
-    JokeView *jokeView = [[JokeView alloc] init];
-    [self.view addSubview:jokeView attributePathKey:@"JokeDetailViewController.jokeView"];
-    self.jokeView = jokeView;
+    [self.view addSubview:self.jokeView attributePathKey:@"JokeDetailViewController.jokeView"];
     self.jokeView.joke = self.joke;
     
     // 开启重力感应
     BOOL openMotionSwitch = [SMUserDefaults boolForKey:kOpenMotionSwitch];
     gravityItem.title = (openMotionSwitch?@"关闭":@"开启");
     [self validateGravityStart:openMotionSwitch];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 }
 
 #pragma mark - action
@@ -123,6 +114,23 @@
 }
 
 #pragma mark - setter/getter
+- (JokeBll *)bll {
+    if (_bll == nil) {
+        JokeBll *bll = [[JokeBll alloc] init];
+        bll.delegate = self;
+        _bll = bll;
+    }
+    return _bll;
+}
+
+- (JokeView *)jokeView {
+    if (_jokeView == nil) {
+        JokeView *jokeView = [[JokeView alloc] init];
+        _jokeView = jokeView;
+    }
+    return _jokeView;
+}
+
 - (void)setJoke:(SMJoke *)joke {
     if (_joke != joke) {
         _joke = joke;

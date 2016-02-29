@@ -45,19 +45,17 @@ static NSString *identifier = @"identifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    JokeBll *bll = [[JokeBll alloc] init];
-    bll.delegate = self;
-    self.bll = bll;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAutoItem:)];
+    
     [self.view addSubview:self.tableView attributePathKey:@"JokesViewController.tableView"];
     [self.view addSubview:self.segment attributePathKey:@"JokesViewController.segment"];
-    [self.view addSubview:self.unreadNumLabel attributePathKey:@"JokesViewController.unreadNumLabel"];
+//    [self.view addSubview:self.unreadNumLabel attributePathKey:@"JokesViewController.unreadNumLabel"];
     
 //    [self.view showNetLineWithRowAndColoum:CGPointMake(1, 30) lineColor:[UIColor redColor] netType:35 alpha:0.5];
-    
+    __weak JokesViewController *weakSelf = self;
     [self.tableView mj_addMJRefreshOperationBlock:^(int page) {
-        [self requestJokesWithCurPage:page];
+        [weakSelf requestJokesWithCurPage:page];
     } operationType:SMMjOperationTypeDefault refresh:YES];
 }
 
@@ -77,13 +75,7 @@ static NSString *identifier = @"identifier";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     SMJoke *joke = self.dataSource[indexPath.row];
-    UIColor *color = nil;
-    if (joke.isRead) {
-        color = [UIColor grayColor];
-    } else {
-        color = [UIColor blackColor];
-    }
-    
+    UIColor *color = joke.isRead?[UIColor grayColor]:[UIColor blackColor];
     cell.textLabel.text = joke.title;
     cell.textLabel.textColor = color;
     cell.detailTextLabel.text = joke.content;
@@ -110,18 +102,9 @@ static NSString *identifier = @"identifier";
     }
     NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:indexPath.section];
     SMJoke *joke = self.dataSource[lastIndexPath.row];
-//    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
-//    detailVC.delegate = self;
-//    detailVC.joke = joke;
-//    detailVC.indexPath = lastIndexPath;
-//    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-//    [viewControllers insertObject:detailVC atIndex:(viewControllers.count - 1)];
-//    self.navigationController.viewControllers = viewControllers;
-//    [viewController.navigationController popViewControllerAnimated:YES];
     viewController.indexPath = lastIndexPath;
     viewController.joke = joke;
     [UIView transitionWithView:viewController.view duration:0.5f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-        
     } completion:^(BOOL finished) {
         viewController.gravity = YES;
     }];
@@ -135,19 +118,9 @@ static NSString *identifier = @"identifier";
     }
     NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:(indexPath.row + 1) inSection:indexPath.section];
     SMJoke *joke = self.dataSource[nextIndexPath.row];
-//    JokeDetailViewController *detailVC = [[JokeDetailViewController alloc] init];
-//    detailVC.delegate = self;
-//    detailVC.joke = joke;
-//    detailVC.indexPath = nextIndexPath;
-//    viewController.title = self.title;
-//    [viewController.navigationController pushViewController:detailVC animated:YES];
-//    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-//    [viewControllers removeObject:viewController];
-//    self.navigationController.viewControllers = viewControllers;
     viewController.indexPath = nextIndexPath;
     viewController.joke = joke;
     [UIView transitionWithView:viewController.view duration:0.5f options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
-        
     } completion:^(BOOL finished) {
         viewController.gravity = YES;
     }];
@@ -164,7 +137,7 @@ static NSString *identifier = @"identifier";
     if (status == SMNetStatusReachableViaWiFi) {
         self.backPage = (int)[SMUserDefaults integerForKey:kPagesRequest];
         NSString *message = [NSString stringWithFormat:@"当前为wifi环境\n是否要下载之后\n第 %d-%d 页", self.backPage, (self.backPage + 20)];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"不，我摁错了" otherButtonTitles:@"我要重第0页开始", @"是的", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"不，我摁错了" otherButtonTitles:@"我要从第0页开始", @"是的", nil];
         alert.tag = kTagForJokesViewControllerViewAlertInWifi;
         alert.delegate = self;
         [alert show];
@@ -210,11 +183,11 @@ static NSString *identifier = @"identifier";
 
 - (void)loadDataFromDBIsRead:(BOOL)isRead {
     self.dataSource = [self.bll searchJokesFromDBIsRead:isRead];
-    self.unreadNumLabel.text = SMToString(@"%zi", self.dataSource.count);
+    self.title = SMToString(@"笑话(%zi)", self.dataSource.count);
     [self.tableView reloadData];
 }
 
-#pragma mark - bll delegate
+#pragma mark - JokeBllDelegate
 - (void)respondsFaildWithErrorCode:(NSString *)errorCode {
     [self.tableView mj_faildRefresh];
 }
@@ -228,12 +201,21 @@ static NSString *identifier = @"identifier";
 - (void)respondsJokeListInBackgroundCount:(int)count curPage:(int)curPage {
     self.backCount += count;
     if (curPage == self.backPage - 1) {
-        NSLog(@"新增 %d 条", self.backCount);
+        SMLog(@"新增 %d 条", self.backCount);
         [self loadDataFromDBIsRead:self.segment.selectedSegmentIndex];
     }
 }
 
-#pragma mark - UI getter/setter
+#pragma mark - Getters/Setters
+- (JokeBll *)bll {
+    if (_bll == nil) {
+        JokeBll *bll = [[JokeBll alloc] init];
+        bll.delegate = self;
+        _bll = bll;
+    }
+    return _bll;
+}
+
 - (SMTableView *)tableView {
     if (!_tableView) {
         _tableView = [[SMTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];

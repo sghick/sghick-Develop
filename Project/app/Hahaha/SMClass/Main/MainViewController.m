@@ -27,21 +27,6 @@ static NSString *identifier = @"identifier";
 }
 
 - (void)strokeSubviews {
-    SMButton *jokesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
-    [jokesBtn setTitle:@"笑话" forState:UIControlStateNormal];
-    [jokesBtn addTarget:self action:@selector(jokesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.jokesBtn = jokesBtn;
-    
-    SMButton *movesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
-    [movesBtn setTitle:@"电影" forState:UIControlStateNormal];
-    [movesBtn addTarget:self action:@selector(movesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.movesBtn = movesBtn;
-    
-    [self updateViewConstraints];
-}
-
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
     [self.view addSubview:self.jokesBtn attributePathKey:@"MainViewController.btn1"];
     [self.view addSubview:self.movesBtn attributePathKey:@"MainViewController.btn2"];
 }
@@ -55,6 +40,27 @@ static NSString *identifier = @"identifier";
 
 - (void)movesBtnAction:(UIButton *)sender {
     
+}
+
+#pragma mark - getters/setters
+- (SMButton *)jokesBtn {
+    if (_jokesBtn == nil) {
+        SMButton *jokesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
+        [jokesBtn setTitle:@"笑话" forState:UIControlStateNormal];
+        [jokesBtn addTarget:self action:@selector(jokesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        _jokesBtn = jokesBtn;
+    }
+    return _jokesBtn;
+}
+
+- (SMButton *)movesBtn {
+    if (_movesBtn == nil) {
+        SMButton *movesBtn = [SMButton buttonWithType:UIButtonTypeSystem];
+        [movesBtn setTitle:@"电影" forState:UIControlStateNormal];
+        [movesBtn addTarget:self action:@selector(movesBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        _movesBtn = movesBtn;
+    }
+    return _movesBtn;
 }
 
 @end
