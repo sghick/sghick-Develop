@@ -1,8 +1,0 @@
-{
-	"messageStatus": "消息状态",
-	"messageID": "消息ID",
-	"title": "标题",
-	"date": "时间",
-	"type": "类型",
-	"content": "内容(只有应急指挥才有)"
-}
